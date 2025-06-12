@@ -28,7 +28,7 @@ const Contact = () => {
         <div className="space-y-4 text-[1rem] leading-relaxed">
           <p>
             <a
-              href="http://washingtoninsider.net"
+              href="https://boltontoday.co.uk"
               className="text-blue-600 underline font-bold"
               target="_blank"
               rel="noopener noreferrer"
@@ -55,7 +55,7 @@ const Contact = () => {
 
         <div className="space-y-6">
           <h2 className=" font-playfair-display text-2xl font-bold text-gray-900 border-b pb-1">
-            Why Advertise With Washington Insider?
+            Why Advertise With Bolton Today?
           </h2>
           <ul className="space-y-6 list-disc ml-6">
             <li>

@@ -30,9 +30,9 @@ const EditorPolicy = () => {
           </span>
         </strong>
         <span style={{ color: "#000" }}>For inquiries, contact:&nbsp;</span>
-        <a href="mailto:editor@washingtoninsider.net">
+        <a href="mailto:editor@boltontoday.co">
           <span style={{ fontSize: 15, color: "#1155CC" }}>
-            editor@washingtoninsider.net
+            editor@boltontoday.co
           </span>
         </a>
       </p>
@@ -57,7 +57,7 @@ const EditorPolicy = () => {
           lineHeight: "1.5",
         }}
       >
-        <a href="http://washingtoninsider.net">
+        <a href="https://boltontoday.co.uk">
           <em>
             <span style={{ fontSize: 15, color: "#1155CC" }}>
               Bolton Today
@@ -250,9 +250,9 @@ const EditorPolicy = () => {
       >
         We value reader feedback. If you believe a story falls short of our
         standards, please contact us at{" "}
-        <a href="mailto:editor@washingtoninsider.net">
+        <a href="mailto:editor@boltontoday.co">
           <span style={{ color: "#1155CC" }}>
-            editor@washingtoninsider.net
+            editor@boltontoday.co
           </span>
         </a>
         . We take every complaint seriously and review it internally.

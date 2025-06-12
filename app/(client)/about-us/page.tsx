@@ -4,7 +4,7 @@ import React from "react";
 export const metadata = generateMetadata({
   title: "About Us",
   description:
-    "Bolton Today's is an online newspaper based in Washington, DC. washington Insider publishes unique and independent coverage on transatlantic relations",
+    "Bolton Today's is an online newspaper based in Washington, DC. Bolton Today publishes unique and independent coverage on transatlantic relations",
   keywords: [],
   canonical: `${DOMAIN_URL}/about-us`,
 });
@@ -77,7 +77,7 @@ const About = () => {
         <h3 className="text-xl font-semibold text-gray-700 font-playfair-display">
           Advertising and Editorial Inquiries
         </h3>
-        <p className="text-base text-gray-700">editor@washingtoninsider.net</p>
+        <p className="text-base text-gray-700">editor@boltontoday.co</p>
       </div>
     </section>
   );

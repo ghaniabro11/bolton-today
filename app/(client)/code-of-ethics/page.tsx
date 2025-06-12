@@ -60,7 +60,7 @@ const CodeOfEthics = () => {
     <>
       <p style={textStyle}>
         At{" "}
-        <a href="http://washingtoninsider.net" style={linkStyle}>
+        <a href="https://boltontoday.co.uk" style={linkStyle}>
           <em>Bolton Today</em>
         </a>
         , our mission is to inform, empower, and serve the public with
@@ -150,9 +150,9 @@ const CodeOfEthics = () => {
       <p style={textStyle}>
         If you have any concerns about our content or practices, please contact
         our editorial team at{" "}
-        <a href="mailto:editor@washingtoninsider.net" style={linkStyle}>
+        <a href="mailto:editor@boltontoday.co" style={linkStyle}>
           <strong>
-            <u>editor@washingtoninsider.net</u>
+            <u>editor@boltontoday.co</u>
           </strong>
         </a>
         .

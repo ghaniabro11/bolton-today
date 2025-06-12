@@ -134,7 +134,7 @@ export async function generateMetadata({
       url: !searchQuery ? "https://boltontoday.co.uk/" : undefined,
       images: [
         {
-          url: `https://boltontoday.co.uk/Washington-Insider-Magazine-black-logo.webp`, // Replace with your image URL
+          url: `https://boltontoday.co.uk/bolton_logo.svg`, // Replace with your image URL
           width: 1200,
           height: 630,
           alt: "Bolton Today | Latest News from Capitol Hill",
@@ -171,7 +171,7 @@ const Home = async ({
         </script>
         <h1 className=" text-xs text-transparent absolute">
           {" "}
-          Washington Insider Magazine
+          Bolton Today
         </h1>
         <ComponentOne
           latest={newsData?.latest ?? null}

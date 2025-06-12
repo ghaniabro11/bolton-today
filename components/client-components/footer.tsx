@@ -59,7 +59,7 @@ const Footer = () => {
     const openStateMap = {
       About: [aboutOpen, setAboutOpen],
       Contact: [contactOpen, setContactOpen],
-      "Washington Insider": [insiderOpen, setInsiderOpen],
+      "Bolton Today": [insiderOpen, setInsiderOpen],
     } as const;
 
     const [open, setOpen] = openStateMap[title as keyof typeof openStateMap];
@@ -112,7 +112,7 @@ const Footer = () => {
           { label: "Report Error", href: "report-error" },
         ])}
 
-        {renderSection("Washington Insider", [
+        {renderSection("Bolton Today", [
           {
             label: "Capitol Hill Politics News",
             href: "capitol-hill-politics/",

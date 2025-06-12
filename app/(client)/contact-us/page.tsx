@@ -18,7 +18,7 @@ const Contact = () => {
     <div className="prose prose-lg max-w-7xl mx-auto text-gray-800">
       <p>
         At{" "}
-        <a href="http://washingtoninsider.net" style={linkStyle}>
+        <a href="https://boltontoday.co.uk" style={linkStyle}>
           <em>Bolton Today</em>
         </a>
         , we value transparency, accountability, and open communication. Whether

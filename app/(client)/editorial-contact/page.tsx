@@ -15,7 +15,7 @@ const Contact = () => {
         {/* Intro Paragraph */}
         <p style={{ fontSize: "11pt", fontFamily: "Arial, sans-serif", lineHeight: "1.6" }}>
           At&nbsp;
-          <a href="http://washingtoninsider.net" target="_blank" rel="noopener noreferrer">
+          <a href="https://boltontoday.co.uk" target="_blank" rel="noopener noreferrer">
             <strong>
               <u>
                 <span style={{ color: "#1155cc" }}>
@@ -50,7 +50,7 @@ const Contact = () => {
           to connect with our editors regarding story pitches, op-eds, or
           general editorial matters, please contact:
           <br />
-          <strong>✉️ editor@washingtoninsider.net</strong>
+          <strong>✉️ editor@boltontoday.co</strong>
         </p>
 
         {/* News Desk */}

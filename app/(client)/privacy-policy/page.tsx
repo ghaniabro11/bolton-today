@@ -40,7 +40,7 @@ const PrivacyPolicy = () => {
             color: "black",
           }}
         ></span>
-        <a href="mailto:editor@washingtoninsider.net">
+        <a href="mailto:editor@boltontoday.co">
           <span
             style={{
               fontSize: 15,
@@ -48,7 +48,7 @@ const PrivacyPolicy = () => {
               color: "#1155CC",
             }}
           >
-            editor@washingtoninsider.net
+            editor@boltontoday.co
           </span>
         </a>
       </p>
@@ -694,7 +694,7 @@ const PrivacyPolicy = () => {
             color: "black",
           }}
         >
-          To make such requests, email us at editor@washingtoninsider.net.
+          To make such requests, email us at editor@boltontoday.co.
         </span>
       </p>
       <h2
@@ -881,7 +881,7 @@ const PrivacyPolicy = () => {
           </span>
         </strong>
         Email:{" "}
-        <a href="mailto:editor@washingtoninsider.net">
+        <a href="mailto:editor@boltontoday.co">
           <span
             style={{
               fontSize: 15,
@@ -889,7 +889,7 @@ const PrivacyPolicy = () => {
               color: "#1155CC",
             }}
           >
-            editor@washingtoninsider.net
+            editor@boltontoday.co
           </span>
         </a>
       </p>

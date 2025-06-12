@@ -13,7 +13,7 @@ const Contact = () => {
       <p>
         At{" "}
         <a
-          href="http://washingtoninsider.net"
+          href="https://boltontoday.co.uk"
           className="text-blue-600 underline font-semibold"
         >
           Bolton Today

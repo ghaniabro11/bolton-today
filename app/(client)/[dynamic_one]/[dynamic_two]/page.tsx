@@ -122,7 +122,7 @@ const DynamicTwo = async ({
             name: "Bolton Today",
             logo: {
               "@type": "ImageObject",
-              url: "https://boltontoday.co.uk/Washington-Insider-Magazine-black-logo.webp",
+              url: "https://boltontoday.co.uk/bolton_logo.svg",
               width: 600,
               height: 60,
             },
