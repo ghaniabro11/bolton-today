@@ -3,7 +3,7 @@ import { generateMetadata } from "@/lib/generateMetadata";
 export const metadata = generateMetadata({
   title: "Code of Ethics",
   description:
-    "Explore Washington Insider Magazine's Code of Ethics—our commitment to accuracy, fairness, independence, and transparency in every story we publish.",
+    "Explore Bolton Today's Code of Ethics—our commitment to accuracy, fairness, independence, and transparency in every story we publish.",
   keywords: [],
   canonical: `${DOMAIN_URL}/code-of-ethics`,
 });
@@ -61,7 +61,7 @@ const CodeOfEthics = () => {
       <p style={textStyle}>
         At{" "}
         <a href="http://washingtoninsider.net" style={linkStyle}>
-          <em>Washington Insider Magazine</em>
+          <em>Bolton Today</em>
         </a>
         , our mission is to inform, empower, and serve the public with
         integrity, accuracy, and independence. This Code of Ethics defines the
@@ -142,7 +142,7 @@ const CodeOfEthics = () => {
       <p style={textStyle}>
         This Code of Ethics is not just a set of internal guidelines — it is our
         promise to you, our readers. It ensures that{" "}
-        <em>Washington Insider Magazine</em> remains a credible, authoritative,
+        <em>Bolton Today</em> remains a credible, authoritative,
         and trustworthy source of news, policy insight, and investigative
         reporting in the United States and beyond.
       </p>

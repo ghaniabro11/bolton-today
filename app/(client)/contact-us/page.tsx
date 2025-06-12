@@ -3,7 +3,7 @@ import { generateMetadata } from "@/lib/generateMetadata";
 export const metadata = generateMetadata({
   title: "Contact Us",
   description:
-    "Get in touch with Washington Insider Magazine for news tips, media inquiries, or editorial feedback. We're committed to transparency and credible journalism.",
+    "Get in touch with Bolton Today for news tips, media inquiries, or editorial feedback. We're committed to transparency and credible journalism.",
   keywords: ["contact", "news tips", "editorial feedback", "advertise"],
   canonical: `${DOMAIN_URL}/contact-us`,
 });
@@ -19,7 +19,7 @@ const Contact = () => {
       <p>
         At{" "}
         <a href="http://washingtoninsider.net" style={linkStyle}>
-          <em>Washington Insider Magazine</em>
+          <em>Bolton Today</em>
         </a>
         , we value transparency, accountability, and open communication. Whether
         you're a reader with a question, a source with a tip, or an organization
@@ -73,7 +73,7 @@ const Contact = () => {
       </p>
 
       <p>
-        <strong>Washington Insider Magazine</strong> proudly upholds the
+        <strong>Bolton Today</strong> proudly upholds the
         principles of the <strong>Society of Professional Journalists</strong>{" "}
         (SPJ) and complies with Google News content and transparency policies.
       </p>

@@ -4,7 +4,7 @@ import React from "react";
 export const metadata = generateMetadata({
   title: "Editorial Contact",
   description:
-    "Contact the editorial team at Washington Insider Magazine for news tips, submissions, and media inquiries. Trusted source for U.S. and global news insights.",
+    "Contact the editorial team at Bolton Today for news tips, submissions, and media inquiries. Trusted source for U.S. and global news insights.",
   keywords: [],
   canonical: `${DOMAIN_URL}/editorial-contact`,
 });
@@ -19,7 +19,7 @@ const Contact = () => {
             <strong>
               <u>
                 <span style={{ color: "#1155cc" }}>
-                  Washington Insider Magazine
+                  Bolton Today
                 </span>
               </u>
             </strong>

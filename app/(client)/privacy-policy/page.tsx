@@ -4,7 +4,7 @@ import { DOMAIN_URL } from "@/constant/apiUrl";
 export const metadata = generateMetadata({
   title: "Privacy Policy",
   description:
-    " Privacy policy of Washington Insider Magazine detailing how we collect, use, and protect your data while upholding transparency and editorial integrity. ",
+    " Privacy policy of Bolton Today detailing how we collect, use, and protect your data while upholding transparency and editorial integrity. ",
   keywords: [],
   canonical: `${DOMAIN_URL}/privacy-policy`,
 });
@@ -71,7 +71,7 @@ const PrivacyPolicy = () => {
         >
           At
         </span>
-        <em>Washington Insider Magazine</em>, we are committed to protecting
+        <em>Bolton Today</em>, we are committed to protecting
         your privacy and earning your trust. This Privacy Policy explains how we
         collect, use, and safeguard your information when you interact with our
         website and services.
@@ -116,7 +116,7 @@ const PrivacyPolicy = () => {
               color: "black",
             }}
           >
-            Washington Insider Magazine
+            Bolton Today
           </span>
         </em>
         <span
@@ -877,7 +877,7 @@ const PrivacyPolicy = () => {
               color: "black",
             }}
           >
-            Washington Insider Magazine
+            Bolton Today
           </span>
         </strong>
         Email:{" "}

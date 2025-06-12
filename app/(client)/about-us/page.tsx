@@ -4,7 +4,7 @@ import React from "react";
 export const metadata = generateMetadata({
   title: "About Us",
   description:
-    "Washington Insider Magazine's is an online newspaper based in Washington, DC. washington Insider publishes unique and independent coverage on transatlantic relations",
+    "Bolton Today's is an online newspaper based in Washington, DC. washington Insider publishes unique and independent coverage on transatlantic relations",
   keywords: [],
   canonical: `${DOMAIN_URL}/about-us`,
 });
@@ -51,10 +51,10 @@ const About = () => {
     <section className="bg-white text-gray-800 py-12 px-4 max-w-5xl mx-auto">
       <header className="mb-10">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-2 font-playfair-display">
-          Washington Insider Magazines
+          Bolton Todays
         </h2>
         <p className="text-center text-gray-700 max-w-3xl mx-auto">
-          Washington Insider Magazines is an online newspaper based in
+          Bolton Todays is an online newspaper based in
           Washington, DC, providing unique, independent coverage on
           transatlantic relations from a Washington perspective. We cover
           policymaking, politics, and business impacting the transatlantic

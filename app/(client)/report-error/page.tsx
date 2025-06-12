@@ -3,7 +3,7 @@ import { generateMetadata } from "@/lib/generateMetadata";
 export const metadata = generateMetadata({
   title: "Report Error",
   description:
-    "Report errors or corrections in Washington Insider Magazine articles, images, quotes, or media. Help us maintain accuracy and trust. Email error@washingtoninsider.net.",
+    "Report errors or corrections in Bolton Today articles, images, quotes, or media. Help us maintain accuracy and trust. Email error@washingtoninsider.net.",
   keywords: [],
   canonical: `${DOMAIN_URL}/report-error`,
 });
@@ -16,7 +16,7 @@ const Contact = () => {
           href="http://washingtoninsider.net"
           className="text-blue-600 underline font-semibold"
         >
-          Washington Insider Magazine
+          Bolton Today
         </a>
         , we are deeply committed to <strong>journalistic integrity</strong>,{" "}
         <strong>accuracy</strong>, and <strong>accountability</strong>. Our

@@ -110,7 +110,7 @@ export async function generateMetadata({
 }) {
   const searchQuery = (await searchParams).s;
   return {
-    title: "Washington Insider Magazine | Latest News from Capitol Hill",
+    title: "Bolton Today | Latest News from Capitol Hill",
     description:
       "Discover latest news from Capitol Hill with in-depth analysis and recent developments that shape US politics.",
     keywords: ["news", "latest updates", "breaking news", "international news"],
@@ -128,7 +128,7 @@ export async function generateMetadata({
     },
 
     openGraph: {
-      title: "Washington Insider Magazine | Latest News from Capitol Hill",
+      title: "Bolton Today | Latest News from Capitol Hill",
       description:
         "Discover latest news from Capitol Hill with in-depth analysis and recent developments that shape US politics.",
       url: !searchQuery ? "https://boltontoday.co.uk/" : undefined,
@@ -137,7 +137,7 @@ export async function generateMetadata({
           url: `https://boltontoday.co.uk/Washington-Insider-Magazine-black-logo.webp`, // Replace with your image URL
           width: 1200,
           height: 630,
-          alt: "Washington Insider Magazine | Latest News from Capitol Hill",
+          alt: "Bolton Today | Latest News from Capitol Hill",
         },
       ],
     },

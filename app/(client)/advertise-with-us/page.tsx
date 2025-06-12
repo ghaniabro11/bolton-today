@@ -3,7 +3,7 @@ import { generateMetadata } from "@/lib/generateMetadata";
 export const metadata = generateMetadata({
   title: "Advertise With Us",
   description:
-    "Advertise with Washington Insider Magazine to reach policy makers and influencers through banners, sponsored content, press releases, and digital magazine ads.",
+    "Advertise with Bolton Today to reach policy makers and influencers through banners, sponsored content, press releases, and digital magazine ads.",
   keywords: [],
   canonical: `${DOMAIN_URL}/advertise-with-us`,
 });
@@ -20,7 +20,7 @@ const Contact = () => {
               Reach Decision-Makers, Influencers, and Thought Leaders with
             </strong>
             <span className="block text-gray-700 text-xl mt-1 font-bold">
-              Washington Insider Magazine
+              Bolton Today
             </span>
           </p>
         </div>
@@ -33,7 +33,7 @@ const Contact = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Washington Insider Magazine
+              Bolton Today
             </a>{" "}
             is a trusted source of political analysis, policy insights, and
             government affairs coverage. With a readership that includes senior

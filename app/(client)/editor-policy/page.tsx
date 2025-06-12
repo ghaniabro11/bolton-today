@@ -4,7 +4,7 @@ import { generateMetadata } from "@/lib/generateMetadata";
 export const metadata = generateMetadata({
   title: "Editorial Policy",
   description:
-    "Editorial Policy of Washington Insider Magazine: Committed to accurate, ethical, and independent journalism. Learn how we ensure trust and transparency.",
+    "Editorial Policy of Bolton Today: Committed to accurate, ethical, and independent journalism. Learn how we ensure trust and transparency.",
   keywords: [],
   canonical: `${DOMAIN_URL}/editor-policy`,
 });
@@ -60,7 +60,7 @@ const EditorPolicy = () => {
         <a href="http://washingtoninsider.net">
           <em>
             <span style={{ fontSize: 15, color: "#1155CC" }}>
-              Washington Insider Magazine
+              Bolton Today
             </span>
           </em>
         </a>{" "}
