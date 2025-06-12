@@ -26,7 +26,7 @@ jobs:
       - name: Deploy and Restart app using PM2 on VPS
         run: |
           ssh -i ~/.ssh/id_ed25519 root@31.97.133.203 <<EOF
-            cd news-admin  # Navigate to the correct project directory
+            cd bolton-nextjs  # Navigate to the correct project directory
 
             # Pull latest code
             git pull origin
@@ -41,7 +41,7 @@ jobs:
             npm run build
 
             # Restart with PM2 (start if not already running)
-            pm2 restart staging-app || pm2 start npm --name staging-app -- start
+            pm2 restart bolton_nextjs || pm2 start npm --name bolton_nextjs -- start
           EOF
         env:
           VPS_SSH_PRIVATE_KEY: ${{ secrets.WASHINGTON_PIPLINE_SSH_KEY }}
