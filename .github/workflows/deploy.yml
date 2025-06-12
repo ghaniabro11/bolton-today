@@ -1,0 +1,47 @@
+name: Deploy Next.js App to VPS
+
+on:
+  push:
+    branches:
+      - main # Trigger deployment on changes to this branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code (for GitHub purposes only, no build here)
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up SSH key for secure connection to VPS
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.WASHINGTON_PIPLINE_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H 31.97.133.203 >> ~/.ssh/known_hosts
+
+      # Step 3: Deploy and Restart app using PM2 on VPS
+      - name: Deploy and Restart app using PM2 on VPS
+        run: |
+          ssh -i ~/.ssh/id_ed25519 root@31.97.133.203 <<EOF
+            cd news-admin  # Navigate to the correct project directory
+
+            # Pull latest code
+            git pull origin
+
+            # Clean cache, old builds, and lock file
+            rm -rf node_modules .next
+            rm -f package-lock.json
+            npm cache clean --force
+
+            # Install fresh dependencies and build
+            npm install
+            npm run build
+
+            # Restart with PM2 (start if not already running)
+            pm2 restart staging-app || pm2 start npm --name staging-app -- start
+          EOF
+        env:
+          VPS_SSH_PRIVATE_KEY: ${{ secrets.WASHINGTON_PIPLINE_SSH_KEY }}
