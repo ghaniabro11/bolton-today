@@ -10,36 +10,14 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import fetchNewsData from "../actions/client-actions/home";
+import { posts } from "@/constant/dummyData";
+import OceanCityCarousel from "@/components/client-components/news-components-for-home/dynamic-carousal";
 
 // Optional: Create a simple loading component
 const Loading = () => <Loader />;
 
 const ComponentOne = dynamic(
   () => import("@/components/client-components/news-components-for-home/one"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentTwo = dynamic(
-  () => import("@/components/client-components/news-components-for-home/two"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentThree = dynamic(
-  () => import("@/components/client-components/news-components-for-home/three"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentFour = dynamic(
-  () => import("@/components/client-components/news-components-for-home/four"),
   {
     ssr: true,
     loading: () => <Loading />,
@@ -54,54 +32,9 @@ const ComponentFive = dynamic(
   }
 );
 
-const ComponentSix = dynamic(
-  () => import("@/components/client-components/news-components-for-home/six"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentSeven = dynamic(
-  () => import("@/components/client-components/news-components-for-home/seven"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentEight = dynamic(
-  () => import("@/components/client-components/news-components-for-home/eight"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentNine = dynamic(
-  () => import("@/components/client-components/news-components-for-home/nine"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentTen = dynamic(
-  () => import("@/components/client-components/news-components-for-home/ten"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
-
-const ComponentEleven = dynamic(
-  () =>
-    import("@/components/client-components/news-components-for-home/eleven"),
-  {
-    ssr: true,
-    loading: () => <Loading />,
-  }
-);
+export const Line = () => {
+  return <div className="w-full h-px bg-gray-200 my-4" />;
+};
 
 export async function generateMetadata({
   searchParams,
@@ -110,9 +43,9 @@ export async function generateMetadata({
 }) {
   const searchQuery = (await searchParams).s;
   return {
-    title: "Bolton Today | Latest News from Capitol Hill",
+    title: "Bolton Today News | Latest News from Bolton",
     description:
-      "Discover latest news from Capitol Hill with in-depth analysis and recent developments that shape US politics.",
+      " Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
     keywords: ["news", "latest updates", "breaking news", "international news"],
     alternates: {
       ...(!searchQuery && {
@@ -150,6 +83,7 @@ const Home = async ({
   searchParams: Promise<{ s: string }>;
 }) => {
   const newsData = await fetchNewsData(db);
+  // const newsData = posts;
   console.log(newsData, "newsData");
   const searchQuery = (await searchParams).s;
   if (!searchQuery) {
@@ -169,41 +103,62 @@ const Home = async ({
             ],
           })}
         </script>
-        <h1 className=" text-xs text-transparent absolute">
-          {" "}
-          Bolton Today
-        </h1>
+        <h1 className=" text-xs text-transparent absolute"> Bolton Today</h1>
         <ComponentOne
           latest={newsData?.latest ?? null}
-          opinionCategory={newsData?.opinionCategory ?? null}
+          opinionCategory={newsData?.categoryOne ?? null}
         />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentTwo
-          lightHouseCat={newsData?.lightHouseCat ?? []}
-          latest={newsData?.latest ?? []}
-        />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentThree donalTrumpCat={newsData?.donalTrumpCat ?? []} />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentFour
-          capitolHillPoliticsCat={newsData?.capitolHillPoliticsCat ?? []}
-        />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentFive diplomacyCat={newsData?.diplomacyCat ?? []} />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentSix securityCat={newsData?.securityCat ?? []} />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentSeven usNationWideCat={newsData?.usNationWideCat ?? []} />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentEight
-          businessFinanceCat={newsData?.businessFinanceCat ?? []}
-        />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentNine floridaCat={newsData?.floridaCat ?? []} />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentTen europeCat={newsData?.europeCat ?? []} />
-        <div className="h-1.5 w-full bg-gray-500 mt-12" />
-        <ComponentEleven middleEastCat={newsData?.middleEastCat ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categoryOne ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categoryThree ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categoryFour ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categoryFive ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categorySix ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categorySeven ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categoryEight ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categoryNine ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categoryTen ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categoryEleven ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categoryTwelve ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categoryThirteen ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
+
+        <OceanCityCarousel
+          data={newsData?.categoryEleven ?? []}
+        ></OceanCityCarousel>
+        <Line />
+        <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
+
+        {/* <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} /> */}
+        {/* <Line/> */}
       </>
     );
   }

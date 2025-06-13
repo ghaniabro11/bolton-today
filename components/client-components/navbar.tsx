@@ -122,16 +122,18 @@ const Navbar = () => {
               }
               onMouseLeave={handleMouseLeave}
             >
-              <Link
+               <Link
                 href={link?.href || "#"}
-                className={`hover:no-underline   no-underline group flex items-center gap-1 px-3 py-2  rounded-md transition ${
+                className={`group flex items-center gap-1 px-3 py-2 rounded-md transition no-underline ${
                   pathname === link?.href ? "text-btn" : ""
                 }`}
               >
-                <span className="hover:text-btn  ">{link?.label}</span>
+                <span className="hover:text-btn text-white">
+                  {link?.label}
+                </span>
                 {link?.dropdown && (
                   <ChevronDown
-                    className={`group-hover:text-btn transition-all ${
+                    className={`group-hover:text-btn text-white transition-all ${
                       activeDropdown === link?.label ? "-rotate-90" : ""
                     }`}
                     size={16}
@@ -193,11 +195,10 @@ const Navbar = () => {
                         : setMobileOpen(false)
                     }
                   >
-                    <Link
-                      href={link?.href || "#"}
-                      className="hover:no-underline no-underline"
-                    >
-                      <span className="hover:text-btn">{link?.label}</span>
+                    <Link href={link?.href || "#"}>
+                      <span className="hover:text-btn text-white">
+                        {link?.label}
+                      </span>
                     </Link>
                     {link?.dropdown && (
                       <ChevronDown
@@ -223,7 +224,7 @@ const Navbar = () => {
                           <Link
                             key={sublink?.href}
                             href={sublink?.href}
-                            className="block   hover:text-btn py-1"
+                            className="block   hover:text-btn text-white py-1"
                             onClick={() => setMobileOpen(false)}
                           >
                             {sublink?.label}

@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 export interface NewsItem {
   title: string;
   slug: string;
+  description: string;
   authorName: string | null;
   authorSlug: string | null;
   authorId: number | null;
@@ -17,17 +18,21 @@ export interface NewsItem {
 // Define the response structure
 export interface NewsResponse {
   latest: NewsItem[] | null;
-  opinionCategory: NewsItem[] | null;
-  lightHouseCat: NewsItem[] | null;
-  donalTrumpCat: NewsItem[] | null;
-  capitolHillPoliticsCat: NewsItem[] | null;
-  diplomacyCat: NewsItem[] | null;
-  securityCat: NewsItem[] | null;
-  usNationWideCat: NewsItem[] | null;
-  businessFinanceCat: NewsItem[] | null;
-  floridaCat: NewsItem[] | null;
-  europeCat: NewsItem[] | null;
-  middleEastCat: NewsItem[] | null;
+  categoryOne: NewsItem[] | null;
+  categoryTwo: NewsItem[] | null;
+  categoryThree: NewsItem[] | null;
+  categoryFour: NewsItem[] | null;
+  categoryFive: NewsItem[] | null;
+  categorySix: NewsItem[] | null;
+  categorySeven: NewsItem[] | null;
+  categoryEight: NewsItem[] | null;
+  categoryNine: NewsItem[] | null;
+  categoryTen: NewsItem[] | null;
+  categoryEleven: NewsItem[] | null;
+  categoryTwelve: NewsItem[] | null;
+  categoryThirteen: NewsItem[] | null;
+  categoryFourteen: NewsItem[] | null;
+  // categoryFiveteen: NewsItem[] | null;
 }
 
 // Assume db is your Drizzle ORM database instance
@@ -38,12 +43,14 @@ async function fetchNewsData(db: any): Promise<NewsResponse> {
       SELECT 
         n.title,
         n.slug,
+        n.description,
         a.name AS authorName,
         a.slug AS authorSlug,
         a.id AS authorId,
         n.publish_date AS publishDate,
         c.name AS categoryName,
         c.slug AS categorySlug,
+        c.description AS categorydes,
         m.file_path AS image,
         m.title AS imageTitle,
         m.slug AS imageSlug,
@@ -59,6 +66,7 @@ async function fetchNewsData(db: any): Promise<NewsResponse> {
     SELECT 
       n.title,
       n.slug,
+      n.description,
       a.name AS authorName,
       a.slug AS authorSlug,
       a.id AS authorId,
@@ -81,172 +89,209 @@ async function fetchNewsData(db: any): Promise<NewsResponse> {
     const latestQuery = sql`
       ${latestPostQuery}
       ORDER BY n.publish_date DESC
-      LIMIT 6
+      LIMIT 7
     `;
     const latestResult = await db.execute(latestQuery);
     const latest = latestResult.rows.length > 0 ? latestResult.rows : null;
 
-    // Fetch news for category ID 1, limit 4
-    const opinionCategoryQuery = sql`
+    // Fetch news for category ID 1, limit 7
+    const categoryOneQuery = sql`
       ${baseQuery}
-      AND nc.category_id = 12
-      ORDER BY n.publish_date DESC
-      LIMIT 5
-    `;
-    const opinionCategoryResult = await db.execute(opinionCategoryQuery);
-    const opinionCategory =
-      opinionCategoryResult.rows.length > 0 ? opinionCategoryResult.rows : null;
-
-    // Fetch news for category ID 2, limit 4
-    const lightHouseCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 16
-      ORDER BY n.publish_date DESC
-      LIMIT 10
-    `;
-    const lightHouseCatResult = await db.execute(lightHouseCatQuery);
-    const lightHouseCat =
-      lightHouseCatResult.rows.length > 0 ? lightHouseCatResult.rows : null;
-
-    // Fetch news for category ID 3, limit 4
-    const donalTrumpCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 17
-      ORDER BY n.publish_date DESC
-      LIMIT 8
-    `;
-    const donalTrumpCatResult = await db.execute(donalTrumpCatQuery);
-    const donalTrumpCat =
-      donalTrumpCatResult.rows.length > 0 ? donalTrumpCatResult.rows : null;
-
-    // Fetch news for category ID 3, limit 4
-    const capitolHillPoliticsCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 5
-      ORDER BY n.publish_date DESC
-      LIMIT 11
-    `;
-    const capitolHillPoliticsCatResult = await db.execute(
-      capitolHillPoliticsCatQuery
-    );
-    const capitolHillPoliticsCat =
-      capitolHillPoliticsCatResult.rows.length > 0
-        ? capitolHillPoliticsCatResult.rows
-        : null;
-
-    // // Fetch news for category ID 3, limit 4
-    const diplomacyCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 10
-      ORDER BY n.publish_date DESC
-      LIMIT 9
-    `;
-    const diplomacyCatResult = await db.execute(diplomacyCatQuery);
-    const diplomacyCat =
-      diplomacyCatResult.rows.length > 0 ? diplomacyCatResult.rows : null;
-
-    const securityCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 2
-      ORDER BY n.publish_date DESC
-      LIMIT 10
-    `;
-    const securityCatResult = await db.execute(securityCatQuery);
-    const securityCat =
-      securityCatResult.rows.length > 0 ? securityCatResult.rows : null;
-
-    const usNationWideCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 6
-      ORDER BY n.publish_date DESC
-      LIMIT 15
-    `;
-    const usNationWideCatResult = await db.execute(usNationWideCatQuery);
-    const usNationWideCat =
-      usNationWideCatResult.rows.length > 0 ? usNationWideCatResult.rows : null;
-
-    const businessFinanceCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 9
-      ORDER BY n.publish_date DESC
-      LIMIT 15
-    `;
-    const businessFinanceCatResult = await db.execute(businessFinanceCatQuery);
-    const businessFinanceCat =
-      businessFinanceCatResult.rows.length > 0
-        ? businessFinanceCatResult.rows
-        : null;
-
-    const floridaCatQuery = sql`
-      ${baseQuery}
-      AND nc.category_id = 19
+      AND nc.category_id = 1
       ORDER BY n.publish_date DESC
       LIMIT 7
     `;
-    const floridaCatResult = await db.execute(floridaCatQuery);
-    const floridaCat =
-      floridaCatResult.rows.length > 0 ? floridaCatResult.rows : null;
+    const categoryOneResult = await db.execute(categoryOneQuery);
+    const categoryOne =
+      categoryOneResult.rows.length > 0 ? categoryOneResult.rows : null;
 
-    const europeCatQuery = sql`
+    // Fetch news for category ID 2, limit 7
+    const categoryTwoQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 2
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryTwoResult = await db.execute(categoryTwoQuery);
+    const categoryTwo =
+      categoryTwoResult.rows.length > 0 ? categoryTwoResult.rows : null;
+
+    // Fetch news for category ID 3, limit 7
+    const categoryThreeQuery = sql`
       ${baseQuery}
       AND nc.category_id = 3
       ORDER BY n.publish_date DESC
-      LIMIT 4
+      LIMIT 7
     `;
-    const europeCatResult = await db.execute(europeCatQuery);
-    const europeCat =
-      europeCatResult.rows.length > 0 ? europeCatResult.rows : null;
+    const categoryThreeResult = await db.execute(categoryThreeQuery);
+    const categoryThree =
+      categoryThreeResult.rows.length > 0 ? categoryThreeResult.rows : null;
 
-    const middleEastCatQuery = sql`
+    // Fetch news for category ID 3, limit 7
+    const categoryFourQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 4
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryFourResult = await db.execute(categoryFourQuery);
+    const categoryFour =
+      categoryFourResult.rows.length > 0 ? categoryFourResult.rows : null;
+
+    // // Fetch news for category ID 3, limit 7
+    const categoryFiveQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 5
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryFiveResult = await db.execute(categoryFiveQuery);
+    const categoryFive =
+      categoryFiveResult.rows.length > 0 ? categoryFiveResult.rows : null;
+
+    const categorySixQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 6
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categorySixResult = await db.execute(categorySixQuery);
+    const categorySix =
+      categorySixResult.rows.length > 0 ? categorySixResult.rows : null;
+
+    const categorySevenQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 7
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categorySevenResult = await db.execute(categorySevenQuery);
+    const categorySeven =
+      categorySevenResult.rows.length > 0 ? categorySevenResult.rows : null;
+
+    const categoryEightQuery = sql`
       ${baseQuery}
       AND nc.category_id = 8
       ORDER BY n.publish_date DESC
-      LIMIT 8
+      LIMIT 7
     `;
-    const middleEastCatResult = await db.execute(middleEastCatQuery);
-    const middleEastCat =
-      middleEastCatResult.rows.length > 0 ? middleEastCatResult.rows : null;
+    const categoryEightResult = await db.execute(categoryEightQuery);
+    const categoryEight =
+      categoryEightResult.rows.length > 0 ? categoryEightResult.rows : null;
 
-    // const middleEastCatQuery = sql`
+    const categoryNineQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 9
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryNineResult = await db.execute(categoryNineQuery);
+    const categoryNine =
+      categoryNineResult.rows.length > 0 ? categoryNineResult.rows : null;
+
+    const categoryTenQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 10
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryTenResult = await db.execute(categoryTenQuery);
+    const categoryTen =
+      categoryTenResult.rows.length > 0 ? categoryTenResult.rows : null;
+
+    const categoryElevenQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 11
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryElevenResult = await db.execute(categoryElevenQuery);
+    const categoryEleven =
+      categoryElevenResult.rows.length > 0 ? categoryElevenResult.rows : null;
+
+    const categoryTwelveQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 12
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryTwelveResult = await db.execute(categoryTwelveQuery);
+    const categoryTwelve =
+      categoryTwelveResult.rows.length > 0 ? categoryTwelveResult.rows : null;
+
+    const categoryThirteenQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 13
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryThirteenResult = await db.execute(categoryThirteenQuery);
+    const categoryThirteen =
+      categoryThirteenResult.rows.length > 0
+        ? categoryThirteenResult.rows
+        : null;
+
+    const categoryFourteenQuery = sql`
+      ${baseQuery}
+      AND nc.category_id = 14
+      ORDER BY n.publish_date DESC
+      LIMIT 7
+    `;
+    const categoryFourteenResult = await db.execute(categoryFourteenQuery);
+    const categoryFourteen =
+      categoryFourteenResult.rows.length > 0
+        ? categoryFourteenResult.rows
+        : null;
+
+
+    // const categoryElevenQuery = sql`
     //   ${baseQuery}
     //   AND nc.category_id = 3
     //   ORDER BY n.publish_date DESC
-    //   LIMIT 4
+    //   LIMIT 7
     // `;
-    // const donalTrumpCatResult = await db.execute(donalTrumpCatQuery);
-    // const donalTrumpCat = donalTrumpCatResult.rows.length > 0 ? donalTrumpCatResult.rows : null;
+    // const categoryThreeResult = await db.execute(categoryThreeQuery);
+    // const categoryThree = categoryThreeResult.rows.length > 0 ? categoryThreeResult.rows : null;
 
     // Return the structured response
     return {
       latest,
-      opinionCategory,
-      lightHouseCat,
-      donalTrumpCat,
-      capitolHillPoliticsCat,
-      diplomacyCat,
-      securityCat,
-      usNationWideCat,
-      businessFinanceCat,
-      floridaCat,
-      europeCat,
-      middleEastCat,
+      categoryOne,
+      categoryTwo,
+      categoryThree,
+      categoryFour,
+      categoryFive,
+      categorySix,
+      categorySeven,
+      categoryEight,
+      categoryNine,
+      categoryTen,
+      categoryEleven,
+      categoryTwelve,
+      categoryThirteen,
+      categoryFourteen,
+      // categoryFiveteen,
     };
   } catch (error) {
     console.error("Error fetching news data:", error);
     // Return null for all sections in case of an error
     return {
       latest: null,
-      opinionCategory: null,
-      lightHouseCat: null,
-      donalTrumpCat: null,
-      capitolHillPoliticsCat: null,
-      diplomacyCat: null,
-      securityCat: null,
-      usNationWideCat: null,
-      businessFinanceCat: null,
-      floridaCat: null,
-      europeCat: null,
-      middleEastCat: null,
+      categoryOne: null,
+      categoryTwo: null,
+      categoryThree: null,
+      categoryFour: null,
+      categoryFive: null,
+      categorySix: null,
+      categorySeven: null,
+      categoryEight: null,
+      categoryNine: null,
+      categoryTen: null,
+      categoryEleven: null,
+      categoryTwelve: null,
+      categoryThirteen: null,
+      categoryFourteen: null,
+      // categoryFiveteen: null,
     };
   }
 }

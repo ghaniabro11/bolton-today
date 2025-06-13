@@ -42,13 +42,15 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --custom-red: #d32c2c;
-  --font-inter: "Inter", sans-serif;;
+  --font-inter: "Inter", sans-serif;
   --color-head: #052962;
   --color-btn: #ffd900;
+  --color-orange: #ff8067;
+  --color-gray: #808080;
 }
 
 :root {
-  --font-inter: "Inter", sans-serif;;
+  --font-inter: "Inter", sans-serif;
   --radius: 0.625rem;
   --card: oklch(1 0 0);
   --card-foreground: #212121;
@@ -116,7 +118,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
   --custom-red: #ffe500;
-  --custom-red: #ffe500;
+ 
 }
 
 @layer base {
@@ -159,9 +161,9 @@
     @apply mb-1;
   }
 
-  p {
+  /* p {
     @apply my-4;
-  }
+  } */
   * {
     @apply border-border outline-ring/50;
     margin: 0;

@@ -32,11 +32,7 @@ export const CategoryItem = ({
         </p>
       )}
       <Link href={`/${categorySlug}/${slug}`}>
-        <Typography
-          weight="600"
-          variant="h3"
-          className="text-lg hover:underline"
-        >
+        <Typography variant="h3" className="text-base hover:underline">
           {title}
         </Typography>
       </Link>

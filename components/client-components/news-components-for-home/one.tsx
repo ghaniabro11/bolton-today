@@ -17,10 +17,11 @@ const ComponentOne = async ({
     return null;
 
   const centerdata = latest[0] ?? (null as any);
-  const leftData = latest?.slice(1, 6);
-
+  const leftData = latest?.slice(1, 3);
+  const rightData = latest?.slice(3, 10);
+  console.log(latest, "latest");
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-4 gap- border-b border-black/20 divide-y lg:divide-y-0 lg:divide-x divide-black/20  overflow-hidden">
+    <section className="grid grid-cols-1 lg:grid-cols-5 gap- border-b border-black/20 divide-y lg:divide-y-0 lg:divide-x divide-black/20  overflow-hidden">
       <div className="lg:col-span-2 py-4  flex min-lg:hidden flex-col items-center space-y-4">
         <div className=" h-full w-full relative">
           <ImageWithFallback
@@ -41,24 +42,57 @@ const ComponentOne = async ({
           </Typography>
         </Link>
       </div>
-      <div className="p-4 space-y-3">
-        <div className="flex items-end gap-3">
-          <h2 className="text-[var(--custom-red)] whitespace-nowrap text-base font-semibold my-0!">
-            LATEST NEWS
-          </h2>
-          <hr className="w-full h-0.5 border-b border-t-0 border-gray-500/30" />
+      <div className="p-4 lg:col-span-2 flex flex-col justify-between gap-4 h-full">
+        <div>
+          <Link
+            className="no-underline hover:no-underline"
+            href={`/${centerdata.categoryslug}`}
+          >
+            <Typography
+              variant="p"
+              className="text-orange text-sm font-semibold"
+            >
+              {centerdata?.categoryname ?? ""}
+            </Typography>{" "}
+          </Link>
+          <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
+            <Typography
+              variant="h3"
+              className="hover:underline text-start text-3xl"
+            >
+              {centerdata?.title ?? ""}
+            </Typography>
+          </Link>
+          <Typography variant="p" className="text-gray line-clamp-2">
+            {centerdata?.description ?? ""}
+          </Typography>
+          <Link href={`/author/${centerdata?.authorslug}`}>
+            <Typography
+              variant="p"
+              className="hover:underline text-start text-sm"
+            >
+              By {centerdata?.authorname ?? "--"}
+            </Typography>
+          </Link>
         </div>
-        {leftData?.map((item: any, index: any) => (
-          <CategoryItem
-            key={index}
-            categoryName={item?.categoryname}
-            categorySlug={item?.categoryslug}
-            slug={item?.slug}
-            title={item?.title}
-            isLastItem={index === leftData.length - 1}
-            isCategoryVisible
-          />
-        ))}
+        <div className="space-y-1">
+          {leftData.map((item: any, index: number) => (
+            <div key={index} className="px-2  border-l-orange border-l-3 ">
+              <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
+                <Typography
+                  variant="h3"
+                  className={`hover:underline text-start text-lg pb-2 ${
+                    index === leftData?.length - 1
+                      ? ""
+                      : "border-b-2 border-b-gray-200"
+                  }`}
+                >
+                  {centerdata?.title ?? ""}
+                </Typography>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Center Image and News Title */}
@@ -72,33 +106,24 @@ const ComponentOne = async ({
             alt={centerdata?.imageTitle ?? "image"}
           />
         </div>
-        <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
-          <Typography
-            weight="600"
-            variant="h3"
-            className="hover:underline text-start text-4xl"
-          >
-            {centerdata?.title ?? ""}
-          </Typography>
-        </Link>
       </div>
 
       {/* Right Opinions Column */}
-      <div className="p-4 space-y-3 bg-[#F5F5F5]">
-        <div className="flex items-end gap-3">
-          <h2 className="text-[var(--custom-red)] whitespace-nowrap text-base font-semibold my-0!">
-            OPINIONS
+      <div className="p-4 space-y-3 ">
+        <div className="flex justify-between w-full gap-3">
+          <h2 className="text-orange whitespace-nowrap text-base font-semibold my-0!">
+            Latest
           </h2>
-          <hr className="w-full h-0.5 border-b border-t-0 border-gray-500/30" />
+          <Link href={"/"}>More</Link>{" "}
         </div>
-        {opinionCategory?.map((item: any, index: any) => (
+        {rightData?.map((item: any, index: any) => (
           <CategoryItem
             key={index}
             categoryName={item?.categoryname}
             categorySlug={item?.categoryslug}
             slug={item?.slug}
             title={item?.title}
-            isLastItem={index === opinionCategory?.length - 1}
+            isLastItem={index === rightData?.length - 1}
           />
         ))}
       </div>

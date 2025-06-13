@@ -55,7 +55,7 @@ export default async function RootLayout({
         {/* <Header /> */}
         <Navbar />
         <div className="max-w-7xl px-[3%] mx-auto ">{children}</div>
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
