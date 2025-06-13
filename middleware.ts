@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
   requestHeaders.set("x-pathname", pathname);
 
   const token = request.cookies.get("authAccess")?.value;
-  const isLoginRoute = pathname === "/admin/login/";
+  const isLoginRoute = pathname === "/admin/login";
   const isAdminRoute = pathname.startsWith("/admin");
 
   console.log("[Middleware] Path:", pathname);
@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
 
   if (!token && isAdminRoute && !isLoginRoute) {
     console.log("[Middleware] No token. Redirecting to /admin/login");
-    return NextResponse.redirect(new URL("/admin/login/", request.url));
+    return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
   if (token && isAdminRoute) {
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
     } catch (error) {
       console.warn("[Middleware] Invalid token. Clearing cookies and redirecting to /admin/login", error);
 
-      const response = NextResponse.redirect(new URL("/admin/login/", request.url));
+      const response = NextResponse.redirect(new URL("/admin/login", request.url));
 
       // Clear server-side cookie
       response.cookies.set("authAccess", "", {
