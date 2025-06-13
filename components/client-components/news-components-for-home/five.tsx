@@ -87,12 +87,12 @@ const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
         </section>
         <div className="flex items-center justify-center w-full">
           <div className="flex-grow h-px bg-gray-300" />
-          <span className="mx-4 px-4 py-1 bg-head text-white hover:text-btn font-semibold rounded-full text-sm">
+          <span className="mx-4 px-4 py-1 bg-head hover:bg-head text-white hover:text-btn font-semibold rounded-full text-sm">
             <Link
               href={`/${centerdata?.categoryslug}`}
               className="hover:no-underline  uppercase text-xs"
             >
-              <span className="hover:no-underline bg-head text-white hover:text-btn  uppercase text-xs">
+              <span className="hover:no-underline bg-head hover:bg-head text-white hover:text-btn  uppercase text-xs">
                 Read More
               </span>
             </Link>{" "}

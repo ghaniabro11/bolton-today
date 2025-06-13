@@ -43,15 +43,15 @@ interface BulletSectionProps {
 
 const BulletSection: React.FC<BulletSectionProps> = ({ items }) => {
   return (
-    <div className=" mt-2">
+    <ul className=" mt-2">
       {items.map((item, index) => (
-        <div
+        <li
           key={index}
-          className={`flex items-start gap-2 border-t border-gray-300 
+          className={`flex items-start gap-2 border-t border-gray-300 list-decimal 
           ${index === items.length - 1 ? "border-b border-gray-300" : ""}`}
         >
-          <span className="text-gray-600 text-xl mt-2 no-underline hover:no-underline">
-            »
+          <span className="text-head text-4xl font-bold mt-3 no-underline hover:no-underline">
+            {index + 1}
           </span>
           <Link
             href={`/${item?.categorySlug}/${item?.slug}`.replace(/\/\/+/g, "/")}
@@ -63,8 +63,8 @@ const BulletSection: React.FC<BulletSectionProps> = ({ items }) => {
               {item?.title ?? "--"}
             </Typography>
           </Link>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };

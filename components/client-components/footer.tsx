@@ -74,7 +74,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 pb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {footerData.map((section, index) => (
           <div key={index}>
-            <h3 className="font-semibold text-lg mb-2 text-orange">
+            <h3 className="font-semibold text-lg mb-2 text-head">
               {section.title}
             </h3>
             <ul className="space-y-1 text-sm list-none pl-0!">
