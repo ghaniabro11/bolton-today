@@ -2,7 +2,9 @@ import dynamic from "next/dynamic";
 
 import PageGridWrapper from "@/components/client-components/grid-wrapper";
 import { ImageWithFallback } from "@/components/client-components/image-fallback";
+import Line from "@/components/client-components/Line";
 import Loader from "@/components/client-components/Loader";
+import OceanCityCarousel from "@/components/client-components/news-components-for-home/dynamic-carousal";
 import { Typography } from "@/components/client-components/typography";
 import { db } from "@/lib/db/db";
 import { categories, media, news, newsCategories } from "@/lib/db/schema";
@@ -10,8 +12,6 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import fetchNewsData from "../actions/client-actions/home";
-import { posts } from "@/constant/dummyData";
-import OceanCityCarousel from "@/components/client-components/news-components-for-home/dynamic-carousal";
 
 // Optional: Create a simple loading component
 const Loading = () => <Loader />;
@@ -32,9 +32,6 @@ const ComponentFive = dynamic(
   }
 );
 
-export const Line = () => {
-  return <div className="w-full h-px bg-gray-200 my-4" />;
-};
 
 export async function generateMetadata({
   searchParams,
