@@ -16,7 +16,7 @@ const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
           <Typography
             variant="h2"
             weight="600"
-            className="text-2xl text-orange font-semibold "
+            className="text-2xl text-head font-semibold "
           >
             {centerdata?.categoryname}
           </Typography>

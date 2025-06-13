@@ -179,7 +179,7 @@ const DynamicTwo = async ({
                   alt={`${newsDetails?.featureImageTitle ?? null}`}
                   layout="fill"
                   objectFit="cover"
-                  className="rounded-md shadow"
+                  className=" shadow"
                 />
               </>
             )}

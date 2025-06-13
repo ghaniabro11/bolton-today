@@ -88,17 +88,13 @@ const DynamicOneWithPagination = async ({
             {category.name}
           </Typography>
 
-          <div className="space-y-1">
-            <h2 className="text-lg md:text-xl font-medium text-black">
-              About:
-            </h2>
             <p
               className="text-base md:text-lg leading-relaxed "
               dangerouslySetInnerHTML={{
                 __html: category?.description ?? "N/A",
               }}
             ></p>
-          </div>
+     
         </div>
 
         <section>

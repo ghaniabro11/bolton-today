@@ -26,7 +26,7 @@ export default function OceanCityCarousel({ data }: { data: any }) {
               <div className="border-b-3 border-b-btn w-fit my-2">
                 <Typography
                   variant="h2"
-                  className="text-2xl text-orange font-semibold mb-0!"
+                  className="text-2xl text-head font-semibold mb-0!"
                 >
                   {data[0]?.categoryname}
                 </Typography>

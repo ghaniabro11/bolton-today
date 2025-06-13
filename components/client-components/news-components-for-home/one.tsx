@@ -50,7 +50,7 @@ const ComponentOne = async ({
           >
             <Typography
               variant="p"
-              className="text-orange text-sm font-semibold"
+              className="text-head text-sm font-semibold"
             >
               {centerdata?.categoryname ?? ""}
             </Typography>{" "}
@@ -111,7 +111,7 @@ const ComponentOne = async ({
       {/* Right Opinions Column */}
       <div className="p-4 space-y-3 ">
         <div className="flex justify-between w-full gap-3">
-          <h2 className="text-orange whitespace-nowrap text-base font-semibold my-0!">
+          <h2 className="text-head whitespace-nowrap text-base font-semibold my-0!">
             Latest
           </h2>
         </div>
