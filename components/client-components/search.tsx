@@ -17,7 +17,7 @@ const Search = () => {
         onChange={(e) => setSearchQuery(e.target.value)} // Add this line
       />
       <Button
-        className="rounded-none cursor-pointer bg-orange hover:bg-head"
+        className="rounded-none cursor-pointer bg-head hover:bg-head  hover:text-btn"
         variant={"default"}
         onClick={handleSearch} // Add this line
       >

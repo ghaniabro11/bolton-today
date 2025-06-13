@@ -1,8 +1,6 @@
-import Link from "next/link";
-import { CategoryItem } from "../category-item";
-import { ImageWithFallback } from "../image-fallback";
-import { Typography } from "../typography";
 import Image from "next/image";
+import Link from "next/link";
+import { Typography } from "../typography";
 
 const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
   const centerdata = diplomacyCat[0] as any;
