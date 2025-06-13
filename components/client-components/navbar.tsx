@@ -98,7 +98,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#052962] border-b   uppercase text-white font-semibold  text-lg border-gray-200 px-10 shadow-md">
+    <nav className="bg-[#052962] border-b   uppercase text-white font-semibold   border-gray-200 px-10 md:py-3 shadow-md">
       <div className=" flex justify-between items-center relative ">
         <Link href="/" className="inline">
           <Image
@@ -106,7 +106,7 @@ const Navbar = () => {
             alt="header-image"
             width={300} // Add appropriate width
             height={100}
-            className="md:w-[15vw] w-[35vw] "
+            className="w-46 "
             priority
           />
         </Link>
@@ -146,7 +146,7 @@ const Navbar = () => {
             </div>
           ))}
         </div>
-        <div className="cursor-pointer">
+        <div className="cursor-pointer hidden md:block">
           <Search />
         </div>
 
@@ -155,7 +155,7 @@ const Navbar = () => {
           className="md:hidden text-gray-700 py-5"
           onClick={() => setMobileOpen(true)}
         >
-          <Menu size={28} />
+          <Menu size={28} className="text-white cursor-pointer" />
         </button>
       </div>
 
@@ -167,19 +167,26 @@ const Navbar = () => {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-white   z-50 flex flex-col p-6 overflow-y-auto md:hidden"
+            className="fixed inset-0 bg-head   z-50 flex flex-col p-6 overflow-y-auto md:hidden"
           >
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold">Menu</h2>
+              <Image
+                src="/bolton_logo.svg"
+                alt="header-image"
+                width={300} // Add appropriate width
+                height={100}
+                className="w-48 "
+                priority
+              />
               <button onClick={() => setMobileOpen(false)}>
-                <X size={28} />
+                <X size={28} className="text-white cursor-pointer" />
               </button>
             </div>
             <nav className="space-y-4">
               {navLinks.map((link: any) => (
                 <div key={link?.label}>
                   <div
-                    className="flex items-center justify-between text-lg font-medium   py-2 cursor-pointer"
+                    className="flex items-center justify-between  font-medium   py-2 cursor-pointer"
                     onClick={() =>
                       link?.dropdown
                         ? toggleMobileDropdown(link?.label)
