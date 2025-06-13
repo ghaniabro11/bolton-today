@@ -28,7 +28,7 @@ const RecentNews = async () => {
       <Suspense fallback={<Loader />}>
         <section className="space-y-4 px-[10%] sticky top-10">
           <Search />
-          <Typography variant="h2">Recent News</Typography>
+          <Typography variant="h2">Recent Bolton News</Typography>
           <BulletSection items={newsData} />
         </section>
       </Suspense>

@@ -16,80 +16,81 @@ export async function getAuthorNewsWithCategoriesOptimized({
     const offset = (page - 1) * limit;
 
     // Single query to get all data at once
-    const result = await db.execute(sql`
-      WITH author_data AS (
-        SELECT 
-          a.id as author_id,
-          a.name as author_name,
-          a.slug as author_slug,
-          a.position,
-          a.description as author_description,
-          a.facebook_link,
-          a.instagram_link,
-          a.twitter_link,
-          a.muckrack_link,
-          a.personal_portfolio,
-          a.linkedin,
-          a.publish_status as author_status,
-          am.id as author_image_id,
-          am.title as author_image_title,
-          am.slug as author_image_slug,
-          am.caption as author_image_caption,
-          am.file_path as author_image_file_path,
-          am.type as author_image_type
-        FROM authors a
-        LEFT JOIN media am ON a.image = am.id
-        WHERE a.slug = ${slug}
-      ),
-      news_data AS (
-        SELECT 
-          n.id,
-          n.title,
-          n.slug,
-          n.publish_date,
-          nm.id as feature_image_id,
-          nm.title as feature_image_title,
-          nm.slug as feature_image_slug,
-          nm.caption as feature_image_caption,
-          nm.file_path as feature_image_file_path,
-          nm.type as feature_image_type,
-          ad.author_id,
-          ad.author_name,
-          ad.author_slug,
-          ad.position,
-          ad.author_description,
-          ad.facebook_link,
-          ad.instagram_link,
-          ad.twitter_link,
-          ad.muckrack_link,
-          ad.personal_portfolio,
-          ad.linkedin,
-          ad.author_status,
-          ad.author_image_id,
-          ad.author_image_title,
-          ad.author_image_slug,
-          ad.author_image_caption,
-          ad.author_image_file_path,
-          ad.author_image_type
-        FROM news n
-        CROSS JOIN author_data ad
-        LEFT JOIN media nm ON n.feature_image = nm.id
-        WHERE n.author_id = ad.author_id 
-          AND n.publish_status = 'active' 
-          AND n.active_status = 'active'
-        ORDER BY n.publish_date DESC
-        LIMIT ${limit} OFFSET ${offset}
-      )
-      SELECT 
-        nd.*,
-        c.id as category_id,
-        c.name as category_name,
-        c.slug as category_slug
-      FROM news_data nd
-      LEFT JOIN news_categories nc ON nd.id = nc.news_id
-      LEFT JOIN categories c ON nc.category_id = c.id
-      ORDER BY nd.publish_date DESC;
-    `);
+// Single query to get all data at once
+const result = await db.execute(sql`
+  WITH author_data AS (
+    SELECT 
+      a.id as author_id,
+      a.name as author_name,
+      a.slug as author_slug,
+      a.position,
+      a.description as author_description,
+      a.facebook_link,
+      a.instagram_link,
+      a.twitter_link,
+      a.muckrack_link,
+      a.personal_portfolio,
+      a.linkedin,
+      a.publish_status as author_status,
+      am.id as author_image_id,
+      am.title as author_image_title,
+      am.slug as author_image_slug,
+      am.caption as author_image_caption,
+      am.file_path as author_image_file_path,
+      am.type as author_image_type
+    FROM authors a
+    LEFT JOIN media am ON a.image = am.id
+    WHERE a.slug = ${slug}
+  ),
+  news_data AS (
+    SELECT DISTINCT ON (n.id)
+      n.id,
+      n.title,
+      n.slug,
+      n.publish_date,
+      nm.id as feature_image_id,
+      nm.title as feature_image_title,
+      nm.slug as feature_image_slug,
+      nm.caption as feature_image_caption,
+      nm.file_path as feature_image_file_path,
+      nm.type as feature_image_type,
+      ad.author_id,
+      ad.author_name,
+      ad.author_slug,
+      ad.position,
+      ad.author_description,
+      ad.facebook_link,
+      ad.instagram_link,
+      ad.twitter_link,
+      ad.muckrack_link,
+      ad.personal_portfolio,
+      ad.linkedin,
+      ad.author_status,
+      ad.author_image_id,
+      ad.author_image_title,
+      ad.author_image_slug,
+      ad.author_image_caption,
+      ad.author_image_file_path,
+      ad.author_image_type
+    FROM news n
+    CROSS JOIN author_data ad
+    LEFT JOIN media nm ON n.feature_image = nm.id
+    WHERE n.author_id = ad.author_id 
+      AND n.publish_status = 'active' 
+      AND n.active_status = 'active'
+    ORDER BY n.id, n.publish_date DESC
+  )
+  SELECT 
+    nd.*,
+    c.id as category_id,
+    c.name as category_name,
+    c.slug as category_slug
+  FROM news_data nd
+  LEFT JOIN news_categories nc ON nd.id = nc.news_id
+  LEFT JOIN categories c ON nc.category_id = c.id
+  ORDER BY nd.publish_date DESC
+  LIMIT ${limit} OFFSET ${offset};
+`);
 
     // Get total count
     const countResult = await db.execute(sql`

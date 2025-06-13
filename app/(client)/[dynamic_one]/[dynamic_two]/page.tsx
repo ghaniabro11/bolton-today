@@ -90,13 +90,13 @@ const DynamicTwo = async ({
               "@type": "ListItem",
               position: 1,
               name: newsDetails?.category?.name,
-              item: `https://boltontoday.co.uk/${newsDetails?.category?.slug}/`,
+              item: `https://boltontoday.co.uk/${newsDetails?.category?.slug}`,
             },
             {
               "@type": "ListItem",
               position: 1,
               name: newsDetails?.title,
-              item: `https://boltontoday.co.uk/${newsDetails?.category?.slug}/${newsDetails?.slug}/`,
+              item: `https://boltontoday.co.uk/${newsDetails?.category?.slug}/${newsDetails?.slug}`,
             },
           ],
         })}
@@ -107,7 +107,7 @@ const DynamicTwo = async ({
           "@type": "NewsArticle",
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/`,
+            "@id": `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}`,
           },
           headline: newsDetails?.title,
           image: [newsDetails?.featureImage],
@@ -115,7 +115,7 @@ const DynamicTwo = async ({
           author: {
             "@type": "Person",
             name: newsDetails?.author?.name,
-            url: `https://boltontoday.co.uk/author/${newsDetails?.author?.slug}/`,
+            url: `https://boltontoday.co.uk/author/${newsDetails?.author?.slug}`,
           },
           publisher: {
             "@type": "NewsMediaOrganization",

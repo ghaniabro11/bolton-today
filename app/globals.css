@@ -47,6 +47,7 @@
   --color-btn: #ffd900;
   --color-orange: #ff8067;
   --color-gray: #808080;
+  --color-sky: #C1D8FC;
 }
 
 :root {
@@ -118,7 +119,6 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
   --custom-red: #ffe500;
- 
 }
 
 @layer base {
@@ -165,7 +165,7 @@
     @apply my-4;
   } */
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 font-inter;
     margin: 0;
     padding: 0;
     box-sizing: border-box;

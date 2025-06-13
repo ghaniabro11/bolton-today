@@ -32,7 +32,6 @@ const ComponentFive = dynamic(
   }
 );
 
-
 export async function generateMetadata({
   searchParams,
 }: {
@@ -209,9 +208,11 @@ const Home = async ({
   return (
     <Suspense fallback={<Loader />}>
       <PageGridWrapper>
-        <div className="bg-black  p-5 mb-5 text-white">
-          {result.length} Search Result For:
-          <Typography variant="h2" className="font-semibold">
+        <div className="bg-head  p-5 mb-5">
+       <span className=" text-btn">
+           {result.length} Search Result For:
+        </span>
+          <Typography variant="h2" className="font-semibold text-white">
             {searchQuery}
           </Typography>
         </div>
@@ -221,9 +222,9 @@ const Home = async ({
             {result.length === 0 ? (
               <p className="uppercase">No news found.</p>
             ) : (
-              result.map((newsItem: any) => (
+              result.map((newsItem: any, index: number) => (
                 <div
-                  key={newsItem.slug}
+                  key={index}
                   className="flex flex-col md:flex-row border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   {/* Image */}

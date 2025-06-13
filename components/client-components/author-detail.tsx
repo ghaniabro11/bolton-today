@@ -1,9 +1,9 @@
 "use client";
 import { formatDate } from "@/utils/date";
-import { Globe, Link as Url, User2 } from "lucide-react";
+import { Globe, Loader, Link as Url, User2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { ClientPagination } from "../reuse-client-pagination";
 import { Facebook } from "./icons/facebook";
 import { Instagram } from "./icons/instagram";
@@ -11,6 +11,7 @@ import { Linkedin } from "./icons/linkdin";
 import { Muckrack } from "./icons/muckrack";
 import { Twitter } from "./icons/twitter";
 import { Typography } from "./typography";
+import NewsCard from "./news-card";
 
 type SocialIcons = {
   facebook: React.ReactNode;
@@ -41,7 +42,7 @@ const AuthorDetailComponent = ({
   const [mounted, setmounted] = useState(false);
   const authorData = result?.data?.author as any;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-
+  console.log(result, "result for auth details");
   useEffect(() => {
     setmounted(true);
   }, []);
@@ -49,7 +50,7 @@ const AuthorDetailComponent = ({
   return (
     <main suppressHydrationWarning>
       <div className="p-5">
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-4">
           {/* Left Section - Image */}
           <div className="flex-shrink-0">
             <div className="relative">
@@ -137,10 +138,10 @@ const AuthorDetailComponent = ({
           </div>
         </div>
       </div>
-      <div className="space-y-6">
+      <div className="space-y-6 mt-3">
         <h2 className="text-2xl font-semibold">News Articles</h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {result?.data?.news.length > 0 ? (
             result?.data?.news?.map((item: any, index: any) => (
               <div key={index} className="border-b pb-4 border p-4">
@@ -169,7 +170,28 @@ const AuthorDetailComponent = ({
               News not posted by this author
             </div>
           )}
-        </div>
+        </div> */}
+        <Suspense fallback={<Loader />}>
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+            {result?.data?.news?.length === 0 ? (
+              <p>No news found.</p>
+            ) : (
+              result?.data?.news?.map((newsItem: any, index: number) => (
+                <NewsCard
+                  key={index}
+                  category={newsItem?.category}
+                  date={newsItem?.publishDate}
+                  description={newsItem?.description}
+                  imageUrl={newsItem?.featureImage?.filePath}
+                  title={newsItem?.title}
+                  newsSlug={newsItem?.slug}
+                  authorName={authorData?.name}
+                  authorSlug={authorData?.slug}
+                />
+              ))
+            )}
+          </div>
+        </Suspense>
       </div>
 
       {/* Pagination */}

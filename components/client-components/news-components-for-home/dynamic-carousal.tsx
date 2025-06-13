@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { Typography } from "../typography";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function OceanCityCarousel({ data }: { data: any }) {
   return (
@@ -19,10 +20,10 @@ export default function OceanCityCarousel({ data }: { data: any }) {
         }}
         className="w-full "
       >
-        <div className="flex justify-between items-end w-full py-2 gap-2">
+        <div className="flex justify-between md:flex-nowrap max-sm:flex-wrap items-end w-full py-2 gap-5">
           <div>
             <Link href={`/${data[0].categoryslug}`}>
-              <div className="border-b-3 border-b-btn w-fit mt-2">
+              <div className="border-b-3 border-b-btn w-fit my-2">
                 <Typography
                   variant="h2"
                   className="text-2xl text-orange font-semibold mb-0!"
@@ -38,7 +39,7 @@ export default function OceanCityCarousel({ data }: { data: any }) {
               className="text-gray my-0! py-0!"
             ></div>
           </div>
-          <div className="space-x-2">
+          <div className="flex gap-2">
             <CarouselPrevious />
             <CarouselNext />
           </div>
@@ -48,11 +49,15 @@ export default function OceanCityCarousel({ data }: { data: any }) {
           {data?.map((item: any, i: number) => (
             <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/4 p-2  ">
               <div className="bg-white   overflow-hidden h-full p-2 space-y-2">
-                <img
-                  src={item?.image}
-                  alt={item?.title}
-                  className="w-full h-40 object-cover"
-                />
+                <div className="md:h-40 h-[50dvh] relative">
+                  <Image
+                    fill
+                    priority
+                    src={item?.image}
+                    alt={item?.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
                 <Link href={`/${item?.categoryslug}/${item?.slug}`}>
                   <Typography

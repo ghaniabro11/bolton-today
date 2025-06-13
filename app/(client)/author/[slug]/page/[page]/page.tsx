@@ -77,7 +77,7 @@ const AuthorDetails = async ({
   const result = await getAuthorNewsWithCategoriesOptimized({
     slug: `${slug}`,
     page: page,
-    limit: 30,
+    limit: 4,
   });
   if (result?.data === null) return notFound();
 

@@ -27,31 +27,38 @@ const NewsCard: React.FC<NewsCardProps> = ({
   authorName,
 }) => {
   return (
-    <section className="p-5 border border-gray-300 mt-5 space-y-4 max-w-4xl">
-      <p className="text-gray-400 text-sm">
-        {formatDate(date)} <span className="text-black mx-1">By</span>
-        <Link href={`/author/${authorSlug}`}>
-          <span className="text-gray-400 no-underline">{authorName}</span>
+    <section className="p-4 border border-gray-300 mt-6 w-full max-w-xl space-y-4  ">
+      {/* Image */}
+      <div className="relative w-full h-60">
+        <ImageWithFallback
+          src={imageUrl ?? ""}
+          alt="news-card"
+          className="object-cover"
+          layout="fill"
+        />
+      </div>
+
+      {/* Title */}
+      <Link
+        href={`/${category?.slug}/${newsSlug}`.replace(/\/\/+/g, "/")}
+        className="hover:underline"
+      >
+        <Typography
+          variant="h2"
+          className="text-2xl font-semibold leading-snug"
+        >
+          {title}
+        </Typography>
+      </Link>
+
+      {/* Meta */}
+      <p className="text-gray-500 text-sm">
+        {formatDate(date)}
+        <span className="text-black mx-1">by</span>
+        <Link href={`/author/${authorSlug}`} className="hover:underline">
+          <span className="text-gray-700 font-medium">{authorName}</span>
         </Link>
       </p>
-
-      <div className="flex md:flex-nowrap flex-wrap  gap-4 mt-4">
-        <div className="md:min-w-64 md:w-64 w-full md:min-h-36 min-h-60 relative ">
-          <ImageWithFallback
-            src={imageUrl ?? ""}
-            alt="news-card"
-            className="object-cover  "
-            layout="fill"
-          />
-        </div>
-        <Link
-          href={`/${category?.slug}/${newsSlug}`.replace(/\/\/+/g, "/")}
-          className="hover:underline "
-        >
-          <Typography variant="h2">{title}</Typography>
-        </Link>
-      </div>
-      <hr />
     </section>
   );
 };

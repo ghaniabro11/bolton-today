@@ -38,10 +38,9 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}/`,
+      canonical: `https://boltontoday.co.uk/${dynamic_one}`,
     },
 
-  
     robots: {
       index: true,
       follow: true,
@@ -83,38 +82,52 @@ const DynamicOne = async ({
               "@type": "ListItem",
               position: 2,
               name: category.name,
-              item: `https://boltontoday.co.uk/${dynamic_one}/`,
+              item: `https://boltontoday.co.uk/${dynamic_one}`,
             },
           ],
         })}
       </script>
       <PageGridWrapper>
         <main>
-          <div className="bg-black p-5 text-white">
-            <Typography variant="h1" className="font-semibold">
+          <div className=" bg-head p-6 rounded-2xl text-btn shadow-md ">
+            <Typography variant="h1" className="text-2xl md:text-3xl font-bold mb-2">
               {category.name}
             </Typography>
+
+            <div className="space-y-1">
+              <h2 className="text-lg md:text-xl font-medium text-white">
+                About:
+              </h2>
+              <p
+                className="text-base md:text-lg leading-relaxed text-white"
+                dangerouslySetInnerHTML={{
+                  __html: category?.description ?? "N/A",
+                }}
+              ></p>
+            </div>
           </div>
 
           <section>
             <Suspense fallback={<Loader />}>
-              {newsList?.length === 0 ? (
-                <p>No news found in this category.</p>
-              ) : (
-                newsList?.map((newsItem) => (
-                  <NewsCard
-                    key={newsItem?.id}
-                    category={category}
-                    date={newsItem?.publishDate}
-                    description={newsItem?.description}
-                    imageUrl={newsItem?.featureImage}
-                    title={newsItem?.title}
-                    newsSlug={newsItem?.slug}
-                    authorName={newsItem?.authorName}
-                    authorSlug={newsItem?.authorSlug}
-                  />
-                ))
-              )}
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+                {newsList?.length === 0 ? (
+                  <p>No news found in this category.</p>
+                ) : (
+                  newsList?.map((newsItem) => (
+                    <NewsCard
+                      key={newsItem?.id}
+                      category={category}
+                      date={newsItem?.publishDate}
+                      description={newsItem?.description}
+                      imageUrl={newsItem?.featureImage}
+                      title={newsItem?.title}
+                      newsSlug={newsItem?.slug}
+                      authorName={newsItem?.authorName}
+                      authorSlug={newsItem?.authorSlug}
+                    />
+                  ))
+                )}
+              </div>
             </Suspense>
             <ClientPagination
               currentPage={1}
@@ -122,14 +135,6 @@ const DynamicOne = async ({
               slug={dynamic_one}
               limit={20}
             />
-            <div className="px-3">
-              <h2 className="text-lg">About This Category</h2>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: category?.description ?? "N/A",
-                }}
-              ></p>
-            </div>
           </section>
         </main>
       </PageGridWrapper>{" "}

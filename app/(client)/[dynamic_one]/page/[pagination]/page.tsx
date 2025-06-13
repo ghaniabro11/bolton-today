@@ -1,5 +1,6 @@
 import { getNewsByCategorySlug } from "@/app/actions/client-actions/category";
 import PageGridWrapper from "@/components/client-components/grid-wrapper";
+import Loader from "@/components/client-components/Loader";
 import NewsCard from "@/components/client-components/news-card";
 import { Typography } from "@/components/client-components/typography";
 import { ClientPagination } from "@/components/reuse-client-pagination";
@@ -7,7 +8,7 @@ import { db } from "@/lib/db/db";
 import { categories } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { Metadata } from "next";
-import { permanentRedirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
@@ -75,34 +76,52 @@ const DynamicOneWithPagination = async ({
     Number(pagination)
   );
   console.log(newsList, "newsList");
+  if (!category || newsList?.length === 0) return notFound();
   return (
     <PageGridWrapper>
       <main>
-        <div className="bg-black p-5 text-white">
-          <Typography variant="h1" className="font-semibold">
+        <div className=" bg-sky p-6 rounded-2xl text-black shadow-md ">
+          <Typography
+            variant="h1"
+            className="text-2xl md:text-3xl font-bold mb-2"
+          >
             {category.name}
           </Typography>
+
+          <div className="space-y-1">
+            <h2 className="text-lg md:text-xl font-medium text-black">
+              About:
+            </h2>
+            <p
+              className="text-base md:text-lg leading-relaxed "
+              dangerouslySetInnerHTML={{
+                __html: category?.description ?? "N/A",
+              }}
+            ></p>
+          </div>
         </div>
 
         <section>
-          <Suspense fallback={<>Please wait...</>}>
-            {newsList.length === 0 ? (
-              <p>No news found in this category.</p>
-            ) : (
-              newsList.map((newsItem) => (
-                <NewsCard
-                  key={newsItem.id}
-                  category={category}
-                  date={newsItem.publishDate.toString()}
-                  description={newsItem.description}
-                  imageUrl={newsItem.featureImage}
-                  title={newsItem.title}
-                  newsSlug={newsItem?.slug}
-                  authorName={newsItem?.authorName}
-                  authorSlug={newsItem?.authorSlug}
-                />
-              ))
-            )}
+          <Suspense fallback={<Loader />}>
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+              {newsList?.length === 0 ? (
+                <p>No news found in this category.</p>
+              ) : (
+                newsList?.map((newsItem) => (
+                  <NewsCard
+                    key={newsItem?.id}
+                    category={category}
+                    date={newsItem?.publishDate}
+                    description={newsItem?.description}
+                    imageUrl={newsItem?.featureImage}
+                    title={newsItem?.title}
+                    newsSlug={newsItem?.slug}
+                    authorName={newsItem?.authorName}
+                    authorSlug={newsItem?.authorSlug}
+                  />
+                ))
+              )}
+            </div>
           </Suspense>
           <ClientPagination
             currentPage={Number(pagination)}
@@ -110,14 +129,6 @@ const DynamicOneWithPagination = async ({
             slug={dynamic_one}
             limit={20}
           />
-          <div className="px-3">
-            <h2 className="text-lg">About This Category</h2>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: category?.description ?? "N/A",
-              }}
-            ></p>
-          </div>
         </section>
       </main>
     </PageGridWrapper>

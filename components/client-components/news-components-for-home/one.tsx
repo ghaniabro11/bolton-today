@@ -114,7 +114,6 @@ const ComponentOne = async ({
           <h2 className="text-orange whitespace-nowrap text-base font-semibold my-0!">
             Latest
           </h2>
-          <Link href={"/"}>More</Link>{" "}
         </div>
         {rightData?.map((item: any, index: any) => (
           <CategoryItem

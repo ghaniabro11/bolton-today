@@ -55,22 +55,16 @@ const Footer = () => {
         <div className="flex-grow h-px bg-gray" />
         <div className="flex space-x-4 text-gray-600 mx-2">
           <div className="uppercase font-bold text-lg">Follow Us</div>
-          <a
-            href="https://www.facebook.com/washingtoninsidermagazine/ "
-            aria-label="Facebook"
-          >
+          <a href="/ " aria-label="Facebook">
             <Facebook className="w-7 h-7" />
           </a>
-          <a href="https://twitter.com/WashInsiderMag" aria-label="Twitter">
+          <a href="/" aria-label="Twitter">
             <Twitter className="w-7 h-7" />
           </a>
           {/*  <a href="#" aria-label="Instagram">
               <Instagram className="w-5 h-5" />
             </a> */}
-          <a
-            href="https://www.linkedin.com/company/washington-insider-magazine/"
-            aria-label="LinkedIn"
-          >
+          <a href="/" aria-label="LinkedIn">
             <Linkedin className="w-7 h-7" />
           </a>
         </div>

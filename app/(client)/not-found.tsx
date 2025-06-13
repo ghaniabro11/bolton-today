@@ -19,7 +19,7 @@ const NotFound = () => {
         <p className="text-gray-600 mb-6">
           Oops! The page you're looking for doesn't exist or has been moved.
         </p>
-        <Button onClick={() => router.push("/")}>Go to Homepage</Button>
+        <Button className="bg-orange hover:bg-head" onClick={() => router.push("/")}>Go to Homepage</Button>
       </div>
     </div>
   );

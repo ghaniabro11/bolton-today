@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
   const centerdata = diplomacyCat[0] as any;
-  const leftData = diplomacyCat?.slice(1, 4);  // Gets 3 items (indices 1,2,3)
+  const leftData = diplomacyCat?.slice(1, 4); // Gets 3 items (indices 1,2,3)
   const rightData = diplomacyCat?.slice(4, 7); // Gets 3 items (indices 4,5,6)
 
   if (diplomacyCat?.length > 0)
@@ -24,7 +24,7 @@ const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
         <section className="grid grid-cols-1 lg:grid-cols-6  overflow-hidden">
           {/* Center Image and News Title */}
           <div className="lg:col-span-2 p-4 flex flex-col items-start gap-2">
-            <div className=" h-full max-h-[30dvh] min-h-[28dvh] w-full relative">
+            <div className=" h-full md:max-h-[30dvh] min-h-[50dvh] max-h-[50dvh] md:min-h-[28dvh] w-full relative">
               <Image
                 priority
                 fill

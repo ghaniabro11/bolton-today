@@ -1205,7 +1205,7 @@ section[role="banner"] {
 .wp-block-group__inner-container h4,
 h2.widgettitle,
 .widget-title {
-  font-family: "Playfair Display", Helvetica, Arial, sans-serif;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
   width: 100%;
   float: left;
   position: relative;
@@ -1342,7 +1342,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", Helvetica, Arial, sans-serif;
+  font-family: "Inter", Helvetica, Arial, sans-serif;
   color: #333;
   font-display: "swap";
   text-rendering: optimizeLegibility;
@@ -2456,7 +2456,7 @@ changed article header
   font-size: 12px;
 }
 .comments-area .fn {
-  font-family: "Playfair Display";
+  font-family: "Inter";
   text-transform: capitalize;
   line-height: 23px;
   font-weight: 600;
