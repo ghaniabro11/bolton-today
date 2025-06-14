@@ -32,12 +32,13 @@ jobs:
             git pull origin
 
             # Clean cache, old builds, and lock file
-            rm -rf node_modules .next
-            rm -f package-lock.json
+            # rm -rf node_modules .next
+            # rm -f package-lock.json
+            rm -rf .next
             npm cache clean --force
 
             # Install fresh dependencies and build
-            npm install
+            # npm install
             npm run build
 
             # Restart with PM2 (start if not already running)

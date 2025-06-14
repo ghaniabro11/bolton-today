@@ -79,6 +79,9 @@ export async function POST(req: Request) {
         return apiResponse(null, 404, false, "Parent category not found");
       }
     }
+    await db.execute(
+      sql`SELECT setval(pg_get_serial_sequence('categories', 'id'), (SELECT MAX(id) FROM categories))`
+    );
     // Step 3: Insert category
     console.log("[Category POST] Creating new category");
     const result = await db
