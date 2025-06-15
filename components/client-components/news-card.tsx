@@ -14,6 +14,7 @@ type NewsCardProps = {
   newsSlug: string;
   authorSlug: string;
   authorName: string;
+  category_hierarchical_slug?: string;
 };
 
 const NewsCard: React.FC<NewsCardProps> = ({
@@ -25,6 +26,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   newsSlug,
   authorSlug,
   authorName,
+  category_hierarchical_slug
 }) => {
   return (
     <section className="p-4 border border-gray-300 mt-6 w-full max-w-xl space-y-4  ">
@@ -40,7 +42,11 @@ const NewsCard: React.FC<NewsCardProps> = ({
 
       {/* Title */}
       <Link
-        href={`/${category?.slug}/${newsSlug}`.replace(/\/\/+/g, "/")}
+        href={`/${
+          category_hierarchical_slug
+            ? category_hierarchical_slug
+            : category?.slug
+        }/${newsSlug}`.replace(/\/\/+/g, "/")}
         className="hover:underline"
       >
         <Typography

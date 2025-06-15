@@ -122,6 +122,7 @@ const DynamicOne = async ({
                       newsSlug={newsItem?.slug}
                       authorName={newsItem?.authorName}
                       authorSlug={newsItem?.authorSlug}
+                      category_hierarchical_slug={newsItem?.category_hierarchical_slug}
                     />
                   ))
                 )}
