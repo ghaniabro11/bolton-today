@@ -86,6 +86,7 @@ async function fetchNewsData(db: any): Promise<NewsResponse> {
         SELECT 
           n.title,
           n.slug AS slug,
+          n.description AS description,
           n.publish_date AS publishDate,
           a.name AS authorName,
           a.slug AS authorSlug,

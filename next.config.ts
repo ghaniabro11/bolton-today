@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     domains: [
       "washingtoninsider.net",
       "localhost",
-      "31.97.133.203",
       "staging.washingtoninsider.net",
       "boltontoday.co.uk",
     ],

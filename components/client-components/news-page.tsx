@@ -67,7 +67,6 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
                 alt={`${data?.featureImageTitle ?? null}`}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-md shadow"
               />
             </>
           )}
@@ -76,7 +75,7 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
 
         {data?.details && (
           <div
-            className="entry-content overflow-auto"
+            className="entry-content overflow-auto mt-7"
             dangerouslySetInnerHTML={{ __html: data?.details ?? "" }}
           />
         )}

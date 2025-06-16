@@ -181,7 +181,6 @@ const AuthorDetailComponent = ({
                   key={index}
                   category={newsItem?.category}
                   date={newsItem?.publishDate}
-                  description={newsItem?.description}
                   imageUrl={newsItem?.featureImage?.filePath}
                   title={newsItem?.title}
                   newsSlug={newsItem?.slug}

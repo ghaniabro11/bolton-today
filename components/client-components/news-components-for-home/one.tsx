@@ -48,10 +48,7 @@ const ComponentOne = async ({
             className="no-underline hover:no-underline"
             href={`/${centerdata.categoryslug}`}
           >
-            <Typography
-              variant="p"
-              className="text-head text-sm font-semibold"
-            >
+            <Typography variant="p" className="text-head text-sm font-semibold">
               {centerdata?.categoryname ?? ""}
             </Typography>{" "}
           </Link>
@@ -77,7 +74,7 @@ const ComponentOne = async ({
         </div>
         <div className="space-y-1">
           {leftData.map((item: any, index: number) => (
-            <div key={index} className="px-2  border-l-orange border-l-3 ">
+            <div key={index} className="px-2  border-l-head border-l-3 ">
               <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
                 <Typography
                   variant="h3"

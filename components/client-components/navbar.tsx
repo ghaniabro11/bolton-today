@@ -58,14 +58,14 @@ const DropdownMenu = ({
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -8 }}
     transition={{ duration: 0.2 }}
-    className="absolute left-0 mt-5 min-w-60 rounded-none  bg-sky  shadow-lg  z-50 "
+    className="absolute left-0 mt-5 min-w-60 rounded-none  bg-white border border-head/50  shadow-lg  z-50 "
   >
-    <ul className="py-2     list-none pl-0!">
+    <ul className="list-none pl-0!">
       {items.map((item) => (
-        <li key={item.href}>
+        <li key={item.href} className="border-b border-b-btn">
           <Link
             href={item.href}
-            className="block px-4 py-2 w-full  text-white hover:text-btn"
+            className="block px-4 py-2 w-full  text-head hover:text-btn "
           >
             {item.label}
           </Link>

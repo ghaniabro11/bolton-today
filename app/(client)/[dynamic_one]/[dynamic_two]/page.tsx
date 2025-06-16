@@ -137,10 +137,10 @@ const DynamicTwo = async ({
               },
               publisher: {
                 "@type": "NewsMediaOrganization",
-                name: "Washington Insider Magazine",
+                name: "Bolton Today News",
                 logo: {
                   "@type": "ImageObject",
-                  url: "https://boltontoday.co.uk/Washington-Insider-Magazine-black-logo.webp",
+                  url: "https://boltontoday.co.uk/bolton_logo.svg",
                   width: 600,
                   height: 60,
                 },
