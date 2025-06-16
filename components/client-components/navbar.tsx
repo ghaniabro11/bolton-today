@@ -62,10 +62,10 @@ const DropdownMenu = ({
   >
     <ul className="list-none pl-0!">
       {items.map((item) => (
-        <li key={item.href} className="border-b border-b-btn">
+        <li key={item.href} className="border-b border-b-btn ml-6">
           <Link
             href={item.href}
-            className="block px-4 py-2 w-full  text-head hover:text-btn "
+            className="block  py-2 w-full  text-head hover:text-btn "
           >
             {item.label}
           </Link>
