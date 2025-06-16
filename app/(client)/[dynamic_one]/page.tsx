@@ -1,14 +1,10 @@
-import { getNewsByCategorySlug } from "@/app/actions/client-actions/category";
-import PageGridWrapper from "@/components/client-components/grid-wrapper";
-import Loader from "@/components/client-components/Loader";
-import NewsCard from "@/components/client-components/news-card";
-import { Typography } from "@/components/client-components/typography";
-import { ClientPagination } from "@/components/reuse-client-pagination";
+import { validateCategoryPathWithNews } from "@/app/actions/client-actions/news";
+import CategoryPage from "@/components/client-components/category-page";
 import { db } from "@/lib/db/db";
 import { categories } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { Metadata } from "next";
-import { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -38,7 +34,7 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}`,
+      canonical: `https://boltontoday.co.uk/${dynamic_one}/`,
     },
 
     robots: {
@@ -52,91 +48,51 @@ export async function generateMetadata({
 }
 const DynamicOne = async ({
   params,
-  searchParams,
 }: {
   params: Promise<{ dynamic_one: string }>;
-  searchParams: Promise<{ page: number }>;
 }) => {
   const { dynamic_one } = await params;
 
-  const page = (await searchParams).page ?? 1;
-  const { category, newsList, totalCount } = await getNewsByCategorySlug(
-    dynamic_one,
-    page
-  );
-  console.log(newsList, "newsList");
+  const newsList = await validateCategoryPathWithNews({
+    slugParts: [dynamic_one],
+    limit: 20,
+    page: 1,
+  }) as any;
+  console.log(newsList, "data from dynamic one");
+
+  if (!newsList.valid) return notFound();
+  const breadcrumbJSON = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `https://boltontoday.co.uk/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: newsList?.categoryChain[0]?.name,
+        item: `https://boltontoday.co.uk/${newsList?.categoryChain[0]?.slug}/`,
+      },
+    ],
+  };
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: `https://boltontoday.co.uk/`,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: category.name,
-              item: `https://boltontoday.co.uk/${dynamic_one}`,
-            },
-          ],
-        })}
-      </script>
-      <PageGridWrapper>
-        <main>
-          <div className=" bg-head p-6 rounded-2xl text-btn shadow-md ">
-            <Typography
-              variant="h1"
-              className="text-2xl md:text-3xl font-bold mb-2"
-            >
-              {category.name}
-            </Typography>
-
-            <p
-              className="text-base md:text-lg leading-relaxed text-white"
-              dangerouslySetInnerHTML={{
-                __html: category?.description ?? "N/A",
-              }}
-            ></p>
-          </div>
-
-          <section>
-            <Suspense fallback={<Loader />}>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-                {newsList?.length === 0 ? (
-                  <p>No news found in this category.</p>
-                ) : (
-                  newsList?.map((newsItem) => (
-                    <NewsCard
-                      key={newsItem?.id}
-                      category={category ?? {}}
-                      date={newsItem?.publishDate}
-                      description={newsItem?.description}
-                      imageUrl={newsItem?.featureImage}
-                      title={newsItem?.title}
-                      newsSlug={newsItem?.slug}
-                      authorName={newsItem?.authorName}
-                      authorSlug={newsItem?.authorSlug}
-                      category_hierarchical_slug={newsItem?.category_hierarchical_slug}
-                    />
-                  ))
-                )}
-              </div>
-            </Suspense>
-            <ClientPagination
-              currentPage={1}
-              totalItems={totalCount}
-              slug={dynamic_one}
-              limit={20}
-            />
-          </section>
-        </main>
-      </PageGridWrapper>{" "}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJSON) }}
+      />
+      <CategoryPage
+        category={newsList?.categoryChain[0] ?? {}}
+        newsList={newsList?.newsList ?? []}
+        totalCount={newsList?.totalCount ?? 0}
+        slug={dynamic_one}
+        currentPage={newsList?.currentPage ?? 1}
+        limit={newsList?.limit ?? 20}
+      />
     </>
   );
 };

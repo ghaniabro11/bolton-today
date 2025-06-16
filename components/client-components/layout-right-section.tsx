@@ -1,6 +1,6 @@
 import { db } from "@/lib/db/db";
 import { categories, news, newsCategories } from "@/lib/db/schema";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import Loader from "./Loader";
@@ -8,20 +8,49 @@ import Search from "./search";
 import { Typography } from "./typography";
 
 const RecentNews = async () => {
-  const newsData = await db
-    .select({
-      slug: news.slug,
-      title: news.title,
-      categorySlug: categories.slug,
-    })
-    .from(news)
-    .innerJoin(newsCategories, eq(news.id, newsCategories.newsId))
-    .innerJoin(categories, eq(newsCategories.categoryId, categories.id))
-    .orderBy(desc(news.publishDate))
-    .limit(10)
-    .where(
-      and(eq(news.publishStatus, "active"), eq(news.activeStatus, "active"))
-    );
+  const latestPostQuery = sql`
+  WITH RECURSIVE category_path AS (
+    SELECT 
+      c.id,
+      c.slug,
+      c.parent_category_id,
+      c.slug::TEXT AS full_slug
+    FROM categories c
+    WHERE c.parent_category_id IS NULL
+
+    UNION ALL
+
+    SELECT 
+      child.id,
+      child.slug,
+      child.parent_category_id,
+      (parent.full_slug || '/' || child.slug) AS full_slug
+    FROM categories child
+    INNER JOIN category_path parent ON child.parent_category_id = parent.id
+  )
+
+  SELECT 
+    n.title AS title,
+    n.slug AS slug,
+    cp.full_slug AS categorySlug
+  FROM news n
+  LEFT JOIN news_categories nc ON n.id = nc.news_id
+  LEFT JOIN categories c ON nc.category_id = c.id
+  LEFT JOIN category_path cp ON c.id = cp.id
+  WHERE n.publish_status = 'active' 
+    AND n.active_status = 'active'
+`;
+
+  const latestQuery = sql`
+  ${latestPostQuery}
+  ORDER BY n.publish_date DESC
+  LIMIT 6
+`;
+
+  const latestResult = await db.execute(latestQuery);
+  const latest = latestResult.rows.length > 0 ? latestResult.rows : null;
+  console.log(latest, "latest");
+
   // console.log(newsData, "newsData");
   return (
     <>
@@ -29,7 +58,7 @@ const RecentNews = async () => {
         <section className="space-y-4 px-[10%] sticky top-10">
           <Search />
           <Typography variant="h2">Recent Bolton News</Typography>
-          <BulletSection items={newsData} />
+          <BulletSection items={latest as any} />
         </section>
       </Suspense>
     </>
@@ -54,7 +83,7 @@ const BulletSection: React.FC<BulletSectionProps> = ({ items }) => {
             {index + 1}
           </span>
           <Link
-            href={`/${item?.categorySlug}/${item?.slug}`.replace(/\/\/+/g, "/")}
+            href={`/${item?.categoryslug}/${item?.slug}`.replace(/\/\/+/g, "/")}
           >
             <Typography
               variant="h3"

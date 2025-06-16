@@ -63,28 +63,49 @@ async function fetchNewsData(db: any): Promise<NewsResponse> {
       WHERE n.publish_status = 'active' AND n.active_status = 'active'
     `;
     const latestPostQuery = sql`
-    SELECT 
-      n.title,
-      n.slug,
-      n.description,
-      a.name AS authorName,
-      a.slug AS authorSlug,
-      a.id AS authorId,
-      n.publish_date AS publishDate,
-      c.name AS categoryName,
-      c.slug AS categorySlug,
-      m.file_path AS image,
-      m.title AS imageTitle,
-      m.slug AS imageSlug,
-      m.caption AS imageCaption
-    FROM news n
-    LEFT JOIN authors a ON n.author_id = a.id
-    LEFT JOIN media m ON n.feature_image = m.id
-    LEFT JOIN news_categories nc ON n.id = nc.news_id
-    LEFT JOIN categories c ON nc.category_id = c.id
-    WHERE n.publish_status = 'active' AND n.active_status = 'active'
-    AND (nc.category_id IS NULL OR nc.category_id != 104)
-  `;
+          WITH RECURSIVE category_path AS (
+          SELECT 
+            c.id,
+            c.slug,
+            c.parent_category_id,
+            c.slug::TEXT AS full_slug
+          FROM categories c
+          WHERE c.parent_category_id IS NULL
+
+          UNION ALL
+
+          SELECT 
+            child.id,
+            child.slug,
+            child.parent_category_id,
+            (parent.full_slug || '/' || child.slug) AS full_slug
+          FROM categories child
+          INNER JOIN category_path parent ON child.parent_category_id = parent.id
+        )
+
+        SELECT 
+          n.title,
+          n.slug AS slug,
+          n.publish_date AS publishDate,
+          a.name AS authorName,
+          a.slug AS authorSlug,
+          a.id AS authorId,
+          cp.full_slug AS categoryslug,
+          cp.id AS categoryId,
+          c.name AS categoryName,
+          m.file_path AS image,
+          m.title AS imageTitle,
+          m.slug AS imageSlug,
+          m.caption AS imageCaption
+        FROM news n
+        LEFT JOIN authors a ON n.author_id = a.id
+        LEFT JOIN media m ON n.feature_image = m.id
+        LEFT JOIN news_categories nc ON n.id = nc.news_id
+        LEFT JOIN categories c ON nc.category_id = c.id
+        LEFT JOIN category_path cp ON c.id = cp.id
+        WHERE n.publish_status = 'active' 
+          AND n.active_status = 'active'
+`;
     // Fetch latest 4 news items
     const latestQuery = sql`
       ${latestPostQuery}
@@ -242,7 +263,6 @@ async function fetchNewsData(db: any): Promise<NewsResponse> {
       categoryFourteenResult.rows.length > 0
         ? categoryFourteenResult.rows
         : null;
-
 
     // const categoryElevenQuery = sql`
     //   ${baseQuery}

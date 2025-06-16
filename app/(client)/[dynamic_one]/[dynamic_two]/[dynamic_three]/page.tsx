@@ -15,9 +15,13 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ dynamic_one: string; dynamic_two: string }>;
+  params: Promise<{
+    dynamic_one: string;
+    dynamic_two: string;
+    dynamic_three: string;
+  }>;
 }): Promise<Metadata> {
-  const { dynamic_one, dynamic_two } = await params;
+  const { dynamic_one, dynamic_two, dynamic_three } = await params;
   let metaData;
   metaData = await db
     .select({
@@ -26,7 +30,7 @@ export async function generateMetadata({
       keyword: news.keywords,
     })
     .from(news)
-    .where(eq(news.slug, dynamic_two))
+    .where(eq(news.slug, dynamic_three))
     .limit(1);
   if (metaData?.length === 0) {
     metaData = await db
@@ -36,7 +40,7 @@ export async function generateMetadata({
         keyword: categories.keywords,
       })
       .from(categories)
-      .where(eq(categories.slug, dynamic_two))
+      .where(eq(categories.slug, dynamic_three))
       .limit(1);
   }
   const data = metaData[0];
@@ -48,7 +52,7 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/`,
+      canonical: `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/${dynamic_three}`,
     },
 
     // // Robots meta (camelCase keys)
@@ -71,16 +75,24 @@ export async function generateMetadata({
 const DynamicTwo = async ({
   params,
 }: {
-  params: Promise<{ dynamic_one: string; dynamic_two: string }>;
+  params: Promise<{
+    dynamic_one: string;
+    dynamic_two: string;
+    dynamic_three: string;
+  }>;
 }) => {
-  const { dynamic_one, dynamic_two } = await params;
+  const { dynamic_one, dynamic_two, dynamic_three } = await params;
 
   let newsDetails;
   let categoriesWithNews;
-  newsDetails = (await validateNewsUrl([dynamic_one, dynamic_two])) as any;
+  newsDetails = (await validateNewsUrl([
+    dynamic_one,
+    dynamic_two,
+    dynamic_three,
+  ])) as any;
   if (!newsDetails.valid) {
     categoriesWithNews = (await validateCategoryPathWithNews({
-      slugParts: [dynamic_one, dynamic_two],
+      slugParts: [dynamic_one, dynamic_two, dynamic_three],
       limit: 20,
       page: 1,
     })) as any;
@@ -113,8 +125,14 @@ const DynamicTwo = async ({
                 {
                   "@type": "ListItem",
                   position: 3,
+                  name: newsDetails?.categoryChain[1]?.name,
+                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}/${newsDetails?.categoryChain[1]?.slug}/`,
+                },
+                {
+                  "@type": "ListItem",
+                  position: 4,
                   name: newsDetails?.news[0]?.title,
-                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}/${newsDetails?.news[0]?.slug}/`,
+                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}/${newsDetails?.categoryChain[1]?.slug}/${newsDetails?.news[0]?.slug}/`,
                 },
               ],
             })}
@@ -125,7 +143,7 @@ const DynamicTwo = async ({
               "@type": "NewsArticle",
               mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/`,
+                "@id": `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/${dynamic_three}`,
               },
               headline: newsDetails?.news[0]?.title,
               image: [newsDetails?.news[0]?.featureImage],
@@ -183,6 +201,12 @@ const DynamicTwo = async ({
                     name: categoriesWithNews?.categoryChain[1]?.name,
                     item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}/${categoriesWithNews?.categoryChain[1]?.slug}/`,
                   },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: categoriesWithNews?.categoryChain[2]?.name,
+                    item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}/${categoriesWithNews?.categoryChain[1]?.slug}/${categoriesWithNews?.categoryChain[2]?.slug}/`,
+                  },
                 ],
               }),
             }}
@@ -191,7 +215,7 @@ const DynamicTwo = async ({
             category={categoriesWithNews?.categoryChain[1]}
             newsList={categoriesWithNews?.newsList}
             totalCount={Number(categoriesWithNews.totalCount)}
-            slug={`${dynamic_one}/${dynamic_two}`}
+            slug={`${dynamic_one}/${dynamic_two}/${dynamic_three}`}
             currentPage={Number(categoriesWithNews?.currentPage)}
             limit={categoriesWithNews?.limit}
           />

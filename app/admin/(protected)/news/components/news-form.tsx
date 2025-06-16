@@ -1,3 +1,4 @@
+
 "use client";
 
 import { DynamicForm, FieldConfig } from "@/components/dynamic-form";
@@ -7,6 +8,7 @@ import axiosInstance from "@/utils/axiosInstance";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+export const dynamic = "force-dynamic";
 
 const newsFormFields: FieldConfig[] = [
   {

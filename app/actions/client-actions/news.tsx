@@ -6,417 +6,262 @@ import {
   news,
   newsCategories,
 } from "@/lib/db/schema"; // Your schema
-import { and, eq } from "drizzle-orm";
-import { notFound } from "next/navigation";
-import { toast } from "sonner";
-
-// Type definitions for the result
-export interface NewsDetailResult {
-  id: number;
-  title: string;
-  slug: string;
-  description: string | null;
-  details: string | null;
-  publishStatus: string;
-  activeStatus: string;
-  publishDate: Date;
-  metaTitle: string | null;
-  metaDescription: string | null;
-  keywords: string | null;
-  featureImage: {
-    filePath: string | null;
-    caption: string | null;
-    title: string | null;
-  };
-  createdAt: Date;
-  author: {
-    id: number | null;
-    name: string | null;
-  };
-  category: {
-    id: number;
-    name: string;
-    slug: string;
-    description: string | null;
-  };
-}
-
-// Custom error classes for better error handling
-export class NewsNotFoundError extends Error {
-  constructor(newsSlug: string) {
-    super(`News with slug "${newsSlug}" not found`);
-    this.name = "NewsNotFoundError";
-  }
-}
-
-export class CategoryNotFoundError extends Error {
-  constructor(categorySlug: string) {
-    super(`Category with slug "${categorySlug}" not found`);
-    this.name = "CategoryNotFoundError";
-  }
-}
-
-export class NewsNotInCategoryError extends Error {
-  constructor(newsSlug: string, categorySlug: string) {
-    super(
-      `News "${newsSlug}" is not associated with category "${categorySlug}"`
-    );
-    this.name = "NewsNotInCategoryError";
-  }
-}
-
-/**
- * Get news detail with category information by news and category slugs
- * @param newsSlug - The slug of the news article
- * @param categorySlug - The slug of the category
- * @returns Promise<NewsDetailResult> - The news detail with category info
- * @throws {NewsNotFoundError} - When news with given slug doesn't exist
- * @throws {CategoryNotFoundError} - When category with given slug doesn't exist
- * @throws {NewsNotInCategoryError} - When news is not associated with the category
- */
-// export async function getNewsDetailBySlug(
-//   newsSlug: string,
-//   categorySlug: string
-// ): Promise<NewsDetailResult> {
-//   // Input validation
-//   if (!newsSlug || typeof newsSlug !== "string" || newsSlug.trim() === "") {
-//     throw new Error("News slug is required and must be a non-empty string");
-//   }
-
-//   if (
-//     !categorySlug ||
-//     typeof categorySlug !== "string" ||
-//     categorySlug.trim() === ""
-//   ) {
-//     throw new Error("Category slug is required and must be a non-empty string");
-//   }
-
-//   // Trim slugs to handle whitespace
-//   const trimmedNewsSlug = newsSlug.trim();
-//   const trimmedCategorySlug = categorySlug.trim();
-
-//   try {
-//     // Step 1: Validate news exists and get basic info
-//     const newsResult = await db
-//       .select({
-//         id: news.id,
-//         title: news.title,
-//         slug: news.slug,
-//         description: news.description,
-//         details: news.details,
-//         publishStatus: news.publishStatus,
-//         activeStatus: news.activeStatus,
-//         publishDate: news.publishDate,
-//         metaTitle: news.metaTitle,
-//         metaDescription: news.metaDescription,
-//         keywords: news.keywords,
-//         featureImage: news.featureImage,
-//         authorId: news.authorId,
-//         createdAt: news.createdAt,
-//       })
-//       .from(news)
-//       .where(eq(news.slug, trimmedNewsSlug))
-//       .limit(1);
-
-//     if (newsResult.length === 0) {
-//       throw new NewsNotFoundError(trimmedNewsSlug);
-//     }
-
-//     const newsData = newsResult[0];
-
-//     // Step 2: Validate category exists
-//     const categoryResult = await db
-//       .select({
-//         id: categories.id,
-//         name: categories.name,
-//         slug: categories.slug,
-//         description: categories.description,
-//       })
-//       .from(categories)
-//       .where(eq(categories.slug, trimmedCategorySlug))
-//       .limit(1);
-
-//     if (categoryResult.length === 0) {
-//       throw new CategoryNotFoundError(trimmedCategorySlug);
-//     }
-
-//     const categoryData = categoryResult[0];
-
-//     // Step 3: Validate the news-category relationship exists
-//     const relationshipResult = await db
-//       .select({
-//         newsId: newsCategories.newsId,
-//         categoryId: newsCategories.categoryId,
-//       })
-//       .from(newsCategories)
-//       .where(
-//         and(
-//           eq(newsCategories.newsSlug, trimmedNewsSlug),
-//           eq(newsCategories.categorySlug, trimmedCategorySlug)
-//         )
-//       )
-//       .limit(1);
-
-//     if (relationshipResult.length === 0) {
-//       throw new NewsNotInCategoryError(trimmedNewsSlug, trimmedCategorySlug);
-//     }
-
-//     // Step 4: Get author information if exists
-//     let authorData = { id: null, name: null };
-
-//     if (newsData.authorId) {
-//       const authorResult = await db
-//         .select({
-//           id: authors.id,
-//           name: authors.name, // Assuming authors table has a name field
-//         })
-//         .from(authors)
-//         .where(eq(authors.id, newsData.authorId))
-//         .limit(1);
-
-//       if (authorResult.length > 0) {
-//         authorData = authorResult[0];
-//       }
-//     }
-
-//     // Step 5: Construct and return the result
-//     const result: NewsDetailResult = {
-//       id: newsData.id,
-//       title: newsData.title,
-//       slug: newsData.slug,
-//       description: newsData.description,
-//       details: newsData.details,
-//       publishStatus: newsData.publishStatus,
-//       activeStatus: newsData.activeStatus,
-//       publishDate: newsData.publishDate,
-//       metaTitle: newsData.metaTitle,
-//       metaDescription: newsData.metaDescription,
-//       keywords: newsData.keywords,
-//       featureImage: newsData.featureImage,
-//       createdAt: newsData.createdAt,
-//       author: authorData,
-//       category: {
-//         id: categoryData.id,
-//         name: categoryData.name,
-//         slug: categoryData.slug,
-//         description: categoryData.description,
-//       },
-//     };
-
-//     return result;
-//   } catch (error) {
-//     // Re-throw custom errors
-//     if (
-//       error instanceof NewsNotFoundError ||
-//       error instanceof CategoryNotFoundError ||
-//       error instanceof NewsNotInCategoryError
-//     ) {
-//       throw error;
-//     }
-
-//     // Handle unexpected database errors
-//     console.error("Database error in getNewsDetailBySlug:", error);
-//     throw new Error("Failed to retrieve news details due to database error");
-//   }
-// }
-
-// Alternative version with a single optimized query (more efficient)
+import { eq, inArray, sql } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
-export async function getNewsDetailBySlugOptimized(
-  newsSlug: string,
-  categorySlug: string
-): Promise<any> {
-  // Input validation
-  if (!newsSlug || typeof newsSlug !== "string" || newsSlug.trim() === "") {
-    toast.error("News slug is required and must be a non-empty string");
-    return null; // Add return statement
+export async function validateNewsUrl(slugParts: string[]) {
+  const logs = [];
+  const slugLength = slugParts.length;
+
+  if (slugLength < 2 || slugLength > 4) {
+    return { valid: false, error: "Invalid URL structure." };
   }
 
-  if (
-    !categorySlug ||
-    typeof categorySlug !== "string" ||
-    categorySlug.trim() === ""
-  ) {
-    toast.error("Category slug is required and must be a non-empty string");
-    return null; // Add return statement
+  const newsSlug = slugParts[slugParts.length - 1];
+  const categorySlugs = slugParts.slice(0, -1); // [category, subcategory, ...]
+
+  // 1. Get news by slug
+  const newsItem = await db
+    .select({
+      id: news.id,
+      title: news.title,
+      slug: news.slug,
+      description: news.description,
+      details: news.details,
+      publishStatus: news.publishStatus,
+      activeStatus: news.activeStatus,
+      publishDate: news.publishDate,
+      metaDescription: news.metaDescription,
+      featureImage: media.filePath,
+      featureImageTitle: media.title,
+      featureImageCaption: media.caption,
+      newsCreatedAt: news.createdAt,
+
+      authorId: authors.id,
+      authorName: authors.name,
+      authorSlug: authors.slug,
+
+      categoryId: categories.id,
+      categoryName: categories.name,
+      categorySlug: categories.slug,
+      categoryDescription: categories.description,
+    })
+    .from(news)
+    .leftJoin(media, eq(news.featureImage, media.id))
+    .leftJoin(authors, eq(news.authorId, authors.id))
+    .innerJoin(newsCategories, eq(news.id, newsCategories.newsId))
+    .innerJoin(categories, eq(newsCategories.categoryId, categories.id))
+    .where(eq(news.slug, newsSlug))
+    .limit(1);
+
+  if (!newsItem) {
+    return { valid: false, error: "News not found." };
   }
 
-  console.log(newsSlug, "news slug", categorySlug, "category");
-  const trimmedNewsSlug = newsSlug.trim(); // Actually trim the values
-  const trimmedCategorySlug = categorySlug.trim();
+  // 2. Get news-category links
+  const newsCategoryLinks = await db.query.newsCategories.findMany({
+    where: eq(newsCategories.newsId, newsItem[0]?.id),
+  });
+  const linkedCategoryIds = newsCategoryLinks.map((link) => link.categoryId);
 
-  try {
-    // Single query with joins for better performance
-    const result = await db
-      .select({
-        // News fields
-        newsId: news.id,
-        newsTitle: news.title,
-        newsSlug: news.slug,
-        newsDescription: news.description,
-        newsDetails: news.details,
-        publishStatus: news.publishStatus,
-        activeStatus: news.activeStatus,
-        publishDate: news.publishDate,
-        // metaTitle: news.metaTitle,
-        metaDescription: news.metaDescription,
-        // keywords: news.keywords,
-        newsCreatedAt: news.createdAt,
-        featureImage: media.filePath, // Fixed: uncommented and properly referenced
-        featureImageTitle: media.title, // Fixed: uncommented and properly referenced
-        featureImageCaption: media.caption, // Fixed: uncommented and properly referenced
+  if (linkedCategoryIds?.length === 0) {
+    return { valid: false, error: "News is not linked to any category." };
+  }
 
-        // Category fields
-        categoryId: categories.id,
-        categoryName: categories.name,
-        categorySlug: categories.slug,
-        categoryDescription: categories.description,
+  // 3. Fetch category chain from right to left
+  const resolvedCategories: any[] = [];
+  // let currentParentId: number | null = null;
 
-        // Author fields
-        authorId: authors.id,
-        authorName: authors.name,
-        authorSlug: authors.slug,
-      })
-      .from(news)
-      .innerJoin(newsCategories, eq(news.id, newsCategories.newsId))
-      .leftJoin(media, eq(media.id, news.featureImage)) // Fixed: uncommented
-      .innerJoin(categories, eq(newsCategories.categoryId, categories.id))
-      .leftJoin(authors, eq(news.authorId, authors.id))
-      .where(
+  // for (let i = categorySlugs?.length - 1; i >= 0; i--) {
+  //   const slug = categorySlugs[i];
+
+  //   const category = await db.query.categories.findFirst({
+  //     where: (cat, { eq, and }) =>
+  //       and(
+  //         eq(cat.slug, slug),
+  //         currentParentId === null ? sql`true` : eq(cat.id, currentParentId)
+  //       ),
+  //   });
+
+  //   if (!category) {
+  //     return {
+  //       valid: false,
+  //       error: `Hierarchy mismatch at slug: "${slug}". It is not a valid parent.`,
+  //     };
+  //   }
+
+  //   resolvedCategories.unshift(category); // Maintain correct order
+  //   currentParentId = category.parentCategoryId;
+  // }
+  let expectedParentId: number | null = null;
+
+  for (let i = 0; i < slugParts.length - 1; i++) {
+    const slug = slugParts[i];
+
+    const category = await db.query.categories.findFirst({
+      where: (cat, { eq, and }) =>
         and(
-          eq(news.slug, trimmedNewsSlug),
-          eq(categories.slug, trimmedCategorySlug),
-          // Add status filters for better data integrity
-          eq(news.publishStatus, "active"),
-          eq(news.activeStatus, "active")
-        )
-      )
-      .limit(1);
+          eq(cat.slug, slug),
+          expectedParentId === null
+            ? sql`true`
+            : eq(cat.parentCategoryId, expectedParentId)
+        ),
+    });
 
-    console.log(result, "result");
-
-    if (result.length === 0) {
-      // Better error handling - check what specifically failed
-
-      // Check if news exists with proper status
-      const newsExists = await db
-        .select({ id: news.id })
-        .from(news)
-        .where(
-          and(
-            eq(news.slug, trimmedNewsSlug),
-            eq(news.publishStatus, "active"),
-            eq(news.activeStatus, "active")
-          )
-        )
-        .limit(1);
-
-      if (newsExists.length === 0) {
-        console.log("News not found or not active:", trimmedNewsSlug);
-        return notFound();
-      }
-
-      // Check if category exists
-      const categoryExists = await db
-        .select({ id: categories.id })
-        .from(categories)
-        .where(
-          and(
-            eq(categories.slug, trimmedCategorySlug),
-            eq(categories.status, "active")
-          )
-        )
-        .limit(1);
-
-      if (categoryExists.length === 0) {
-        console.log("Category not found or not active:", trimmedCategorySlug);
-        return notFound();
-      }
-
-      // Check if news is in the category
-      const newsInCategory = await db
-        .select({ newsId: newsCategories.newsId })
-        .from(newsCategories)
-        .innerJoin(news, eq(news.id, newsCategories.newsId))
-        .innerJoin(categories, eq(categories.id, newsCategories.categoryId))
-        .where(
-          and(
-            eq(news.slug, trimmedNewsSlug),
-            eq(categories.slug, trimmedCategorySlug)
-          )
-        )
-        .limit(1);
-
-      if (newsInCategory.length === 0) {
-        console.log(
-          "News not in specified category:",
-          trimmedNewsSlug,
-          trimmedCategorySlug
-        );
-        return notFound();
-      }
-
-      // If we reach here, something else went wrong
-      console.log("Unexpected case - news and category exist but query failed");
-      return notFound();
+    if (!category) {
+      return {
+        valid: false,
+        error: `Category not found or incorrect parent-child relation at slug: "${slug}"`,
+      };
     }
 
-    const data = result[0];
+    // 💡 New strict check:
+    if (i === 0 && category.parentCategoryId !== null) {
+      return {
+        valid: false,
+        error: `Slug chain is incomplete. Missing parent for: "${slug}"`,
+      };
+    }
 
+    resolvedCategories.push(category);
+    expectedParentId = category.id;
+  }
+  // 4. Final category in chain should be directly linked with news
+  const finalCategory = resolvedCategories[resolvedCategories.length - 1];
+  const isLinked = linkedCategoryIds.includes(finalCategory.id);
+  // 👇 Construct the full category path from the chain
+  const fullCategorySlugPath = resolvedCategories
+    .map((cat) => cat.slug)
+    .join("/");
+
+  if (!isLinked) {
     return {
-      id: data.newsId,
-      title: data.newsTitle,
-      slug: data.newsSlug,
-      description: data.newsDescription,
-      details: data.newsDetails,
-      publishStatus: data.publishStatus,
-      activeStatus: data.activeStatus,
-      publishDate: data.publishDate,
-      // metaTitle: data.metaTitle,
-      metaDescription: data.metaDescription,
-      // keywords: data.keywords,
-      featureImage: data.featureImage, // Now properly available
-      featureImageCaption: data.featureImageCaption, // Now properly available
-      featureImageTitle: data.featureImageTitle, // Now properly available
-      createdAt: data.newsCreatedAt,
-      author: data.authorId
-        ? {
-            id: data.authorId,
-            name: data.authorName,
-            slug: data.authorSlug,
-          }
-        : null, // Handle case where author might be null
-      category: {
-        id: data.categoryId,
-        name: data.categoryName,
-        slug: data.categorySlug,
-        description: data.categoryDescription,
-      },
+      valid: false,
+      error: "Final category in path is not linked to this news.",
     };
-  } catch (error) {
-    console.error("Database error in getNewsDetailBySlugOptimized:", error);
-    return notFound();
   }
+
+  return {
+    valid: true,
+    news: newsItem,
+    categoryChain: resolvedCategories,
+    categoryName: finalCategory.name,
+    categorySlug: finalCategory.slug,
+    categoryUrl: fullCategorySlugPath, // e.g., "us/politics"
+    completeUrl: `${fullCategorySlugPath}/${newsItem[0].slug}`, // e.g., "us/politics/biden-visits-nato"
+  };
 }
 
-// Usage example:
-/*
-try {
-  const newsDetail = await getNewsDetailBySlug('my-news-article', 'technology');
-  console.log('News:', newsDetail.title);
-  console.log('Category:', newsDetail.category.name);
-  console.log('Author:', newsDetail.author.name);
-} catch (error) {
-  if (error instanceof NewsNotFoundError) {
-    console.error('News not found:', error.message);
-  } else if (error instanceof CategoryNotFoundError) {
-    console.error('Category not found:', error.message);
-  } else if (error instanceof NewsNotInCategoryError) {
-    console.error('News not in category:', error.message);
-  } else {
-    console.error('Unexpected error:', error.message);
-  }
+interface ValidateCategoryWithNewsOptions {
+  slugParts: string[];
+  page?: number;
+  limit?: number;
 }
-*/
+
+export async function validateCategoryPathWithNews({
+  slugParts,
+  page = 1,
+  limit = 20,
+}: ValidateCategoryWithNewsOptions) {
+  if (slugParts.length === 0 || slugParts.length > 3) {
+    return { valid: false, error: "Invalid category path length." };
+  }
+
+  const resolvedCategories: any[] = [];
+  let expectedParentId: number | null = null;
+
+  for (let i = 0; i < slugParts.length; i++) {
+    const slug = slugParts[i];
+
+    const category = await db.query.categories.findFirst({
+      where: (cat, { eq, and }) =>
+        and(
+          eq(cat.slug, slug),
+          expectedParentId === null
+            ? sql`true`
+            : eq(cat.parentCategoryId, expectedParentId)
+        ),
+    });
+
+    if (!category) {
+      return {
+        valid: false,
+        error: `Category not found or incorrect parent-child relation at slug: "${slug}"`,
+      };
+    }
+
+    // 💡 New strict check:
+    if (i === 0 && category.parentCategoryId !== null) {
+      return {
+        valid: false,
+        error: `Slug chain is incomplete. Missing parent for: "${slug}"`,
+      };
+    }
+
+    resolvedCategories.push(category);
+    expectedParentId = category.id;
+  }
+
+  const finalCategory = resolvedCategories[resolvedCategories.length - 1];
+
+  // 1. Find news linked to final category
+  const newsLinks = await db.query.newsCategories.findMany({
+    where: eq(newsCategories.categoryId, finalCategory.id),
+  });
+
+  const newsIds = newsLinks.map((n) => n.newsId);
+  if (newsIds.length === 0) {
+    return {
+      valid: true,
+      categoryChain: resolvedCategories,
+      newsList: [],
+      totalCount: 0,
+      currentPage: page,
+      limit,
+    };
+  }
+
+  // 2. Get total count
+  const [{ count: totalCount }] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(news)
+    .where(inArray(news.id, newsIds));
+
+  // 3. Get paginated news items
+  const offset = (page - 1) * limit;
+
+  const newsItems = await db
+    .select({
+      id: news.id,
+      title: news.title,
+      slug: news.slug,
+      publishDate: news.publishDate,
+      featureImage: media.filePath,
+      authorName: authors.name,
+      authorSlug: authors.slug,
+    })
+    .from(news)
+    .leftJoin(authors, eq(news.authorId, authors.id))
+    .leftJoin(media, eq(news.featureImage, media.id))
+    .where(inArray(news.id, newsIds))
+    .orderBy(sql`${news.publishDate} DESC`)
+    .limit(limit)
+    .offset(offset);
+
+  // 4. Generate full slug path
+  const prefix = resolvedCategories.map((c) => c.slug).join("/");
+  const resultNews = newsItems.map((item) => ({
+    ...item,
+    completeSlug: `${prefix}/${item.slug}`,
+  }));
+
+  return {
+    valid: true,
+    categoryChain: resolvedCategories,
+    newsList: resultNews,
+    totalCount,
+    currentPage: page,
+    limit,
+  };
+}

@@ -1,24 +1,22 @@
-import { getNewsByCategorySlug } from "@/app/actions/client-actions/category";
-import PageGridWrapper from "@/components/client-components/grid-wrapper";
-import Loader from "@/components/client-components/Loader";
-import NewsCard from "@/components/client-components/news-card";
-import { Typography } from "@/components/client-components/typography";
-import { ClientPagination } from "@/components/reuse-client-pagination";
+import { validateCategoryPathWithNews } from "@/app/actions/client-actions/news";
+import CategoryPage from "@/components/client-components/category-page";
 import { db } from "@/lib/db/db";
 import { categories } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
-import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ dynamic_one: string }>;
+  params: Promise<{
+    dynamic_one: string;
+    pagination: string;
+  }>;
 }): Promise<Metadata> {
-  const { dynamic_one } = await params;
+  const { dynamic_one, pagination } = await params;
 
   const metaData = await db
     .select({
@@ -39,17 +37,9 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}`,
+      canonical: `https://boltontoday.co.uk/${dynamic_one}/page/${pagination}`,
     },
 
-    // // Robots meta (camelCase keys)
-    // robots: {
-    //   index: true,
-    //   follow: true,
-    //   "max-snippet": -1,
-    //   "max-video-preview": -1,
-    //   "max-image-preview": "large",
-    // },
     robots: {
       index: true,
       follow: true,
@@ -59,76 +49,64 @@ export async function generateMetadata({
     },
   };
 }
-const DynamicOneWithPagination = async ({
+const DynamicOne = async ({
   params,
-  searchParams,
 }: {
   params: Promise<{ dynamic_one: string; pagination: string }>;
-  searchParams: Promise<{ page: number }>;
 }) => {
   const { dynamic_one, pagination } = await params;
+
 
   if (pagination === "1") {
     permanentRedirect(`/${dynamic_one}`);
   }
-  const { category, newsList, totalCount } = await getNewsByCategorySlug(
-    dynamic_one,
-    Number(pagination)
-  );
-  console.log(newsList, "newsList");
-  if (!category || newsList?.length === 0) return notFound();
+
+
+
+  const newsList = (await validateCategoryPathWithNews({
+    slugParts: [dynamic_one],
+    limit: 20,
+    page: Number(pagination),
+  })) as any;
+
+  
+  if (!newsList.valid || newsList?.newsList?.length === 0) return notFound();
+
+  const breadcrumbJSON = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `https://boltontoday.co.uk/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: newsList?.categoryChain[0]?.name,
+        item: `https://boltontoday.co.uk/${newsList?.categoryChain[0]?.slug}/page/${pagination}`,
+      },
+    ],
+  };
+
   return (
-    <PageGridWrapper>
-      <main>
-        <div className=" bg-sky p-6 rounded-2xl text-black shadow-md ">
-          <Typography
-            variant="h1"
-            className="text-2xl md:text-3xl font-bold mb-2"
-          >
-            {category.name}
-          </Typography>
-
-            <p
-              className="text-base md:text-lg leading-relaxed "
-              dangerouslySetInnerHTML={{
-                __html: category?.description ?? "N/A",
-              }}
-            ></p>
-     
-        </div>
-
-        <section>
-          <Suspense fallback={<Loader />}>
-            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-              {newsList?.length === 0 ? (
-                <p>No news found in this category.</p>
-              ) : (
-                newsList?.map((newsItem) => (
-                  <NewsCard
-                    key={newsItem?.id}
-                    category={category}
-                    date={newsItem?.publishDate}
-                    description={newsItem?.description}
-                    imageUrl={newsItem?.featureImage}
-                    title={newsItem?.title}
-                    newsSlug={newsItem?.slug}
-                    authorName={newsItem?.authorName}
-                    authorSlug={newsItem?.authorSlug}
-                  />
-                ))
-              )}
-            </div>
-          </Suspense>
-          <ClientPagination
-            currentPage={Number(pagination)}
-            totalItems={totalCount}
-            slug={dynamic_one}
-            limit={20}
-          />
-        </section>
-      </main>
-    </PageGridWrapper>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJSON) }}
+      />
+      <CategoryPage
+        category={newsList?.categoryChain[0] ?? {}}
+        newsList={newsList?.newsList ?? []}
+        totalCount={newsList?.totalCount ?? 0}
+        slug={dynamic_one}
+        currentPage={newsList?.currentPage ?? 1}
+        limit={newsList?.limit ?? 20}
+      />
+    </>
   );
 };
 
-export default DynamicOneWithPagination;
+export default DynamicOne;
