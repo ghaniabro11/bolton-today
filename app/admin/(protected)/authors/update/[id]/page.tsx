@@ -9,6 +9,7 @@ interface Props {
     id: string;
   };
 }
+export const dynamic = "force-dynamic";
 
 const UpdateAuthorPage = async ({
   params,
