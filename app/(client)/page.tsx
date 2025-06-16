@@ -99,59 +99,61 @@ const Home = async ({
             ],
           })}
         </script>
-        <h1 className=" text-xs text-transparent absolute"> Bolton Today</h1>
-        <ComponentOne
-          latest={newsData?.latest ?? null}
-          opinionCategory={newsData?.categoryOne ?? null}
-        />
+        <>
+          <h1 className=" text-xs text-transparent absolute"> Bolton Today</h1>
+          <ComponentOne
+            latest={newsData?.latest ?? null}
+            opinionCategory={newsData?.categoryOne ?? null}
+          />
 
-        <OceanCityCarousel
-          data={newsData?.categoryOne ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} />
+          <OceanCityCarousel
+            data={newsData?.categoryOne ?? []}
+          ></OceanCityCarousel>
 
-        <OceanCityCarousel
-          data={newsData?.categoryThree ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categoryFour ?? []} />
+          <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} />
 
-        <OceanCityCarousel
-          data={newsData?.categoryFive ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categorySix ?? []} />
+          <OceanCityCarousel
+            data={newsData?.categoryThree ?? []}
+          ></OceanCityCarousel>
 
-        <OceanCityCarousel
-          data={newsData?.categorySeven ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categoryEight ?? []} />
+          <ComponentFive diplomacyCat={newsData?.categoryFour ?? []} />
 
-        <OceanCityCarousel
-          data={newsData?.categoryNine ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categoryTen ?? []} />
+          <OceanCityCarousel
+            data={newsData?.categoryFive ?? []}
+          ></OceanCityCarousel>
 
-        <OceanCityCarousel
-          data={newsData?.categoryEleven ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categoryTwelve ?? []} />
+          <ComponentFive diplomacyCat={newsData?.categorySix ?? []} />
 
-        <OceanCityCarousel
-          data={newsData?.categoryThirteen ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
+          <OceanCityCarousel
+            data={newsData?.categorySeven ?? []}
+          ></OceanCityCarousel>
 
-        <OceanCityCarousel
-          data={newsData?.categoryEleven ?? []}
-        ></OceanCityCarousel>
-        <Line />
-        <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
+          <ComponentFive diplomacyCat={newsData?.categoryEight ?? []} />
+
+          <OceanCityCarousel
+            data={newsData?.categoryNine ?? []}
+          ></OceanCityCarousel>
+
+          <ComponentFive diplomacyCat={newsData?.categoryTen ?? []} />
+
+          <OceanCityCarousel
+            data={newsData?.categoryEleven ?? []}
+          ></OceanCityCarousel>
+
+          <ComponentFive diplomacyCat={newsData?.categoryTwelve ?? []} />
+
+          <OceanCityCarousel
+            data={newsData?.categoryThirteen ?? []}
+          ></OceanCityCarousel>
+
+          <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
+
+          <OceanCityCarousel
+            data={newsData?.categoryEleven ?? []}
+          ></OceanCityCarousel>
+
+          <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
+        </>
 
         {/* <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} /> */}
         {/* <Line/> */}
@@ -209,9 +211,7 @@ const Home = async ({
     <Suspense fallback={<Loader />}>
       <PageGridWrapper>
         <div className="bg-head  p-5 mb-5">
-       <span className=" text-btn">
-           {result.length} Search Result For:
-        </span>
+          <span className=" text-btn">{result.length} Search Result For:</span>
           <Typography variant="h2" className="font-semibold text-white">
             {searchQuery}
           </Typography>

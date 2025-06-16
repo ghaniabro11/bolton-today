@@ -114,7 +114,7 @@ const DynamicOne = async ({
                   newsList?.map((newsItem) => (
                     <NewsCard
                       key={newsItem?.id}
-                      category={category}
+                      category={category ?? {}}
                       date={newsItem?.publishDate}
                       description={newsItem?.description}
                       imageUrl={newsItem?.featureImage}
