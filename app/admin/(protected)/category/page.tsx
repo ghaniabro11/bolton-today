@@ -4,6 +4,7 @@ import { db } from "@/lib/db/db";
 import { categories, media } from "@/lib/db/schema";
 import { desc, eq, like, or, sql } from "drizzle-orm";
 import { Metadata } from "next";
+export const dynamic = "force-dynamic";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;

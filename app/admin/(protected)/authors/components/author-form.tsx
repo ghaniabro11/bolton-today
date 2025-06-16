@@ -7,6 +7,7 @@ import axiosInstance from "@/utils/axiosInstance";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+export const dynamic = "force-dynamic";
 
 interface Category {
   id: number;
