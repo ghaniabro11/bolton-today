@@ -78,6 +78,7 @@ const AuthorDetails = async ({
   });
   if (result?.data === null) return notFound();
 
+  console.log(result, "result:");
   if (result.success) {
     console.log("Author:", result.data.author);
     console.log("News:", result.data.news);

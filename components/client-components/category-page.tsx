@@ -5,23 +5,7 @@ import Loader from "./Loader";
 import NewsCard from "./news-card";
 import { ClientPagination } from "../reuse-client-pagination";
 import "./content.css";
-interface CategoryPageProps {
-  category: any;
-  newsList: {
-    id: string;
-    slug: string;
-    title: string;
-    description: string;
-    publishDate: string;
-    featureImage: string;
-    authorName: string;
-    authorSlug: string;
-  }[];
-  totalCount: number;
-  slug: string;
-  currentPage?: number;
-  limit?: number;
-}
+
 
 export default function CategoryPage({
   category,
@@ -56,7 +40,7 @@ export default function CategoryPage({
           <section>
             <Suspense fallback={<Loader />}>
               {newsList?.length === 0 ? (
-                <p className="px-3">No news found in this category.</p>
+                <p className="px-3 mt-5">No news found in this category.</p>
               ) : (
                 newsList?.map((newsItem: any) => (
                   <NewsCard
@@ -81,14 +65,7 @@ export default function CategoryPage({
               limit={Number(limit)}
             />
 
-            <div className="px-3 mt-6">
-              <h2 className="text-lg font-semibold">About This Category</h2>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: category.description ?? "N/A",
-                }}
-              ></p>
-            </div>
+          
           </section>
         </main>
       </PageGridWrapper>
