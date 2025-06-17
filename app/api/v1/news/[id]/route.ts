@@ -176,6 +176,7 @@ export async function PUT(
         metaTitle,
         metaDescription,
         keywords,
+        createdAt: new Date(),
       })
       .where(eq(news.id, id))
       .returning();

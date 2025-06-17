@@ -90,9 +90,12 @@ const DynamicTwo = async ({
     dynamic_four,
   ])) as any;
 
-  const data = test?.news[0];
-  console.log(test, "news///////////////////");
   if (!test.valid) return notFound();
+
+
+  
+  const data = test?.news[0] ?? [];
+  console.log(test, "news///////////////////");
   // const breadcrumbJSON = {
   //   "@context": "https://schema.org",
   //   "@type": "BreadcrumbList",

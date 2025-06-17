@@ -75,7 +75,7 @@ const ComponentOne = async ({
         <div className="space-y-1">
           {leftData.map((item: any, index: number) => (
             <div key={index} className="px-2  border-l-head border-l-3 ">
-              <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
+              <Link href={`/${item?.categoryslug}/${item?.slug}`}>
                 <Typography
                   variant="h3"
                   className={`hover:underline text-start text-lg pb-2 ${
@@ -84,7 +84,7 @@ const ComponentOne = async ({
                       : "border-b-2 border-b-gray-200"
                   }`}
                 >
-                  {centerdata?.title ?? ""}
+                  {item?.title ?? ""}
                 </Typography>
               </Link>
             </div>

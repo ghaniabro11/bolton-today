@@ -68,6 +68,7 @@ export default function CategoryPage({
                     newsSlug={newsItem?.slug}
                     authorName={newsItem?.authorName || newsItem?.author_name}
                     authorSlug={newsItem?.authorSlug || newsItem?.author_slug}
+                  
                   />
                 ))
               )}

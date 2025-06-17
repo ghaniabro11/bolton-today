@@ -90,6 +90,8 @@ const DynamicTwo = async ({
     dynamic_two,
     dynamic_three,
   ])) as any;
+
+  
   if (!newsDetails.valid) {
     categoriesWithNews = (await validateCategoryPathWithNews({
       slugParts: [dynamic_one, dynamic_two, dynamic_three],
