@@ -119,7 +119,66 @@ const Navbar = () => {
     };
   }, []);
   return (
-    <main className="">
+    <>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SiteNavigationElement",
+          name: "Main Navigation",
+          url: "https://boltontoday.co.uk",
+          about: "Navigation links for Bolton Today News website",
+          hasPart: navLinks.flatMap((category) => {
+            const mainLink = {
+              "@type": "SiteNavigationElement",
+              name: category.label,
+              url: `https://boltontoday.co.uk${category.href}/`,
+            };
+
+            const childLinks =
+              category.dropdown?.map((child) => ({
+                "@type": "SiteNavigationElement",
+                name: child.label,
+                url: `https://boltontoday.co.uk${child.href}/`,
+              })) || [];
+
+            return [mainLink, ...childLinks];
+          }),
+        })}
+      </script>
+
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "NewsMediaOrganization",
+          name: "Washington Insider Magazine",
+          url: "https://boltontoday.co.uk",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://boltontoday.co.uk/bolton_logo.svg",
+            width: 600,
+            height: 60,
+          },
+          sameAs: [
+            "https://facebook.com",
+            "https://twitter.com",
+            "https://www.linkedin.com",
+          ],
+          foundingDate: "2021-01-01",
+          founders: [
+            {
+              "@type": "Person",
+              name: "Founder Name",
+            },
+          ],
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "customer support",
+            email: "info@washingtoninsider.net",
+            url: "https://boltontoday.co.uk/contact-us/",
+          },
+          publishingPrinciples: "https://boltontoday.co.uk/code-of-ethics/",
+        })}
+      </script>
       <nav className="bg-[#052962] border-b z-[60] relative  uppercase text-white font-semibold   border-gray-200 px-10 md:py-3 shadow-md">
         <div className=" flex justify-between items-center relative ">
           <Link href="/" className="inline">
@@ -326,7 +385,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </main>
+    </>
   );
 };
 
