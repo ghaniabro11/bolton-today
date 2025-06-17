@@ -150,7 +150,7 @@ const Navbar = () => {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "NewsMediaOrganization",
-          name: "Washington Insider Magazine",
+          name: "Bolton Today News",
           url: "https://boltontoday.co.uk",
           logo: {
             "@type": "ImageObject",
@@ -173,7 +173,7 @@ const Navbar = () => {
           contactPoint: {
             "@type": "ContactPoint",
             contactType: "customer support",
-            email: "info@washingtoninsider.net",
+            email: "info@boltontoday.co.uk",
             url: "https://boltontoday.co.uk/contact-us/",
           },
           publishingPrinciples: "https://boltontoday.co.uk/code-of-ethics/",
