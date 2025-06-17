@@ -212,7 +212,7 @@ const DynamicTwo = async ({
             }}
           />
           <CategoryPage
-            category={categoriesWithNews?.categoryChain[1]}
+            category={categoriesWithNews?.categoryChain[2]}
             newsList={categoriesWithNews?.newsList}
             totalCount={Number(categoriesWithNews.totalCount)}
             slug={`${dynamic_one}/${dynamic_two}/${dynamic_three}`}
