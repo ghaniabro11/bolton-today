@@ -179,7 +179,7 @@ const Navbar = () => {
           publishingPrinciples: "https://boltontoday.co.uk/code-of-ethics/",
         })}
       </script>
-      <nav className="bg-[#052962] border-b z-[60] relative  uppercase text-white font-semibold   border-gray-200 px-10 md:py-3 shadow-md">
+      <nav className="bg-[#052962] border-b z-[60] relative  uppercase text-white font-semibold   border-gray-200 px-5 md:py-3 shadow-md">
         <div className=" flex justify-between items-center relative ">
           <Link href="/" className="inline">
             <Image
