@@ -39,7 +39,7 @@ const navLinks = [
   { label: "Crime News", href: "/crime" },
   {
     label: "Sports News",
-    href: "/sports-news",
+    link: "/sports-news",
     dropdown: [
       { label: "Bolton Wanderers", href: "/sports/wanderers" },
       { label: "Football", href: "/sports/football" },
@@ -127,22 +127,30 @@ const Navbar = () => {
           name: "Main Navigation",
           url: "https://boltontoday.co.uk",
           about: "Navigation links for Bolton Today News website",
-          hasPart: navLinks.flatMap((category) => {
-            const mainLink = {
-              "@type": "SiteNavigationElement",
-              name: category.label,
-              url: `https://boltontoday.co.uk${category.link}`,
-            };
-
-            const childLinks =
-              category.dropdown?.map((child) => ({
+          hasPart: navLinks
+            .filter(
+              (category) =>
+                category.link !== "/local-news" &&
+                category.link !== "/sports-news"
+            )
+            .flatMap((category) => {
+              const mainLink = {
                 "@type": "SiteNavigationElement",
-                name: child.label,
-                url: `https://boltontoday.co.uk${child.href}`,
-              })) || [];
+                name: category.label,
+                url: `https://boltontoday.co.uk${
+                  category.href || category.link
+                }`,
+              };
 
-            return [mainLink, ...childLinks];
-          }),
+              const childLinks =
+                category.dropdown?.map((child) => ({
+                  "@type": "SiteNavigationElement",
+                  name: child.label,
+                  url: `https://boltontoday.co.uk${child.href}`,
+                })) || [];
+
+              return [mainLink, ...childLinks];
+            }),
         })}
       </script>
 
