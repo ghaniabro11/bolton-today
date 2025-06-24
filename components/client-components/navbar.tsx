@@ -23,7 +23,7 @@ import { Input } from "../ui/input";
 const navLinks = [
   {
     label: "Local News",
-    link: "/local-news",
+    // link: "/local-news",
     dropdown: [
       { label: "Astley Bridge News", href: "/astley-bridge" },
       { label: "Westhoughton News", href: "/westhoughton" },
@@ -39,7 +39,7 @@ const navLinks = [
   { label: "Crime News", href: "/crime" },
   {
     label: "Sports News",
-    link: "/sports-news",
+    // href: "/sports-news",
     dropdown: [
       { label: "Bolton Wanderers", href: "/sports/wanderers" },
       { label: "Football", href: "/sports/football" },
@@ -127,30 +127,26 @@ const Navbar = () => {
           name: "Main Navigation",
           url: "https://boltontoday.co.uk",
           about: "Navigation links for Bolton Today News website",
-          hasPart: navLinks
-            .filter(
-              (category) =>
-                category.link !== "/local-news" &&
-                category.link !== "/sports-news"
-            )
-            .flatMap((category) => {
-              const mainLink = {
+          hasPart: navLinks.flatMap((category) => {
+            const links = [];
+
+            if (category.href) {
+              links.push({
                 "@type": "SiteNavigationElement",
                 name: category.label,
-                url: `https://boltontoday.co.uk${
-                  category.href || category.link
-                }`,
-              };
+                url: `https://boltontoday.co.uk${category.href}`,
+              });
+            }
 
-              const childLinks =
-                category.dropdown?.map((child) => ({
-                  "@type": "SiteNavigationElement",
-                  name: child.label,
-                  url: `https://boltontoday.co.uk${child.href}`,
-                })) || [];
+            const childLinks =
+              category.dropdown?.map((child) => ({
+                "@type": "SiteNavigationElement",
+                name: child.label,
+                url: `https://boltontoday.co.uk${child.href}`,
+              })) || [];
 
-              return [mainLink, ...childLinks];
-            }),
+            return [...links, ...childLinks];
+          }),
         })}
       </script>
 
