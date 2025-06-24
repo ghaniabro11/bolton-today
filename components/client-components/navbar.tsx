@@ -131,7 +131,7 @@ const Navbar = () => {
             const mainLink = {
               "@type": "SiteNavigationElement",
               name: category.label,
-              url: `https://boltontoday.co.uk${category.href}`,
+              url: `https://boltontoday.co.uk${category.link}`,
             };
 
             const childLinks =
