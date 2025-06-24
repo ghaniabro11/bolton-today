@@ -34,7 +34,7 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}/`,
+      canonical: `https://boltontoday.co.uk/${dynamic_one}`,
     },
 
     robots: {
@@ -75,7 +75,7 @@ const DynamicOne = async ({
         "@type": "ListItem",
         position: 2,
         name: newsList?.categoryChain[0]?.name,
-        item: `https://boltontoday.co.uk/${newsList?.categoryChain[0]?.slug}/`,
+        item: `https://boltontoday.co.uk/${newsList?.categoryChain[0]?.slug}`,
       },
     ],
   };

@@ -45,7 +45,7 @@ export async function GET() {
 
     // Map the data to sitemap URLs
     const dynamicUrls = response.rows.map((row: any) => ({
-      loc: `${DOMAIN_URL}/${row.category_slug}/${row.news_slug}/`,
+      loc: `${DOMAIN_URL}/${row.category_slug}/${row.news_slug}`,
       lastmod: new Date().toISOString(),
       changefreq: "weekly",
       priority: "0.8",

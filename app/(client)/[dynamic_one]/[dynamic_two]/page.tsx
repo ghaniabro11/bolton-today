@@ -48,7 +48,7 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/`,
+      canonical: `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}`,
     },
 
     // // Robots meta (camelCase keys)
@@ -108,13 +108,13 @@ const DynamicTwo = async ({
                   "@type": "ListItem",
                   position: 2,
                   name: newsDetails?.categoryChain[0]?.name,
-                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}/`,
+                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}`,
                 },
                 {
                   "@type": "ListItem",
                   position: 3,
                   name: newsDetails?.news[0]?.title,
-                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}/${newsDetails?.news[0]?.slug}/`,
+                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}/${newsDetails?.news[0]?.slug}`,
                 },
               ],
             })}
@@ -125,7 +125,7 @@ const DynamicTwo = async ({
               "@type": "NewsArticle",
               mainEntityOfPage: {
                 "@type": "WebPage",
-                "@id": `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/`,
+                "@id": `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}`,
               },
               headline: newsDetails?.news[0]?.title,
               image: [newsDetails?.news[0]?.featureImage],
@@ -133,7 +133,7 @@ const DynamicTwo = async ({
               author: {
                 "@type": "Person",
                 name: newsDetails?.news[0]?.authorName,
-                url: `https://boltontoday.co.uk/author/${newsDetails?.news[0]?.authorSlug}/`,
+                url: `https://boltontoday.co.uk/author/${newsDetails?.news[0]?.authorSlug}`,
               },
               publisher: {
                 "@type": "NewsMediaOrganization",
@@ -175,13 +175,13 @@ const DynamicTwo = async ({
                     "@type": "ListItem",
                     position: 2,
                     name: categoriesWithNews?.categoryChain[0]?.name,
-                    item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}/`,
+                    item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}`,
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: categoriesWithNews?.categoryChain[1]?.name,
-                    item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}/${categoriesWithNews?.categoryChain[1]?.slug}/`,
+                    item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}/${categoriesWithNews?.categoryChain[1]?.slug}`,
                   },
                 ],
               }),

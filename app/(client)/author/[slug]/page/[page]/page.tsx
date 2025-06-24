@@ -9,7 +9,6 @@ import dynamic from "next/dynamic";
 import { notFound, permanentRedirect } from "next/navigation";
 import { Suspense } from "react";
 
-
 const AuthorDetailComponent = dynamic(
   () => import("@/components/client-components/author-detail"),
   {
@@ -21,9 +20,9 @@ const AuthorDetailComponent = dynamic(
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; page: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, page } = await params;
 
   const metaData = await db
     .select({
@@ -38,13 +37,13 @@ export async function generateMetadata({
   const data = metaData[0];
 
   return {
- title: data?.title || "",
+    title: data?.title || "",
     description: data?.des || "",
     keywords: data?.keyword || "",
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/author/${slug}`,
+      canonical: `https://boltontoday.co.uk/author/${slug}/page/${page}`,
     },
 
     // Robots meta (camelCase keys)
@@ -91,8 +90,8 @@ const AuthorDetails = async ({
 
   return (
     <PageGridWrapper>
-      <Suspense fallback={ <Loader />}>
-        <AuthorDetailComponent  result={result} slug={slug} />
+      <Suspense fallback={<Loader />}>
+        <AuthorDetailComponent result={result} slug={slug} />
       </Suspense>
     </PageGridWrapper>
   );

@@ -23,7 +23,7 @@ import { Input } from "../ui/input";
 const navLinks = [
   {
     label: "Local News",
-    // link: "/local-news",
+    link: "/local-news",
     dropdown: [
       { label: "Astley Bridge News", href: "/astley-bridge" },
       { label: "Westhoughton News", href: "/westhoughton" },
@@ -39,7 +39,7 @@ const navLinks = [
   { label: "Crime News", href: "/crime" },
   {
     label: "Sports News",
-    // href: "/sports-news",
+    href: "/sports-news",
     dropdown: [
       { label: "Bolton Wanderers", href: "/sports/wanderers" },
       { label: "Football", href: "/sports/football" },
@@ -131,14 +131,14 @@ const Navbar = () => {
             const mainLink = {
               "@type": "SiteNavigationElement",
               name: category.label,
-              url: `https://boltontoday.co.uk${category.href}/`,
+              url: `https://boltontoday.co.uk${category.href}`,
             };
 
             const childLinks =
               category.dropdown?.map((child) => ({
                 "@type": "SiteNavigationElement",
                 name: child.label,
-                url: `https://boltontoday.co.uk${child.href}/`,
+                url: `https://boltontoday.co.uk${child.href}`,
               })) || [];
 
             return [mainLink, ...childLinks];
@@ -174,9 +174,9 @@ const Navbar = () => {
             "@type": "ContactPoint",
             contactType: "customer support",
             email: "info@boltontoday.co.uk",
-            url: "https://boltontoday.co.uk/contact-us/",
+            url: "https://boltontoday.co.uk/contact-us",
           },
-          publishingPrinciples: "https://boltontoday.co.uk/code-of-ethics/",
+          publishingPrinciples: "https://boltontoday.co.uk/code-of-ethics",
         })}
       </script>
       <nav className="bg-[#052962] border-b z-[60] relative  uppercase text-white font-semibold   border-gray-200 md:px-20 pr-4  shadow-md">

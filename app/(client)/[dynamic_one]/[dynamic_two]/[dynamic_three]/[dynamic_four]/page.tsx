@@ -92,10 +92,8 @@ const DynamicTwo = async ({
 
   if (!test.valid) return notFound();
 
-
-  
   const data = test?.news[0] ?? [];
-  console.log(test, "news///////////////////");
+  // console.log(test, "news///////////////////");
   // const breadcrumbJSON = {
   //   "@context": "https://schema.org",
   //   "@type": "BreadcrumbList",
@@ -137,25 +135,25 @@ const DynamicTwo = async ({
               "@type": "ListItem",
               position: 2,
               name: test?.categoryChain[0]?.name,
-              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}/`,
+              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}`,
             },
             {
               "@type": "ListItem",
               position: 3,
               name: test?.categoryChain[1]?.name,
-              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}/${test?.categoryChain[1]?.slug}/`,
+              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}/${test?.categoryChain[1]?.slug}`,
             },
             {
               "@type": "ListItem",
               position: 4,
               name: test?.categoryChain[2]?.name,
-              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}/${test?.categoryChain[1]?.slug}/${test?.categoryChain[2]?.slug}/`,
+              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}/${test?.categoryChain[1]?.slug}/${test?.categoryChain[2]?.slug}`,
             },
             {
               "@type": "ListItem",
               position: 5,
               name: test?.news[0]?.title,
-              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}/${test?.categoryChain[1]?.slug}/${test?.categoryChain[2]?.slug}/${test?.news[0]?.slug}/`,
+              item: `https://boltontoday.co.uk/${test?.categoryChain[0]?.slug}/${test?.categoryChain[1]?.slug}/${test?.categoryChain[2]?.slug}/${test?.news[0]?.slug}`,
             },
           ],
         })}
@@ -174,7 +172,7 @@ const DynamicTwo = async ({
           author: {
             "@type": "Person",
             name: data?.authorName,
-            url: `https://boltontoday.co.uk/author/${data?.authorSlug}/`,
+            url: `https://boltontoday.co.uk/author/${data?.authorSlug}`,
           },
           publisher: {
             "@type": "NewsMediaOrganization",

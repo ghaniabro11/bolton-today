@@ -12,7 +12,7 @@ export async function GET() {
 
     // Map category slugs to sitemap URLs
     const dynamicUrls = authorsSlug.map((author) => ({
-      loc: `${DOMAIN_URL}/author/${author.slug}/`,
+      loc: `${DOMAIN_URL}/author/${author.slug}`,
       lastmod: new Date().toISOString(),
       changefreq: "weekly",
       priority: "0.8",

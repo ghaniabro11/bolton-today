@@ -12,7 +12,7 @@ export async function GET() {
 
     // Map category slugs to sitemap URLs
     const dynamicUrls = categorySlugs.map((category) => ({
-      loc: `${DOMAIN_URL}/${category.slug}/`,
+      loc: `${DOMAIN_URL}/${category.slug}`,
       lastmod: new Date().toISOString(),
       changefreq: "weekly",
       priority: "0.8",
