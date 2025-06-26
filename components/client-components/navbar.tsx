@@ -22,7 +22,7 @@ import { Input } from "../ui/input";
 
 const navLinks = [
   {
-    label: "Local News",
+    label: "Bolton News",
     // link: "/local-news",
     dropdown: [
       { label: "Astley Bridge News", href: "/astley-bridge" },
@@ -278,7 +278,7 @@ const Navbar = () => {
                 {navLinks.map((link: any) => (
                   <div key={link?.label}>
                     <div
-                      className="flex items-center justify-between  font-medium   py-2 cursor-pointer"
+                      className="flex items-center justify-between text-white  font-medium   py-2 cursor-pointer"
                       onClick={() =>
                         link?.dropdown
                           ? toggleMobileDropdown(link?.label)
@@ -316,7 +316,7 @@ const Navbar = () => {
                             <Link
                               key={sublink?.href}
                               href={sublink?.href}
-                              className="block   hover:text-btn text-white py-1"
+                              className="block   hover:text-btn text-white! py-1"
                               onClick={() => setMobileOpen(false)}
                             >
                               {sublink?.label}

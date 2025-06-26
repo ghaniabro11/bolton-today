@@ -21,7 +21,7 @@ const ComponentOne = async ({
   const rightData = latest?.slice(3, 10);
   console.log(latest, "latest");
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-5 gap- border-b border-black/20 divide-y lg:divide-y-0 lg:divide-x divide-black/20  overflow-hidden">
+    <section className="grid grid-cols-1 lg:grid-cols-5 gap- border-b border-black/20  lg:divide-x divide-black/20  overflow-hidden">
       <div className="lg:col-span-2 py-4  flex min-lg:hidden flex-col items-center space-y-4">
         <div className=" h-full w-full relative">
           <ImageWithFallback
@@ -32,7 +32,7 @@ const ComponentOne = async ({
             alt={centerdata?.imageTitle ?? "image"}
           />
         </div>
-        <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
+        {/* <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
           <Typography
             weight="600"
             variant="h3"
@@ -40,10 +40,10 @@ const ComponentOne = async ({
           >
             {centerdata?.title ?? ""}
           </Typography>
-        </Link>
+        </Link> */}
       </div>
       <div className="p-4 lg:col-span-2 flex flex-col justify-between gap-4 h-full">
-        <div>
+        <div className="max-md:border-b border-b-black/20 max-md:pb-5">
           <Link
             className="no-underline hover:no-underline"
             href={`/${centerdata.categoryslug}`}

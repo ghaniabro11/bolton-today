@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 
 import PageGridWrapper from "@/components/client-components/grid-wrapper";
 import { ImageWithFallback } from "@/components/client-components/image-fallback";
-import Line from "@/components/client-components/Line";
 import Loader from "@/components/client-components/Loader";
 import OceanCityCarousel from "@/components/client-components/news-components-for-home/dynamic-carousal";
 import { Typography } from "@/components/client-components/typography";
@@ -45,12 +44,12 @@ export async function generateMetadata({
     keywords: ["news", "latest updates", "breaking news", "international news"],
     alternates: {
       ...(!searchQuery && {
-        canonical: "https://boltontoday.co.uk/",
+        canonical: "https://boltontoday.co.uk",
       }),
     },
     robots: {
-      index: true,
-      follow: true,
+      index: !searchQuery ? true : false,
+      follow: !searchQuery ? true : false,
       "max-snippet": -1,
       "max-video-preview": -1,
       "max-image-preview": "large",
@@ -60,7 +59,7 @@ export async function generateMetadata({
       title: "Bolton Today | Latest News from Capitol Hill",
       description:
         "Discover latest news from Capitol Hill with in-depth analysis and recent developments that shape US politics.",
-      url: !searchQuery ? "https://boltontoday.co.uk/" : undefined,
+      url: !searchQuery ? "https://boltontoday.co.uk" : undefined,
       images: [
         {
           url: `https://boltontoday.co.uk/bolton_logo.svg`, // Replace with your image URL
