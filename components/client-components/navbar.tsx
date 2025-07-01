@@ -25,6 +25,7 @@ const navLinks = [
     label: "Bolton News",
     // link: "/local-news",
     dropdown: [
+      { label: "Bolton News", href: "/bolton" },
       { label: "Astley Bridge News", href: "/astley-bridge" },
       { label: "Westhoughton News", href: "/westhoughton" },
       { label: "Horwich News", href: "/horwich" },
