@@ -1,6 +1,4 @@
-import {
-  validateCategoryPathWithNews
-} from "@/app/actions/client-actions/news";
+import { validateCategoryPathWithNews } from "@/app/actions/client-actions/news";
 import CategoryPage from "@/components/client-components/category-page";
 import { db } from "@/lib/db/db";
 import { categories } from "@/lib/db/schema";
@@ -79,7 +77,7 @@ const DynamicOneWithPagination = async ({
     permanentRedirect(`/${dynamic_one}/${dynamic_two}/${dynamic_three}`);
   }
   const data = (await validateCategoryPathWithNews({
-    slugParts: [dynamic_one, dynamic_two,dynamic_three],
+    slugParts: [dynamic_one, dynamic_two, dynamic_three],
     limit: 20,
     page: Number(pagination),
   })) as any;
@@ -87,14 +85,21 @@ const DynamicOneWithPagination = async ({
   console.log(data, "data");
   if (!data.valid || data?.newsList?.length === 0) return notFound();
   return (
-    <CategoryPage
-      category={data?.categoryChain[1]}
-      newsList={data?.newsList}
-      totalCount={Number(data.totalCount)}
-      slug={`${dynamic_one}/${dynamic_two}/${dynamic_three}`}
-      currentPage={Number(data?.currentPage)}
-      limit={data?.limit}
-    />
+    <>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
+        crossOrigin="anonymous"
+      ></script>
+      <CategoryPage
+        category={data?.categoryChain[1]}
+        newsList={data?.newsList}
+        totalCount={Number(data.totalCount)}
+        slug={`${dynamic_one}/${dynamic_two}/${dynamic_three}`}
+        currentPage={Number(data?.currentPage)}
+        limit={data?.limit}
+      />
+    </>
   );
 };
 

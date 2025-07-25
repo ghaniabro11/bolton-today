@@ -120,6 +120,12 @@ const DynamicTwo = async ({
   // };
   return (
     <>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
+        crossOrigin="anonymous"
+      ></script>
+
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -187,6 +193,7 @@ const DynamicTwo = async ({
           description: data?.metaDescription,
         })}
       </script>
+
       <NewDetailPage
         data={{
           ...data,

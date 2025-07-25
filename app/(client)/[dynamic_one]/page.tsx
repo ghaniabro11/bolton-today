@@ -53,11 +53,11 @@ const DynamicOne = async ({
 }) => {
   const { dynamic_one } = await params;
 
-  const newsList = await validateCategoryPathWithNews({
+  const newsList = (await validateCategoryPathWithNews({
     slugParts: [dynamic_one],
     limit: 20,
     page: 1,
-  }) as any;
+  })) as any;
   console.log(newsList, "data from dynamic one");
 
   if (!newsList.valid) return notFound();
@@ -81,6 +81,11 @@ const DynamicOne = async ({
   };
   return (
     <>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
+        crossOrigin="anonymous"
+      ></script>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJSON) }}

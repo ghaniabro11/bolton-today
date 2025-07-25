@@ -56,12 +56,9 @@ const DynamicOne = async ({
 }) => {
   const { dynamic_one, pagination } = await params;
 
-
   if (pagination === "1") {
     permanentRedirect(`/${dynamic_one}`);
   }
-
-
 
   const newsList = (await validateCategoryPathWithNews({
     slugParts: [dynamic_one],
@@ -69,7 +66,6 @@ const DynamicOne = async ({
     page: Number(pagination),
   })) as any;
 
-  
   if (!newsList.valid || newsList?.newsList?.length === 0) return notFound();
 
   const breadcrumbJSON = {
@@ -93,6 +89,11 @@ const DynamicOne = async ({
 
   return (
     <>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
+        crossOrigin="anonymous"
+      ></script>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJSON) }}

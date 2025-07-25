@@ -91,7 +91,6 @@ const DynamicTwo = async ({
     dynamic_three,
   ])) as any;
 
-  
   if (!newsDetails.valid) {
     categoriesWithNews = (await validateCategoryPathWithNews({
       slugParts: [dynamic_one, dynamic_two, dynamic_three],
@@ -105,6 +104,11 @@ const DynamicTwo = async ({
   console.log(newsDetails, "newsDetails");
   return (
     <>
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
+        crossOrigin="anonymous"
+      ></script>
       {newsDetails?.valid ? (
         <>
           <script type="application/ld+json">
