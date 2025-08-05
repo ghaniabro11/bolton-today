@@ -19,21 +19,21 @@ const PrivacyPolicy = () => {
     <>
       {/* StartFragment */}
       <div>
-        <h1>Privacy Policy</h1>
+        <h1  className="text-black">Privacy Policy</h1>
         <p>
           At
-          <a href="https://boltontoday.co.uk/">Bolton Today,</a>
+          <a href="https://boltontoday.co.uk/" className="space-x-1">Bolton Today,</a>
           we value your privacy and are committed to protecting your personal
           information. This Privacy Policy explains how we collect, use, and
           safeguard the data you share with us when visiting our website.
         </p>
-        <h2>Who We Are</h2>
+        <h2  className="text-black">Who We Are</h2>
         <p>
           Bolton Today is an independent digital news platform focused on
           covering local stories, community events, politics, sports, and
           culture in Bolton and the surrounding areas.
         </p>
-        <h2>What Information We Collect</h2>
+        <h2  className="text-black">What Information We Collect</h2>
         <p>We collect personal and non-personal data in the following ways:</p>
         <h4>a. Information You Provide Voluntarily:</h4>
         <ul>
@@ -58,7 +58,7 @@ const PrivacyPolicy = () => {
           We use cookies and analytics tools (such as Google Analytics) to help
           improve the site and better understand our audience.
         </p>
-        <h2>How We Use Your Data</h2>
+        <h2  className="text-black">How We Use Your Data</h2>
         <p>We may use the information we collect to:</p>
         <ul>
           <li>Respond to your messages or inquiries</li>
@@ -70,7 +70,7 @@ const PrivacyPolicy = () => {
         <p>
           We do not sell or rent your personal information to third parties.
         </p>
-        <h2>Cookies and Tracking Technologies</h2>
+        <h2  className="text-black">Cookies and Tracking Technologies</h2>
         <p>
           Cookies are small files placed on your device to improve user
           experience. We use:
@@ -87,14 +87,14 @@ const PrivacyPolicy = () => {
           You can manage or disable cookies through your browser settings.
           Blocking some types of cookies may impact your experience on our site.
         </p>
-        <h2>Third-Party Links</h2>
+        <h2  className="text-black">Third-Party Links</h2>
         <p>
           Our website may include links to external websites, such as government
           portals, cultural institutions, or partner publications. We are not
           responsible for the privacy practices of those websites. We recommend
           reading their privacy policies.
         </p>
-        <h2>Email Communications</h2>
+        <h2  className="text-black">Email Communications</h2>
         <p>If you opt in to our newsletter or breaking news alerts:</p>
         <ul>
           <li>You will only receive content you’ve signed up for</li>
@@ -106,7 +106,7 @@ const PrivacyPolicy = () => {
           We comply fully with anti-spam regulations under the UK Privacy and
           Electronic Communications Regulations (PECR).
         </p>
-        <h2>Your Rights Under UK GDPR</h2>
+        <h2  className="text-black">Your Rights Under UK GDPR</h2>
         <p>You have the right to:</p>
         <ul>
           <li>Access the personal data we hold about you</li>
@@ -123,7 +123,7 @@ const PrivacyPolicy = () => {
           To exercise any of these rights, email us at:
           <a href="privacy@boltontoday.co.uk" className="font-semibold">privacy@boltontoday.co.uk</a>
         </p>
-        <h2>Data Retention</h2>
+        <h2  className="text-black">Data Retention</h2>
         <p>We retain personal data only for as long as necessary:</p>
         <ul>
           <li>To fulfill the purposes outlined in this policy</li>
@@ -133,13 +133,13 @@ const PrivacyPolicy = () => {
           Analytics data may be stored longer in anonymised form to understand
           long-term trends.
         </p>
-        <h2>Security Measures</h2>
+        <h2  className="text-black">Security Measures</h2>
         <p>
           We use industry-standard security protocols to protect your data from
           unauthorized access, alteration, or loss. However, no system can
           guarantee 100% security, especially during data transmission online.
         </p>
-        <h2>Updates to This Policy</h2>
+        <h2  className="text-black">Updates to This Policy</h2>
         <p>
           We may update this Privacy Policy periodically to reflect changes in
           the law or our practices. All updates will be posted on this page with

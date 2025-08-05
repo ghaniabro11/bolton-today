@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <div>
-      <h1>About Us</h1>
+      <h1 className="text-black">About Us</h1>
       <p>Welcome to Bolton Today – Your Voice, Your Stories, Your Town.</p>
       <p>
         At
@@ -28,7 +28,7 @@ const page = () => {
         coverage to uplifting community stories and vibrant cultural events, our
         mission is simple: to inform, inspire, and reflect the spirit of Bolton.
       </p>
-      <h2>What We Cover</h2>
+      <h2 className="text-black">What We Cover</h2>
       <p>
         We offer comprehensive coverage of everything happening in and around
         our town, including:
@@ -60,7 +60,7 @@ const page = () => {
           defined Bolton through the years.
         </li>
       </ul>
-      <h2>Why We Exist</h2>
+      <h2 className="text-black">Why We Exist</h2>
       <p>
         We believe local journalism plays a vital role in a healthy, connected
         community. Bolton Today was launched to ensure that the people of Bolton
@@ -72,7 +72,7 @@ const page = () => {
         platform where residents can feel heard, represented, and proud of their
         town.
       </p>
-      <h2>Our Vision</h2>
+      <h2 className="text-black">Our Vision</h2>
       <ul>
         <li>
           To promote civic engagement by shedding light on local governance,
@@ -87,7 +87,7 @@ const page = () => {
           regeneration projects to cultural milestones.
         </li>
       </ul>
-      <h2>Join the Conversation</h2>
+      <h2 className="text-black">Join the Conversation</h2>
       <p>
         Whether you're a lifelong Boltonian, a recent resident, or just passing
         through—this is your space. We welcome story suggestions, local tips,

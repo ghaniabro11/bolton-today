@@ -19,7 +19,7 @@ const CookiesPolicy = () => {
     <>
       {/* StartFragment */}
       <div>
-        <h1>What Are Cookies?</h1>
+        <h1  className="text-black">What Are Cookies?</h1>
         <p>
           Cookies are small data files stored on your device when you visit a
           website. They help websites function properly and efficiently by
@@ -31,7 +31,7 @@ const CookiesPolicy = () => {
           improve how you experience our journalism, including how stories load,
           how ads are served, and which content is most read.
         </p>
-        <h2>How We Use Cookies</h2>
+        <h2  className="text-black">How We Use Cookies</h2>
         <p>
           We use cookies on
           <a href="https://boltontoday.co.uk">boltontoday.co.uk</a>
@@ -57,14 +57,14 @@ const CookiesPolicy = () => {
             trusted advertising platforms.
           </li>
         </ul>
-        <h2>Third-Party Cookies</h2>
+        <h2  className="text-black">Third-Party Cookies</h2>
         <p>
           Some features — such as embedded videos, social media share buttons,
           or external links — may set third-party cookies. These are controlled
           by the providers of those services (e.g. YouTube, Twitter, Facebook)
           and are subject to their own cookie policies.
         </p>
-        <h2>Managing Your Cookie Preferences</h2>
+        <h2  className="text-black">Managing Your Cookie Preferences</h2>
         <p>
           When you first visit our website, you’ll see a cookie consent banner
           that allows you to:
@@ -86,7 +86,7 @@ const CookiesPolicy = () => {
           <li>Safari: Support</li>
           <li>Microsoft Edge: Support</li>
         </ul>
-        <h2>Your Privacy Matters</h2>
+        <h2  className="text-black">Your Privacy Matters</h2>
         <p>
           We are committed to protecting your data and respecting your privacy.
           For more information on how we collect, store, and use your

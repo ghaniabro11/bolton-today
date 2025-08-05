@@ -20,7 +20,7 @@ const TermAndCondition = () => {
     <>
       {/* StartFragment */}
       <div>
-        <h1>Terms and Conditions</h1>
+        <h1  className="text-black">Terms and Conditions</h1>
         <p>
           Welcome to
           <a href="https://boltontoday.co.uk/">Bolton Today</a>. These Terms and
@@ -30,7 +30,7 @@ const TermAndCondition = () => {
           Privacy Policy. If you do not agree to these terms, you must refrain
           from using our website.
         </p>
-        <h2>About Bolton Today</h2>
+        <h2 className="text-black">About Bolton Today</h2>
         <p>
           Bolton Today is an independent digital news platform that publishes
           original journalism, local updates, historical features, and opinion
@@ -38,13 +38,13 @@ const TermAndCondition = () => {
           Manchester. Our platform includes news articles, multimedia content,
           user-submitted features, advertising, and interactive services.
         </p>
-        <h2>User Eligibility</h2>
+        <h2 className="text-black">User Eligibility</h2>
         <p>
           This site is intended for users aged 16 and above. By using the site,
           you confirm that you are at least 16 years old or are accessing the
           site under the supervision of a parent or legal guardian.
         </p>
-        <h2>Intellectual Property Rights</h2>
+        <h2 className="text-black">Intellectual Property Rights</h2>
         <p>
           All content published on Bolton Today — including but not limited to
           text, articles, graphics, logos, photographs, audio clips, videos,
@@ -76,7 +76,7 @@ const TermAndCondition = () => {
             consent.
           </li>
         </ul>
-        <h2>Community Submissions and User Content</h2>
+        <h2 className="text-black">Community Submissions and User Content</h2>
         <p>
           We encourage the public to submit local stories, event announcements,
           letters, and community pieces. By submitting content to Bolton Today
@@ -109,7 +109,7 @@ const TermAndCondition = () => {
           <li>Commercial promotions disguised as editorial content</li>
           <li>False claims, impersonation, or spam</li>
         </ul>
-        <h2>Code of Conduct</h2>
+        <h2 className="text-black">Code of Conduct</h2>
         <p>
           By accessing Bolton Today, you agree to use the site in a manner
           consistent with local laws and digital publishing ethics. You must
@@ -130,7 +130,7 @@ const TermAndCondition = () => {
           Breaching these terms may result in removal of your content,
           suspension of access, or legal action where applicable.
         </p>
-        <h2>Advertising and Sponsored Content</h2>
+        <h2 className="text-black">Advertising and Sponsored Content</h2>
         <p>
           Bolton Today may display advertising or publish sponsored articles
           from third parties. These may include banner ads, affiliate links, or
@@ -154,7 +154,7 @@ const TermAndCondition = () => {
           For partnership or advertising inquiries, please
           <a href="https://boltontoday.co.uk/contact-us">contact us.</a>
         </p>
-        <h2>Third-Party Links</h2>
+        <h2 className="text-black">Third-Party Links</h2>
         <p>
           This site may contain hyperlinks to external websites or resources.
           These are provided for convenience only. We have no control over, and
@@ -166,7 +166,7 @@ const TermAndCondition = () => {
           Users should exercise caution and review the terms and privacy
           policies of third-party platforms.
         </p>
-        <h2>Disclaimers and Limitation of Liability</h2>
+        <h2 className="text-black">Disclaimers and Limitation of Liability</h2>
         <p>
           Bolton Today provides its content "as is" and "as available." While we
           strive for accuracy and fairness, we make no warranties regarding the
@@ -187,7 +187,7 @@ const TermAndCondition = () => {
             their own and not necessarily those of Bolton Today.
           </li>
         </ul>
-        <h2>Data Privacy and Cookies</h2>
+        <h2 className="text-black">Data Privacy and Cookies</h2>
         <p>
           We respect your privacy. Our use of personal information is governed
           by our Privacy Policy, which explains:
@@ -202,7 +202,7 @@ const TermAndCondition = () => {
           experience. You may manage cookie preferences via your browser
           settings.
         </p>
-        <h2>Modifications to These Terms</h2>
+        <h2 className="text-black">Modifications to These Terms</h2>
         <p>
           We reserve the right to modify or update these Terms and Conditions at
           any time. When changes are made, the updated version will be posted on
@@ -210,7 +210,7 @@ const TermAndCondition = () => {
           periodically for updates. Continued use of the site constitutes
           acceptance of the revised terms.
         </p>
-        <h2>Termination</h2>
+        <h2 className="text-black">Termination</h2>
         <p>
           We may suspend or terminate your access to Bolton Today at any time,
           without prior notice, if you breach these terms or misuse the
@@ -223,7 +223,7 @@ const TermAndCondition = () => {
           subject to the exclusive jurisdiction of the courts located in
           England.
         </p>
-        <h2>Contact Information</h2>
+        <h2 className="text-black">Contact Information</h2>
         <p>
           If you have questions or concerns about these Terms and Conditions, or
           wish to report a breach or issue, please contact us:

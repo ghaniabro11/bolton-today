@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const Contact = () => {
   return (
     <div>
-      <h1>Contact Us</h1>
+      <h1  className="text-black">Contact Us</h1>
       <p>
         At <a href="https://boltontoday.co.uk" className="font-semibold">Bolton Today</a>, we believe that strong journalism begins with strong
         connections to the community we serve. We welcome communication from our
@@ -33,7 +33,7 @@ const Contact = () => {
         vital role in helping us inform, investigate, and reflect the real voice
         of Bolton.
       </p>
-      <h2>News Tips &amp; Editorial Contacts</h2>
+      <h2  className="text-black">News Tips &amp; Editorial Contacts</h2>
       <p>
         Have a story, photo, or lead that our newsroom should know about? We
         welcome verified information, public interest stories, and community
@@ -43,7 +43,7 @@ const Contact = () => {
         All sources are treated with discretion, and anonymity can be protected
         where appropriate.
       </p>
-      <h2>Advertising &amp; Sponsorship</h2>
+      <h2  className="text-black">Advertising &amp; Sponsorship</h2>
       <p>
         Looking to reach a highly engaged local audience? We offer a range of
         advertising opportunities including display ads, sponsored content, and
