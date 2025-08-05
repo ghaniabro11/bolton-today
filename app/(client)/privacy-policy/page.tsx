@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
         <h1  className="text-black">Privacy Policy</h1>
         <p>
           At
-          <a href="https://boltontoday.co.uk/" className="space-x-1">Bolton Today,</a>
+          <a href="https://boltontoday.co.uk/" className="space-x-1 font-semibold">Bolton Today,</a>
           we value your privacy and are committed to protecting your personal
           information. This Privacy Policy explains how we collect, use, and
           safeguard the data you share with us when visiting our website.

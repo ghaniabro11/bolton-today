@@ -23,7 +23,7 @@ const TermAndCondition = () => {
         <h1  className="text-black">Terms and Conditions</h1>
         <p>
           Welcome to
-          <a href="https://boltontoday.co.uk/">Bolton Today</a>. These Terms and
+           <a href="https://boltontoday.co.uk/" className="space-x-1 font-semibold">Bolton Today.</a> These Terms and
           Conditions govern your access to and use of our website, services,
           content, and features. By using this site, you acknowledge that you
           have read, understood, and agree to be bound by these terms and by our

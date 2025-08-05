@@ -19,7 +19,13 @@ const page = () => {
   return (
     <div>
       <h1 className="text-black">About Us</h1>
-      <p>Welcome to Bolton Today – Your Voice, Your Stories, Your Town.</p>
+      <p>
+        Welcome to{" "}
+        <a href="https://boltontoday.co.uk" className="font-semibold">
+          Bolton Today
+        </a>{" "}
+        – Your Voice, Your Stories, Your Town.
+      </p>
       <p>
         At
         <a href="https://boltontoday.co.uk/">Bolton Today</a>, we are dedicated
