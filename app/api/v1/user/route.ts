@@ -67,6 +67,14 @@ export async function POST(request: Request) {
       );
     }
 
+    // Validate password length (minimum 6 characters)
+    if (password.length < 6) {
+      return NextResponse.json(
+        { error: "Password must be at least 6 characters long" },
+        { status: 400 }
+      );
+    }
+
     // Check for unique email and username
     const existingUser = await db
       .select()
@@ -98,7 +106,10 @@ export async function POST(request: Request) {
       })
       .returning();
 
-    return NextResponse.json(newUser[0], { status: 201 });
+    return NextResponse.json(
+      { message: "User created successfully" },
+      { status: 201 }
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json(

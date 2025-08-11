@@ -56,6 +56,41 @@ const UserForm: React.FC<UserFormProps> = ({
       InputType: "text",
       className: "w-full",
     },
+
+    {
+      name: "role",
+      label: "Role",
+      type: "select",
+      required: true,
+      placeholder: "Select Role",
+      options: [
+        { label: "Admin", value: "admin" },
+        { label: "Editor", value: "editor" },
+      ],
+      //   InputType: "text",
+    },
+    ...(isUpdate
+      ? [
+          {
+            name: "currentPassword",
+            label: "Current Password",
+            type: "input" as const,
+            required: true,
+            placeholder: "Enter your current password",
+            InputType: "password",
+            className: "w-full",
+          },
+          {
+            name: "newPassword",
+            label: "New Password",
+            type: "input" as const,
+            required: true,
+            placeholder: "Enter your new password",
+            InputType: "password",
+            className: "w-full",
+          },
+        ]
+      : []),
     ...(!isUpdate
       ? [
           {
@@ -69,18 +104,7 @@ const UserForm: React.FC<UserFormProps> = ({
           },
         ]
       : []),
-    {
-      name: "role",
-      label: "Role",
-      type: "select",
-      required: true,
-      placeholder: "Select Role",
-      options: [
-        { label: "Admin", value: "admin" },
-        { label: "Editor", value: "editor" },
-      ],
-      //   InputType: "text",
-    },
+
     {
       name: "status",
       label: "Status",
@@ -98,14 +122,25 @@ const UserForm: React.FC<UserFormProps> = ({
   const ActionForSubmit = async (data: any) => {
     try {
       setIsLoading(true);
-      const payload = {
-        username: data?.username,
-        email: data?.email,
-        fullname: data?.fullname,
-        password: data?.password,
-        role: data?.role,
-        status: data?.status,
-      };
+      let payload;
+      isUpdate
+        ? (payload = {
+            username: data?.username,
+            email: data?.email,
+            fullname: data?.fullname,
+            currentPassword: data?.currentPassword,
+            newPassword: data?.newPassword,
+            role: data?.role,
+            status: data?.status,
+          })
+        : (payload = {
+            username: data?.username,
+            email: data?.email,
+            fullname: data?.fullname,
+            password: data?.password,
+            role: data?.role,
+            status: data?.status,
+          });
       let response = null;
       isUpdate
         ? (response = await axiosInstance.put(
@@ -115,7 +150,7 @@ const UserForm: React.FC<UserFormProps> = ({
         : (response = await axiosInstance.post("/api/v1/user", payload));
       if (response.data) {
         toast.success(response?.data?.message || "Operation successfull");
-        router.push("/admin/"); // Redirect to category list
+        router.push("/admin/user"); // Redirect to category list
       }
     } catch (error: any) {
       toast.error(

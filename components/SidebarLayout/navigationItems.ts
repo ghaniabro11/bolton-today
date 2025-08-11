@@ -13,7 +13,7 @@ export const navigation = [
     items: [
       {
         title: "Dashboard",
-        url: "/admin/",
+        url: "/admin/user",
         icon: LayoutDashboard, // Better semantic icon for a dashboard
         isActive: true,
         requiredPermissions: [Permission.READ_USER],
