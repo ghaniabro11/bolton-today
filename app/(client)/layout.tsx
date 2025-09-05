@@ -3,6 +3,7 @@ import Navbar from "@/components/client-components/navbar";
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "../globals.css";
+import Script from "next/script";
 const InterText = Inter({
   subsets: ["cyrillic"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -39,6 +40,15 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" your-theme="system">
+      <head>
+        {/* ✅ Google AdSense script with Publisher ID */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={`
         [&::-webkit-scrollbar]:w-1.5
