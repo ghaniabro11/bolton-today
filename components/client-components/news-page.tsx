@@ -24,7 +24,6 @@ interface NewDetailPageProps {
 export default function NewDetailPage({ data }: NewDetailPageProps) {
   return (
     <>
-      <AdUnit />
       <PageGridWrapper>
         <main className=" px-4  space-y-6">
           <div className="text-sm text-gray-500 space-x-2">
@@ -75,6 +74,7 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
             )}
           </div>
           <p className=" my-0!">{data?.featureImageCaption ?? ""}</p>
+          <AdUnit />
 
           {data?.details && (
             <div
