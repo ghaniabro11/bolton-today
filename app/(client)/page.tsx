@@ -11,6 +11,7 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import fetchNewsData from "../actions/client-actions/home";
+import AdUnit from "@/components/AdUnit";
 
 // Optional: Create a simple loading component
 const Loading = () => <Loader />;
@@ -89,6 +90,7 @@ const Home = async ({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
           crossOrigin="anonymous"
         ></script>
+
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -103,6 +105,7 @@ const Home = async ({
             ],
           })}
         </script>
+        <AdUnit />
         <>
           <h1 className=" text-xs text-transparent absolute"> Bolton Today</h1>
           <ComponentOne
