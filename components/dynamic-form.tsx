@@ -146,10 +146,15 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
                   required: isRequired && `${field.label} is required`,
                   onChange: (e) => {
                     if (field?.InputType === "slug") {
-                      // Convert to lowercase and replace spaces with hyphens
                       const value = e.target.value
                         .toLowerCase()
-                        .replace(/\s+/g, "-");
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "")
+                        .replace(/[^a-z0-9\s-]/g, "")
+                        .trim()
+                        .replace(/\s+/g, "-")
+                        .replace(/-+/g, "-")
+                        .replace(/^-+|-+$/g, "");
                       setValue(field.name, value);
                     } else if (field?.InputType === "comma") {
                       // Handle comma separation
@@ -320,7 +325,9 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
               <Switch
                 id={field.name}
                 checked={!!methods.watch(field.name)}
-                onCheckedChange={(checked) => setValue(field.name, checked)}
+                onCheckedChange={(checked: any) =>
+                  setValue(field.name, checked)
+                }
               />
             </div>
           );
