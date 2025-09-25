@@ -32,7 +32,7 @@ jobs:
 
             # Pull latest code with token auth
             git reset --hard
-            git pull origin main "https://${{secrets.TOKEN}}@github.com/syedmuhammadbilalgillani/bolton-nextjs.git"
+            git pull https://x-access-token:${GITHUB_PAT}@github.com/AbdulHannan3333/PT-News.git main
 
             # Clean cache, old builds
             rm -rf .next
@@ -46,5 +46,5 @@ jobs:
             pm2 restart bolton_nextjs || pm2 start npm --name bolton_nextjs -- start
           EOF
         env:
-          GITHUB_PAT: ${{ secrets.TOKEN }}
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
           VPS_SSH_PRIVATE_KEY: ${{ secrets.WASHINGTON_PIPLINE_SSH_KEY }}
