@@ -105,13 +105,13 @@ const Home = async ({
             ],
           })}
         </script>
-        <AdUnit />
         <>
           <h1 className=" text-xs text-transparent absolute"> Bolton Today</h1>
           <ComponentOne
             latest={newsData?.latest ?? null}
             opinionCategory={newsData?.categoryOne ?? null}
           />
+          <AdUnit />
 
           <OceanCityCarousel
             data={newsData?.categoryOne ?? []}

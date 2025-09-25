@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code (for GitHub purposes only, no build here)
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up SSH key for secure connection to VPS
+      # Step 2: Set up SSH key
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
@@ -22,27 +22,29 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H 31.97.133.203 >> ~/.ssh/known_hosts
 
-      # Step 3: Deploy and Restart app using PM2 on VPS
+      # Step 3: Deploy and Restart app using PM2
       - name: Deploy and Restart app using PM2 on VPS
         run: |
-          ssh -i ~/.ssh/id_ed25519 root@31.97.133.203 <<EOF
-            cd bolton-nextjs  # Navigate to the correct project directory
+          ssh -i ~/.ssh/id_ed25519 root@31.97.133.203 <<'EOF'
+            set -e  # ❌ Stop immediately if any command fails
 
-            # Pull latest code
-            git pull origin
+            cd bolton-nextjs
 
-            # Clean cache, old builds, and lock file
-            # rm -rf node_modules .next
-            # rm -f package-lock.json
+            # Pull latest code with token auth
+            git reset --hard
+            git pull origin main "https://${{secrets.TOKEN}}@github.com/syedmuhammadbilalgillani/bolton-nextjs.git"
+
+            # Clean cache, old builds
             rm -rf .next
             npm cache clean --force
 
             # Install fresh dependencies and build
-            # npm install
+            npm install
             npm run build
 
             # Restart with PM2 (start if not already running)
             pm2 restart bolton_nextjs || pm2 start npm --name bolton_nextjs -- start
           EOF
         env:
+          GITHUB_PAT: ${{ secrets.TOKEN }}
           VPS_SSH_PRIVATE_KEY: ${{ secrets.WASHINGTON_PIPLINE_SSH_KEY }}
