@@ -35,7 +35,7 @@ jobs:
             git pull https://${{ secrets.REPO_PAT }}@github.com/syedmuhammadbilalgillani/bolton-nextjs.git main
 
             # Clean cache, old builds
-            rm -rf .next
+            rm -rf .next package-lock.json node_modules
             npm cache clean --force
 
             # Install fresh dependencies and build
