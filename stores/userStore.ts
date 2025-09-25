@@ -59,7 +59,7 @@ export const useUserStore = create<UserState>()(
           const encrypted = await encrypt(stringValue, SECRET);
           Cookies.set(name, encrypted);
         },
-        removeItem: (name) => Cookies.remove(name),
+        removeItem: async (name) => Cookies.remove(name),
       })),
     }
   )
