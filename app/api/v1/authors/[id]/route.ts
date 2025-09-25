@@ -7,14 +7,14 @@ export const dynamic = "force-dynamic";
 // GET /api/v1/author/[id] - Get a single author
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string}> }
 ) {
   const { id } = await params;
   try {
     const author = await db
       .select()
       .from(authors)
-      .where(eq(authors.id, id))
+      .where(eq(authors.id, Number(id)))
       .limit(1);
 
     if (!author.length) {
@@ -34,7 +34,7 @@ export async function GET(
 // PUT /api/v1/author/[id] - Update an author
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string}> }
 ) {
   const { id } = await params;
 
@@ -62,7 +62,7 @@ export async function PUT(
     const existingAuthor = await db
       .select()
       .from(authors)
-      .where(eq(authors.id, id))
+      .where(eq(authors.id, Number(id)))
       .limit(1);
 
     if (!existingAuthor.length) {
@@ -128,7 +128,7 @@ export async function PUT(
         metaDescription,
         keywords,
       })
-      .where(eq(authors.id, id))
+      .where(eq(authors.id, Number(id)))
       .returning();
 
     return NextResponse.json(updatedAuthor[0]);
@@ -144,7 +144,7 @@ export async function PUT(
 // DELETE /api/v1/author/[id] - Delete an author
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string}> }
 ) {
   try {
     const { id } = await params;
@@ -152,7 +152,7 @@ export async function DELETE(
     const existingAuthor = await db
       .select()
       .from(authors)
-      .where(eq(authors.id, id))
+      .where(eq(authors.id, Number(id)))
       .limit(1);
 
     if (!existingAuthor.length) {
@@ -160,7 +160,7 @@ export async function DELETE(
     }
 
     // Delete author
-    await db.delete(authors).where(eq(authors.id, id));
+    await db.delete(authors).where(eq(authors.id, Number(id)));
 
     return NextResponse.json(
       { message: "Author deleted successfully" },

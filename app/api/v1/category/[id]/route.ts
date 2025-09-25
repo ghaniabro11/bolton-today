@@ -106,14 +106,14 @@ export async function PUT(req: Request) {
 }
 export async function DELETE(
   _: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string}> }
 ) {
   try {
     const { id } = await params;
 
     // Optional: Check if category exists before deleting
     const category = await db.query.categories.findFirst({
-      where: eq(categories.id, id),
+      where: eq(categories.id, Number(id)),
     });
 
     if (!category) {
@@ -121,7 +121,7 @@ export async function DELETE(
     }
 
     // Perform delete
-    await db.delete(categories).where(eq(categories.id, id));
+    await db.delete(categories).where(eq(categories.id, Number(id)));
 
     return apiResponse(null, 200, true, "Category deleted");
   } catch (error) {

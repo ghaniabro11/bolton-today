@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export default async function UpdatePage({
   params,
 }: {
-  params: Promise<{ id: number }>;
+  params: Promise<{ id: string}>;
 }) {
   const { id } = await params;
   const categories = await getCategories();

@@ -12,7 +12,7 @@ import { NextResponse } from "next/server";
 // GET /api/v1/news/[id] - Get a single article
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string}> }
 ) {
   const { id } = await params;
   try {
@@ -51,7 +51,7 @@ export async function GET(
       .leftJoin(authors, eq(authors.id, news.authorId))
       .leftJoin(media, eq(media.id, news.featureImage))
       .leftJoin(media as any, eq(media.id, authors.image)) // Add this line
-      .where(eq(news.id, id));
+      .where(eq(news.id, Number(id)));
 
     if (!article.length) {
       return NextResponse.json({ error: "Article not found" }, { status: 404 });
@@ -69,7 +69,7 @@ export async function GET(
       })
       .from(newsCategories)
       .leftJoin(categories, eq(categories.id, newsCategories.categoryId))
-      .where(eq(newsCategories.newsId, id));
+      .where(eq(newsCategories.newsId, Number(id)));
 
     const articleWithCategories = {
       ...article[0],
@@ -88,7 +88,7 @@ export async function GET(
 // PUT /api/v1/news/[id] - Update an article
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string}> }
 ) {
   const { id } = await params;
 
@@ -114,7 +114,7 @@ export async function PUT(
     const existingArticle = await db
       .select()
       .from(news)
-      .where(eq(news.id, id))
+      .where(eq(news.id, Number(id)))
       .limit(1);
 
     if (!existingArticle.length) {
@@ -178,13 +178,13 @@ export async function PUT(
         keywords,
         createdAt: new Date(),
       })
-      .where(eq(news.id, id))
+      .where(eq(news.id, Number(id)))
       .returning();
     console.log(categories, "categories");
     // Update categories if provided
     if (categories) {
       // Delete existing categories
-      await db.delete(newsCategories).where(eq(newsCategories.newsId, id));
+      await db.delete(newsCategories).where(eq(newsCategories.newsId, Number(id)));
 
       // Insert new categories
       if (categories.length > 0) {
@@ -212,7 +212,7 @@ export async function PUT(
 // DELETE /api/v1/news/[id] - Delete an article
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string}> }
 ) {
   try {
     // Check if article exists
@@ -220,7 +220,7 @@ export async function DELETE(
     const existingArticle = await db
       .select()
       .from(news)
-      .where(eq(news.id, id))
+      .where(eq(news.id, Number(id)))
       .limit(1);
 
     if (!existingArticle.length) {
@@ -230,10 +230,10 @@ export async function DELETE(
     // Start a transaction
     await db.transaction(async (tx) => {
       // Delete article categories first (due to foreign key constraint)
-      await tx.delete(newsCategories).where(eq(newsCategories.newsId, id));
+      await tx.delete(newsCategories).where(eq(newsCategories.newsId, Number(id)));
 
       // Delete article
-      await tx.delete(news).where(eq(news.id, id));
+      await tx.delete(news).where(eq(news.id, Number(id)));
     });
 
     return NextResponse.json(
