@@ -120,11 +120,11 @@ const DynamicTwo = async ({
   // };
   return (
     <>
-      <script
+      {/* <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
         crossOrigin="anonymous"
-      ></script>
+      ></script> */}
 
       <script type="application/ld+json">
         {JSON.stringify({

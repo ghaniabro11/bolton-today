@@ -86,11 +86,11 @@ const DynamicOneWithPagination = async ({
   if (!data.valid || data?.newsList?.length === 0) return notFound();
   return (
     <>
-      <script
+      {/* <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
         crossOrigin="anonymous"
-      ></script>
+      ></script> */}
       <CategoryPage
         category={data?.categoryChain[1]}
         newsList={data?.newsList}
