@@ -4,9 +4,14 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "boltontoday.co.uk",
-        pathname: "/files/**",
+        protocol: 'https',
+        hostname: 'boltontoday.co.uk',
+        pathname: '/files/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.boltontoday.co.uk',
+        pathname: '/files/**',
       },
     ],
     domains: [
