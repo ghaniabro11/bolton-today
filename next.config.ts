@@ -2,6 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "boltontoday.co.uk",
+        pathname: "/files/**",
+      },
+    ],
     domains: [
       "washingtoninsider.net",
       "localhost",
