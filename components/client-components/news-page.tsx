@@ -5,6 +5,7 @@ import PageGridWrapper from "./grid-wrapper";
 import { formatDate } from "@/utils/date";
 import "./content.css";
 import AdUnit from "../AdUnit";
+import AdBanner from "../AdBanner";
 
 interface NewDetailPageProps {
   data: {
@@ -74,7 +75,6 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
             )}
           </div>
           <p className=" my-0!">{data?.featureImageCaption ?? ""}</p>
-          <AdUnit />
 
           {data?.details && (
             <div
@@ -82,6 +82,7 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
               dangerouslySetInnerHTML={{ __html: data?.details ?? "" }}
             />
           )}
+          <AdBanner />
         </main>
       </PageGridWrapper>
     </>

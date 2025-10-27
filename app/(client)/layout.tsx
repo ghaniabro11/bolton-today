@@ -3,6 +3,8 @@ import Navbar from "@/components/client-components/navbar";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import Script from "next/script";
+import AdBanner from "@/components/AdBanner";
 // import Script from "next/script";
 const InterText = Inter({
   subsets: ["cyrillic"],
@@ -38,16 +40,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en" your-theme="system">
       <head>
         {/* ✅ Google AdSense script with Publisher ID */}
-        {/* <Script
+        <Script
           async
+          strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
-        /> */}
+        />
       </head>
       <body
         className={`
@@ -62,6 +65,7 @@ export default async function RootLayout({
         `}
         suppressHydrationWarning
       >
+        <AdBanner />
         {/* <Header /> */}
         <Navbar />
         <div className="max-w-7xl px-[3%] mx-auto ">{children}</div>

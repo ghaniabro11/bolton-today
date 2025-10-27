@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 
+import AdBanner from "@/components/AdBanner";
 import PageGridWrapper from "@/components/client-components/grid-wrapper";
 import { ImageWithFallback } from "@/components/client-components/image-fallback";
 import Loader from "@/components/client-components/Loader";
@@ -11,7 +12,6 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import fetchNewsData from "../actions/client-actions/home";
-import AdUnit from "@/components/AdUnit";
 
 // Optional: Create a simple loading component
 const Loading = () => <Loader />;
@@ -85,12 +85,6 @@ const Home = async ({
   if (!searchQuery) {
     return (
       <>
-        {/* <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
-          crossOrigin="anonymous"
-        ></script> */}
-
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -111,29 +105,32 @@ const Home = async ({
             latest={newsData?.latest ?? null}
             opinionCategory={newsData?.categoryOne ?? null}
           />
-          <AdUnit />
 
           <OceanCityCarousel
             data={newsData?.categoryOne ?? []}
           ></OceanCityCarousel>
+          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryThree ?? []}
           ></OceanCityCarousel>
+          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryFour ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryFive ?? []}
           ></OceanCityCarousel>
+          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categorySix ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categorySeven ?? []}
           ></OceanCityCarousel>
+          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryEight ?? []} />
 
@@ -142,22 +139,26 @@ const Home = async ({
           ></OceanCityCarousel>
 
           <ComponentFive diplomacyCat={newsData?.categoryTen ?? []} />
+          <AdBanner />
 
           <OceanCityCarousel
             data={newsData?.categoryEleven ?? []}
           ></OceanCityCarousel>
+          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryTwelve ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryThirteen ?? []}
           ></OceanCityCarousel>
+          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryEleven ?? []}
           ></OceanCityCarousel>
+          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
         </>
@@ -213,7 +214,6 @@ const Home = async ({
     )
     .orderBy(desc(news.publishDate));
   // .limit(20); // optional pagination
-  console.log(result, "result");
   return (
     <Suspense fallback={<Loader />}>
       <PageGridWrapper>

@@ -1,5 +1,6 @@
 import React from "react";
 import RecentNews from "./layout-right-section";
+import AdBanner from "../AdBanner";
 
 interface PageGridWrapperProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ const PageGridWrapper: React.FC<PageGridWrapperProps> = ({ children }) => {
       {/* Desktop Aside */}
       <div className="lg:col-span-4  col-span-12">
         <RecentNews />
+        <AdBanner />
       </div>
     </div>
   );
