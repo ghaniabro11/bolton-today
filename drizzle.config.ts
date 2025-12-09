@@ -1,19 +1,28 @@
 import type { Config } from "drizzle-kit";
-
+import dotenv from "dotenv";
+dotenv.config();
 // Parse connection string
-const DB_URL = new URL(process.env.DATABASE_URL || "");
+// const DB_URL = new URL(process.env.DATABASE_URL || "");
 
 export default {
   schema: "./lib/db/schema.ts",
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
-    host: DB_URL.hostname,
-    user: DB_URL.username,
-    password: DB_URL.password,
-    database: DB_URL.pathname.slice(1), // Remove leading '/'
+    // host: DB_URL.hostname,
+    // user: DB_URL.username,
+    // password: DB_URL.password,
+    // database: DB_URL.pathname.slice(1), // Remove leading '/'
+    // ssl: {
+    //   rejectUnauthorized: false // This will allow self-signed certificates
+    // },
+    host: process.env.DB_HOST || "",
+    port: parseInt(process.env.DB_PORT || "5432"),
+    user: process.env.DB_USER || "",
+    password: process.env.DB_PASSWORD || "",
+    database: process.env.DB_NAME || "",
     ssl: {
-      rejectUnauthorized: false // This will allow self-signed certificates
+      rejectUnauthorized: false, // ADD THIS
     },
   },
   verbose: true,
