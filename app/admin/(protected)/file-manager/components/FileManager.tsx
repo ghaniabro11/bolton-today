@@ -1,7 +1,7 @@
 // components/FileManager.tsx
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useFileManager } from "../useFileManager";
 import { FileManagerHeader } from "./FileManagerHeader";
@@ -15,6 +15,7 @@ import { UploadFileDialog } from "./UploadFileDialog";
 import { RenameDialog } from "./RenameDialog";
 import { FileItem } from "../fileManager";
 import { EditDialogue } from "./EditDialogue";
+import { FileManagerPagination } from "./FileManagerPagination";
 // Add to the component props
 interface FileManagerProps {
   onSelect?: (item: FileItem) => void;
@@ -29,8 +30,11 @@ export default function FileManager({ onSelect }: FileManagerProps) {
     error,
     searchTerm,
     viewMode,
+    pagination,
+    currentPage,
     setSearchTerm,
     setViewMode,
+    setPage,
     navigateToFolder,
     navigateUp,
     createFolder,
@@ -51,13 +55,6 @@ export default function FileManager({ onSelect }: FileManagerProps) {
 
   // Selected item for rename
   const [selectedItem, setSelectedItem] = useState<FileItem | null>(null);
-
-  // Memoized filtered items for performance
-  const filteredItems = useMemo(() => {
-    return items.filter((item) =>
-      item?.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [items, searchTerm]);
 
   // Dialog handlers
   const openDialog = (dialogName: keyof typeof dialogStates) => {
@@ -131,23 +128,39 @@ export default function FileManager({ onSelect }: FileManagerProps) {
         {/* Content */}
         {loading ? (
           <LoadingSpinner />
-        ) : viewMode === "grid" ? (
-          <FileGrid
-            items={filteredItems}
-            onNavigateToFolder={navigateToFolder}
-            onRenameItem={handleRenameClick}
-            onEditItem={handleEditClick}
-            onDeleteItem={deleteItem}
-            onItemClick={handleItemClick}
-          />
         ) : (
-          <FileTable
-            items={filteredItems}
-            onNavigateToFolder={navigateToFolder}
-            onRenameItem={handleRenameClick}
-            onDeleteItem={deleteItem}
-            onItemClick={handleItemClick}
-          />
+          <>
+            {viewMode === "grid" ? (
+              <FileGrid
+                items={items}
+                onNavigateToFolder={navigateToFolder}
+                onRenameItem={handleRenameClick}
+                onEditItem={handleEditClick}
+                onDeleteItem={deleteItem}
+                onItemClick={handleItemClick}
+              />
+            ) : (
+              <FileTable
+                items={items}
+                onNavigateToFolder={navigateToFolder}
+                onRenameItem={handleRenameClick}
+                onDeleteItem={deleteItem}
+                onItemClick={handleItemClick}
+              />
+            )}
+            
+            {/* Pagination */}
+            {pagination && pagination.totalPages > 1 && (
+              <div className="mt-6">
+                <FileManagerPagination
+                  totalItems={pagination.totalItems}
+                  currentPage={pagination.currentPage}
+                  limit={pagination.limit}
+                  onPageChange={setPage}
+                />
+              </div>
+            )}
+          </>
         )}
 
         {/* Dialogs */}

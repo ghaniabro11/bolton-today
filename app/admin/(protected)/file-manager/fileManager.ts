@@ -14,6 +14,16 @@ export interface FileItem {
   caption?: string | null;
   title?: string;
 }
+
+export interface PaginationInfo {
+  totalItems: number;
+  currentPage: number;
+  totalPages: number;
+  limit: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
 export interface FileManagerState {
   currentPath: string;
   items: FileItem[];
@@ -21,4 +31,5 @@ export interface FileManagerState {
   error: string | null;
   searchTerm: string;
   viewMode: "grid" | "table";
+  pagination: PaginationInfo | null;
 }

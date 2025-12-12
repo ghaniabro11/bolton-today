@@ -3,7 +3,7 @@ import path from "path";
 import { promises as fs } from "fs";
 import { db } from "@/lib/db/db"; // Adjust import path as needed
 import { media } from "@/lib/db/schema"; // Adjust import path as needed
-import { eq } from "drizzle-orm";
+import { eq, or, like } from "drizzle-orm";
 export const dynamic = "force-dynamic";
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR || "/var/bolton_uploads";
@@ -36,7 +36,11 @@ export async function GET(request: Request) {
 
     const { searchParams } = new URL(request.url);
     const folderPath = searchParams.get("path") || "";
-    console.log(`[GET] Folder path from query: "${folderPath}"`);
+    const searchTerm = searchParams.get("search") || "";
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "30", 10);
+    
+    console.log(`[GET] Query params: path="${folderPath}", search="${searchTerm}", page=${page}, limit=${limit}`);
 
     const absolutePath = path.join(UPLOAD_DIR, folderPath);
     console.log(`[GET] Resolved absolute path: "${absolutePath}"`);
@@ -122,8 +126,39 @@ export async function GET(request: Request) {
       })
     );
 
-    console.log(`[GET] Returning ${result.length} item(s)`);
-    return NextResponse.json({ path: folderPath, items: result });
+    // Filter by search term if provided (search in name, title, caption)
+    let filteredResult = result;
+    if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
+      filteredResult = result.filter((item) => {
+        const nameMatch = item.name?.toLowerCase().includes(searchLower);
+        const titleMatch = item.title?.toLowerCase().includes(searchLower);
+        const captionMatch = item.caption?.toLowerCase().includes(searchLower);
+        return nameMatch || titleMatch || captionMatch;
+      });
+    }
+
+    // Calculate pagination
+    const totalItems = filteredResult.length;
+    const totalPages = Math.ceil(totalItems / limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedResult = filteredResult.slice(startIndex, endIndex);
+
+    console.log(`[GET] Returning ${paginatedResult.length} item(s) (page ${page} of ${totalPages}, total: ${totalItems})`);
+    
+    return NextResponse.json({
+      path: folderPath,
+      items: paginatedResult,
+      pagination: {
+        totalItems,
+        currentPage: page,
+        totalPages,
+        limit,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    });
   } catch (error) {
     console.error("[GET] Error reading directory or fetching metadata:", error);
     if (error instanceof Error) {
