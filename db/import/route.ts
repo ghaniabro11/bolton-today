@@ -8,8 +8,8 @@ import {
   news,
   newsCategories,
   magzines,
-  homepageSections,
-  sectionCategories,
+  // homepageSections,
+  // sectionCategories,
 } from "@/lib/db/schema";
 import { sql } from "drizzle-orm";
 import fs from "fs/promises";
@@ -163,11 +163,11 @@ export async function POST(request: Request) {
     // Start transaction-like operation: Clear existing data (in reverse order of dependencies)
     try {
       console.log("[Import] Clearing existing data...");
-      await db.delete(sectionCategories);
-      console.log("[Import] ✓ Cleared section categories");
+      // await db.delete(sectionCategories);
+      // console.log("[Import] ✓ Cleared section categories");
 
-      await db.delete(homepageSections);
-      console.log("[Import] ✓ Cleared homepage sections");
+      // await db.delete(homepageSections);
+      // console.log("[Import] ✓ Cleared homepage sections");
 
       await db.delete(magzines);
       console.log("[Import] ✓ Cleared magazines");
@@ -299,22 +299,22 @@ export async function POST(request: Request) {
         console.log("[Import] ✓ Authors imported with original IDs");
       }
 
-      // Step 5: Import homepage sections (depends on categories) - preserve original IDs
-      if (importData.data.homepageSections?.length > 0) {
-        console.log(
-          `[Import] Importing ${importData.data.homepageSections.length} homepage sections...`
-        );
-        const convertedHomepageSections = importData.data.homepageSections.map(
-          (section: any) =>
-            convertTimestamps(section, ["createdAt", "updatedAt"])
-        );
+      // // Step 5: Import homepage sections (depends on categories) - preserve original IDs
+      // if (importData.data.homepageSections?.length > 0) {
+      //   console.log(
+      //     `[Import] Importing ${importData.data.homepageSections.length} homepage sections...`
+      //   );
+      //   const convertedHomepageSections = importData.data.homepageSections.map(
+      //     (section: any) =>
+      //       convertTimestamps(section, ["createdAt", "updatedAt"])
+      //   );
 
-        // Insert with explicit IDs - foreign keys should match since IDs are preserved
-        await db.insert(homepageSections).values(convertedHomepageSections);
+      //   // Insert with explicit IDs - foreign keys should match since IDs are preserved
+      //   await db.insert(homepageSections).values(convertedHomepageSections);
 
-        stats.homepageSections = importData.data.homepageSections.length;
-        console.log("[Import] ✓ Homepage sections imported with original IDs");
-      }
+      //   stats.homepageSections = importData.data.homepageSections.length;
+      //   console.log("[Import] ✓ Homepage sections imported with original IDs");
+      // }
 
       // Step 6: Import news (depends on authors and media) - preserve original IDs
       if (importData.data.news?.length > 0) {
@@ -355,24 +355,24 @@ export async function POST(request: Request) {
         console.log("[Import] ✓ News categories imported");
       }
 
-      // Step 8: Import section categories (depends on homepageSections and categories) - preserve original IDs
-      if (importData.data.sectionCategories?.length > 0) {
-        console.log(
-          `[Import] Importing ${importData.data.sectionCategories.length} section categories...`
-        );
-        const convertedSectionCategories = importData.data.sectionCategories
-          .map((item: any) => convertTimestamps(item, ["createdAt"]))
-          .filter(
-            (item: any) => item.sectionId && item.categoryId
-          ); // Only import valid references
+      // // Step 8: Import section categories (depends on homepageSections and categories) - preserve original IDs
+      // if (importData.data.sectionCategories?.length > 0) {
+      //   console.log(
+      //     `[Import] Importing ${importData.data.sectionCategories.length} section categories...`
+      //   );
+      //   const convertedSectionCategories = importData.data.sectionCategories
+      //     .map((item: any) => convertTimestamps(item, ["createdAt"]))
+      //     .filter(
+      //       (item: any) => item.sectionId && item.categoryId
+      //     ); // Only import valid references
 
-        if (convertedSectionCategories.length > 0) {
-          await db.insert(sectionCategories).values(convertedSectionCategories);
-        }
+      //   if (convertedSectionCategories.length > 0) {
+      //     await db.insert(sectionCategories).values(convertedSectionCategories);
+      //   }
 
-        stats.sectionCategories = convertedSectionCategories.length;
-        console.log("[Import] ✓ Section categories imported");
-      }
+      //   stats.sectionCategories = convertedSectionCategories.length;
+      //   console.log("[Import] ✓ Section categories imported");
+      // }
 
       // Step 9: Import magazines (depends on media) - preserve original IDs
       if (importData.data.magzines?.length > 0) {
