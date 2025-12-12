@@ -39,8 +39,10 @@ export async function GET(request: Request) {
     const searchTerm = searchParams.get("search") || "";
     const page = parseInt(searchParams.get("page") || "1", 10);
     const limit = parseInt(searchParams.get("limit") || "30", 10);
-    
-    console.log(`[GET] Query params: path="${folderPath}", search="${searchTerm}", page=${page}, limit=${limit}`);
+
+    console.log(
+      `[GET] Query params: path="${folderPath}", search="${searchTerm}", page=${page}, limit=${limit}`
+    );
 
     const absolutePath = path.join(UPLOAD_DIR, folderPath);
     console.log(`[GET] Resolved absolute path: "${absolutePath}"`);
@@ -93,8 +95,10 @@ export async function GET(request: Request) {
                   filePath: dbRecord.filePath,
                   type: dbRecord.type,
                 };
-                console.log(`[GET] DB record found for: "${fileUrl}"`,metadata);
-
+                console.log(
+                  `[GET] DB record found for: "${fileUrl}"`,
+                  metadata
+                );
               } else {
                 console.log(`[GET] No DB record found for: "${fileUrl}"`);
               }
@@ -130,10 +134,10 @@ export async function GET(request: Request) {
     let filteredResult = result;
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
-      filteredResult = result.filter((item) => {
+      filteredResult = result.filter((item: any) => {
         const nameMatch = item.name?.toLowerCase().includes(searchLower);
-        const titleMatch = item.title?.toLowerCase().includes(searchLower);
-        const captionMatch = item.caption?.toLowerCase().includes(searchLower);
+        const titleMatch = item?.title?.toLowerCase().includes(searchLower);
+        const captionMatch = item?.caption?.toLowerCase().includes(searchLower);
         return nameMatch || titleMatch || captionMatch;
       });
     }
@@ -145,8 +149,10 @@ export async function GET(request: Request) {
     const endIndex = startIndex + limit;
     const paginatedResult = filteredResult.slice(startIndex, endIndex);
 
-    console.log(`[GET] Returning ${paginatedResult.length} item(s) (page ${page} of ${totalPages}, total: ${totalItems})`);
-    
+    console.log(
+      `[GET] Returning ${paginatedResult.length} item(s) (page ${page} of ${totalPages}, total: ${totalItems})`
+    );
+
     return NextResponse.json({
       path: folderPath,
       items: paginatedResult,
