@@ -1,6 +1,6 @@
 import { db } from "@/lib/db/db";
 import { media, news, newsCategories } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 // GET /api/v1/news - Get all news
@@ -71,6 +71,11 @@ export async function POST(request: Request) {
         { status: 409 }
       );
     }
+
+    // Reset sequence to max ID before insertion to prevent duplicate key errors
+    await db.execute(
+      sql`SELECT setval('news_id_seq', COALESCE((SELECT MAX(id) FROM news), 0), true)`
+    );
 
     // Create new article
     const newArticle = await db
