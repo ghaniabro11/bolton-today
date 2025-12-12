@@ -1,18 +1,16 @@
 // app/api/db/export/route.ts
-import { NextResponse } from "next/server";
 import { db } from "@/lib/db/db";
 import {
-  users,
-  media,
-  categories,
   authors,
+  categories,
+  magzines,
+  media,
   news,
   newsCategories,
-  magzines,
-  homepageSections,
-  sectionCategories,
+  users,
 } from "@/lib/db/schema";
 import archiver from "archiver";
+import { NextResponse } from "next/server";
 import { PassThrough } from "stream";
 
 const BATCH_SIZE = 1000;
@@ -88,13 +86,13 @@ export async function GET(request: Request) {
     for await (const batch of fetchInBatches(magzines))
       exportData.data.magzines.push(...batch);
 
-    console.log("[Export] Fetching homepage sections...");
-    for await (const batch of fetchInBatches(homepageSections))
-      exportData.data.homepageSections.push(...batch);
+    // console.log("[Export] Fetching homepage sections...");
+    // for await (const batch of fetchInBatches(homepageSections))
+    //   exportData.data.homepageSections.push(...batch);
 
-    console.log("[Export] Fetching section categories...");
-    for await (const batch of fetchInBatches(sectionCategories))
-      exportData.data.sectionCategories.push(...batch);
+    // console.log("[Export] Fetching section categories...");
+    // for await (const batch of fetchInBatches(sectionCategories))
+    //   exportData.data.sectionCategories.push(...batch);
 
     // ✅ Step 2: Return JSON directly if images not included
     if (!includeImages) {
