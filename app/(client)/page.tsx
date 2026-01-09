@@ -41,7 +41,7 @@ export async function generateMetadata({
   return {
     title: "Bolton Today News | Latest News from Bolton",
     description:
-      " Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
+      "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
     keywords: ["news", "latest updates", "breaking news", "international news"],
     alternates: {
       ...(!searchQuery && {
@@ -57,16 +57,16 @@ export async function generateMetadata({
     },
 
     openGraph: {
-      title: "Bolton Today | Latest News from Capitol Hill",
+      title: "Bolton Today News | Latest News from Bolton",
       description:
-        "Discover latest news from Capitol Hill with in-depth analysis and recent developments that shape US politics.",
+        "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
       url: !searchQuery ? "https://boltontoday.co.uk" : undefined,
       images: [
         {
           url: `https://boltontoday.co.uk/bolton_logo.svg`, // Replace with your image URL
           width: 1200,
           height: 630,
-          alt: "Bolton Today | Latest News from Capitol Hill",
+          alt: "Bolton Today News | Latest News from Bolton",
         },
       ],
     },
