@@ -80,7 +80,6 @@ const Home = async ({
 }) => {
   const newsData = await fetchNewsData(db);
   // const newsData = posts;
-  console.log(newsData, "newsData");
   const searchQuery = (await searchParams).s;
   if (!searchQuery) {
     return (
@@ -160,7 +159,7 @@ const Home = async ({
           ></OceanCityCarousel>
           <AdBanner />
 
-          <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
+          {/* <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} /> */}
         </>
 
         {/* <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} /> */}

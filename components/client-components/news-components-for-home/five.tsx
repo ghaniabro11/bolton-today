@@ -11,13 +11,15 @@ const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
     return (
       <>
         <div className="border-b-3 border-b-btn w-fit my-2">
-          <Typography
-            variant="h2"
-            weight="600"
-            className="text-2xl text-head font-semibold "
-          >
-            {centerdata?.categoryname}
-          </Typography>
+          <Link href={`/${centerdata?.categoryslug}`}>
+            <Typography
+              variant="h2"
+              weight="600"
+              className="text-2xl text-head font-semibold "
+            >
+              {centerdata?.categoryname}
+            </Typography>
+          </Link>
         </div>
         <section className="grid grid-cols-1 lg:grid-cols-6  overflow-hidden">
           {/* Center Image and News Title */}

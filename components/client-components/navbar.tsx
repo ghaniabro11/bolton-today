@@ -23,7 +23,7 @@ import { Input } from "../ui/input";
 const navLinks = [
   {
     label: "Bolton News",
-    // link: "/local-news",
+    href: "/bolton",
     dropdown: [
       { label: "Bolton News", href: "/bolton" },
       { label: "Astley Bridge News", href: "/astley-bridge" },
@@ -40,7 +40,7 @@ const navLinks = [
   { label: "Crime News", href: "/crime" },
   {
     label: "Sports News",
-    // href: "/sports-news",
+    href: "/sports",
     dropdown: [
       { label: "Bolton Wanderers", href: "/sports/wanderers" },
       { label: "Football", href: "/sports/football" },
