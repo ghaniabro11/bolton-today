@@ -108,29 +108,21 @@ const Home = async ({
           <OceanCityCarousel
             data={newsData?.categoryOne ?? []}
           ></OceanCityCarousel>
-          <AdBanner />
-
           <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryThree ?? []}
           ></OceanCityCarousel>
-          <AdBanner />
-
           <ComponentFive diplomacyCat={newsData?.categoryFour ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryFive ?? []}
           ></OceanCityCarousel>
-          <AdBanner />
-
           <ComponentFive diplomacyCat={newsData?.categorySix ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categorySeven ?? []}
           ></OceanCityCarousel>
-          <AdBanner />
-
           <ComponentFive diplomacyCat={newsData?.categoryEight ?? []} />
 
           <OceanCityCarousel
@@ -138,26 +130,21 @@ const Home = async ({
           ></OceanCityCarousel>
 
           <ComponentFive diplomacyCat={newsData?.categoryTen ?? []} />
-          <AdBanner />
-
           <OceanCityCarousel
             data={newsData?.categoryEleven ?? []}
           ></OceanCityCarousel>
-          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryTwelve ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryThirteen ?? []}
           ></OceanCityCarousel>
-          <AdBanner />
 
           <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} />
 
           <OceanCityCarousel
             data={newsData?.categoryEleven ?? []}
           ></OceanCityCarousel>
-          <AdBanner />
 
           {/* <ComponentFive diplomacyCat={newsData?.categoryFourteen ?? []} /> */}
         </>

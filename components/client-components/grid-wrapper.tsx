@@ -20,7 +20,6 @@ const PageGridWrapper: React.FC<PageGridWrapperProps> = ({ children }) => {
       {/* Desktop Aside */}
       <div className="lg:col-span-4  col-span-12">
         <RecentNews />
-        <AdBanner />
       </div>
     </div>
   );

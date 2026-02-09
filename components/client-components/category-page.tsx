@@ -55,8 +55,7 @@ export default function CategoryPage({
                       authorSlug={newsItem?.authorSlug || newsItem?.author_slug}
                     />
 
-                    {/* 👉 Show AdBanner after every 3rd news item */}
-                    {(index + 1) % 3 === 0 && <AdBanner />}
+
                   </React.Fragment>
                 ))
               )}

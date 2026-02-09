@@ -82,7 +82,6 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
               dangerouslySetInnerHTML={{ __html: data?.details ?? "" }}
             />
           )}
-          <AdBanner />
         </main>
       </PageGridWrapper>
     </>
