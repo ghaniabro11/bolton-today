@@ -13,6 +13,8 @@ type ImageWithFallbackProps = {
   priority?: boolean;
   /** Hint for responsive image width (e.g. "100vw", "(max-width: 768px) 100vw, 33vw") - improves savings */
   sizes?: string;
+  /** 1–100; lower = smaller files. Default 72 for better LCP/image delivery. */
+  quality?: number;
 } & Omit<ImageProps, "src" | "alt">;
 
 export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
@@ -26,6 +28,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   layout,
   priority = false,
   sizes,
+  quality = 72,
   ...props
 }) => {
   const isValidSrc = typeof src === "string" && src.trim().length > 0;
@@ -43,6 +46,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
             : { width, height })}
           className="object-cover w-full h-full"
           priority={priority}
+          quality={quality}
           {...props}
         />
         {caption ? <p>{caption}</p> : null}

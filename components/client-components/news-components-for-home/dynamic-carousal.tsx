@@ -61,6 +61,8 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
                     src={item?.image}
                     alt={item?.title}
                     className="w-full h-full object-cover"
+                    quality={70}
+                    sizes="(max-width: 768px) 50vw, 25vw"
                   />
 
 

@@ -31,17 +31,11 @@ const ComponentOne = async ({
             className="w-full min-h-60  object-cover"
             src={`${centerdata?.image ?? ""}`}
             alt={centerdata?.imageTitle ?? "image"}
+            quality={72}
+            sizes="(max-width: 1024px) 100vw, 40vw"
           />
         </div>
-        {/* <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
-          <Typography
-            weight="600"
-            variant="h3"
-            className="hover:underline text-start text-4xl"
-          >
-            {centerdata?.title ?? ""}
-          </Typography>
-        </Link> */}
+        
       </div>
       <div className="p-4 lg:col-span-2 flex flex-col justify-between gap-4 h-full">
         <div className="max-md:border-b border-b-black/20 max-md:pb-5">
@@ -102,6 +96,8 @@ const ComponentOne = async ({
             className="w-full min-h-[45dvh] object-cover"
             src={`${centerdata?.image ?? ""}`}
             alt={centerdata?.imageTitle ?? "image"}
+            quality={72}
+            sizes="(max-width: 1024px) 100vw, 40vw"
           />
         </div>
       </div>

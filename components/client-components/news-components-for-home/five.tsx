@@ -38,6 +38,8 @@ const ComponentFive = async ({
                 className="w-full object-cover "
                 src={`${centerdata?.image ?? ""}`}
                 alt={centerdata?.imageTitle ?? "image"}
+                quality={72}
+                sizes="(max-width: 1024px) 100vw, 33vw"
               />
             </div>
             <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
@@ -59,6 +61,8 @@ const ComponentFive = async ({
                   height={96}
                   width={96}
                   className="object-cover size-24"
+                  quality={65}
+                  sizes="96px"
                 />
                 <Link href={`/${item?.categoryslug}/${item?.slug}`}>
                   <Typography
@@ -81,6 +85,8 @@ const ComponentFive = async ({
                   height={96}
                   width={96}
                   className="object-cover size-24"
+                  quality={65}
+                  sizes="96px"
                 />
                 <Link href={`/${item?.categoryslug}/${item?.slug}`}>
                   <Typography
@@ -102,9 +108,9 @@ const ComponentFive = async ({
               className="hover:no-underline  uppercase text-xs"
             >
               <span className="hover:no-underline bg-head hover:bg-head text-white hover:text-btn  uppercase text-xs">
-                Read More
+                Read More {centerdata?.categoryname}
               </span>
-            </Link>{" "}
+            </Link>
           </span>
           <div className="flex-grow h-px bg-gray-300" />
         </div>
