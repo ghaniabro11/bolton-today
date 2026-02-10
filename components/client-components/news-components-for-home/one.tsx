@@ -30,12 +30,13 @@ const ComponentOne = async ({
             width={443}
             className="w-full min-h-60  object-cover"
             src={`${centerdata?.image ?? ""}`}
+            fetchPriority="high"
             alt={centerdata?.imageTitle ?? "image"}
             quality={72}
             sizes="(max-width: 1024px) 100vw, 40vw"
           />
         </div>
-        
+
       </div>
       <div className="p-4 lg:col-span-2 flex flex-col justify-between gap-4 h-full">
         <div className="max-md:border-b border-b-black/20 max-md:pb-5">
@@ -45,7 +46,7 @@ const ComponentOne = async ({
           >
             <Typography variant="p" className="text-head text-sm font-semibold">
               {centerdata?.categoryname ?? ""}
-            </Typography>{" "}
+            </Typography>
           </Link>
           <Link href={`/${centerdata?.categoryslug}/${centerdata?.slug}`}>
             <Typography
@@ -74,8 +75,8 @@ const ComponentOne = async ({
                 <Typography
                   variant="h3"
                   className={`hover:underline text-start text-lg pb-2 ${index === leftData?.length - 1
-                      ? ""
-                      : "border-b-2 border-b-gray-200"
+                    ? ""
+                    : "border-b-2 border-b-gray-200"
                     }`}
                 >
                   {item?.title ?? ""}

@@ -247,6 +247,9 @@ const Navbar = () => {
           <button
             className="md:hidden text-gray-700 py-5"
             onClick={() => setMobileOpen(true)}
+            aria-label="Open mobile menu"
+            title="Open mobile menu"
+            type="button"
           >
             <Menu size={28} className="text-white cursor-pointer" />
           </button>
