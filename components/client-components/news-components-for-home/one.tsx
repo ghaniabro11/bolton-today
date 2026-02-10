@@ -24,8 +24,9 @@ const ComponentOne = async ({
       <div className="lg:col-span-2 py-4  flex min-lg:hidden flex-col items-center space-y-4">
         <div className=" h-full w-full relative">
           <ImageWithFallback
-            layout="fill"
             priority
+            height={328}
+            width={443}
             sizes="(min-width: 1024px) 40vw, 100vw"
             className="w-full min-h-60  object-cover"
             src={`${centerdata?.image ?? ""}`}
@@ -78,11 +79,10 @@ const ComponentOne = async ({
               <Link href={`/${item?.categoryslug}/${item?.slug}`}>
                 <Typography
                   variant="h3"
-                  className={`hover:underline text-start text-lg pb-2 ${
-                    index === leftData?.length - 1
+                  className={`hover:underline text-start text-lg pb-2 ${index === leftData?.length - 1
                       ? ""
                       : "border-b-2 border-b-gray-200"
-                  }`}
+                    }`}
                 >
                   {item?.title ?? ""}
                 </Typography>

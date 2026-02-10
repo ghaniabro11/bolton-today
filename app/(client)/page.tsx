@@ -124,19 +124,18 @@ const Home = async ({
               "@type": "ItemList",
               "itemListOrder": "https://schema.org/ItemListOrderDescending",
               "numberOfItems": 10,
-              "itemListElement": [
+              "itemListElement": newsData?.latest?.map((item: any, index: number) => (
                 {
                   "@type": "ListItem",
-                  "position": 1,
-                  "url": "${DOMAIN_URL}/local/havering/havering-council/havering-council-tax-rises-4-99-to-2424-band-d-2026/"
-                },
-
-              ]
+                  "position": index + 1,
+                  "url": `${DOMAIN_URL}/${item?.categoryslug}/${item?.slug}`
+                }
+              ))
             }
           })}
         </script>
         <>
-          <h1 className=" text-xs text-transparent absolute"> Bolton Today</h1>
+          <h1 className="sr-only">{NEWS_PUBLICATION_NAME}</h1>
           <ComponentOne
             latest={newsData?.latest ?? null}
             opinionCategory={newsData?.categoryOne ?? null}

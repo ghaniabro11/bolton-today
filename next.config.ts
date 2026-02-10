@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.boltontoday.co.uk",
         pathname: "/files/**",
+
+      },
+      {
+        protocol: "https",
+        hostname: "washingtoninsider.us",
+        pathname: "/files/**",
+
       },
     ],
     domains: [
@@ -24,6 +31,8 @@ const nextConfig: NextConfig = {
       "localhost",
       "staging.washingtoninsider.net",
       "boltontoday.co.uk",
+      "washingtoninsider.us",
+      "www.washingtoninsider.us",
     ],
   },
 
