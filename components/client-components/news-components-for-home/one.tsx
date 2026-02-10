@@ -26,6 +26,7 @@ const ComponentOne = async ({
           <ImageWithFallback
             layout="fill"
             priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
             className="w-full min-h-60  object-cover"
             src={`${centerdata?.image ?? ""}`}
             alt={centerdata?.imageTitle ?? "image"}
@@ -97,6 +98,7 @@ const ComponentOne = async ({
           <ImageWithFallback
             layout="fill"
             priority
+            sizes="(min-width: 1024px) 40vw, 100vw"
             className="w-full min-h-[45dvh] object-cover"
             src={`${centerdata?.image ?? ""}`}
             alt={centerdata?.imageTitle ?? "image"}

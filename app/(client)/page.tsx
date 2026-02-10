@@ -12,6 +12,7 @@ import { and, desc, eq, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import fetchNewsData from "../actions/client-actions/home";
+import { DOMAIN_URL, NEWS_PUBLICATION_NAME } from "@/constant/apiUrl";
 
 // Optional: Create a simple loading component
 const Loading = () => <Loader />;
@@ -98,6 +99,42 @@ const Home = async ({
             ],
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "@id": `${DOMAIN_URL}/#collectionpage`,
+            "name": NEWS_PUBLICATION_NAME,
+            "description": "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
+            "url": `${DOMAIN_URL}/`,
+            "isPartOf": {
+              "@type": "WebSite",
+              "@id": `${DOMAIN_URL}/#website`
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": NEWS_PUBLICATION_NAME,
+              "url": `${DOMAIN_URL}/`,
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${DOMAIN_URL}/bolton_logo.svg`
+              }
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListOrder": "https://schema.org/ItemListOrderDescending",
+              "numberOfItems": 10,
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "url": "${DOMAIN_URL}/local/havering/havering-council/havering-council-tax-rises-4-99-to-2424-band-d-2026/"
+                },
+
+              ]
+            }
+          })}
+        </script>
         <>
           <h1 className=" text-xs text-transparent absolute"> Bolton Today</h1>
           <ComponentOne
@@ -108,7 +145,10 @@ const Home = async ({
           <OceanCityCarousel
             data={newsData?.categoryOne ?? []}
           ></OceanCityCarousel>
-          <ComponentFive diplomacyCat={newsData?.categoryTwo ?? []} />
+          <ComponentFive
+            diplomacyCat={newsData?.categoryTwo ?? []}
+            priorityImage
+          />
 
           <OceanCityCarousel
             data={newsData?.categoryThree ?? []}
@@ -224,10 +264,10 @@ const Home = async ({
                   <div className="relative w-full md:w-1/3 h-60 md:h-auto">
                     <ImageWithFallback
                       src={newsItem?.featureImage?.filePath ?? ""}
-                      alt={newsItem?.featureImage?.title}
+                      alt={newsItem?.featureImage?.title ?? ""}
                       className="object-cover"
                       layout="fill"
-                      priority
+                      sizes="(min-width: 768px) 33vw, 100vw"
                     />
                   </div>
 

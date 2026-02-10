@@ -2,7 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "../typography";
 
-const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
+const ComponentFive = async ({
+  diplomacyCat = [],
+  priorityImage = false,
+}: {
+  diplomacyCat: any;
+  priorityImage?: boolean;
+}) => {
   const centerdata = diplomacyCat[0] as any;
   const leftData = diplomacyCat?.slice(1, 4); // Gets 3 items (indices 1,2,3)
   const rightData = diplomacyCat?.slice(4, 7); // Gets 3 items (indices 4,5,6)
@@ -26,8 +32,9 @@ const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
           <div className="lg:col-span-2 p-4 flex flex-col items-start gap-2">
             <div className=" h-full md:max-h-[30dvh] min-h-[50dvh] max-h-[50dvh] md:min-h-[28dvh] w-full relative">
               <Image
-                priority
                 fill
+                priority={priorityImage}
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="w-full object-cover "
                 src={`${centerdata?.image ?? ""}`}
                 alt={centerdata?.imageTitle ?? "image"}
@@ -51,6 +58,7 @@ const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
                   alt={item?.imageTitle ?? "image"}
                   height={80}
                   width={80}
+                  sizes="96px"
                   className="object-cover size-24"
                 />
                 <Link href={`/${item?.categoryslug}/${item?.slug}`}>
@@ -73,6 +81,7 @@ const ComponentFive = async ({ diplomacyCat = [] }: { diplomacyCat: any }) => {
                   alt={item?.imageTitle ?? "image"}
                   height={80}
                   width={80}
+                  sizes="96px"
                   className="object-cover size-24"
                 />
                 <Link href={`/${item?.categoryslug}/${item?.slug}`}>

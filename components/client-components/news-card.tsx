@@ -35,6 +35,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
           alt="news-card"
           className="object-cover"
           layout="fill"
+          sizes="(min-width: 768px) 50vw, 100vw"
         />
       </div>
 

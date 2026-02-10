@@ -5,9 +5,15 @@ import { cn } from "@/lib/utils";
 type ImageWithFallbackProps = {
   src: string | null | undefined;
   rounded?: boolean;
-  layout?: "fill" | "fixed" | "intrinsic" | "responsive"; // Add layout prop
+  alt?: string;
+  /** Use fill for responsive containers; omit for fixed width/height */
+  layout?: "fill" | "fixed" | "intrinsic" | "responsive";
   caption?: string;
-} & Omit<any, "src">;
+  /** Only set true for LCP / above-the-fold images to avoid loading all images eagerly */
+  priority?: boolean;
+  /** Hint for responsive image width (e.g. "100vw", "(max-width: 768px) 100vw, 33vw") - improves savings */
+  sizes?: string;
+} & Omit<ImageProps, "src" | "alt">;
 
 export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   src,
@@ -17,32 +23,29 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   height = 100,
   rounded = true,
   caption,
-  layout, // Add layout prop
+  layout,
+  priority = false,
+  sizes,
   ...props
 }) => {
   const isValidSrc = typeof src === "string" && src.trim().length > 0;
   const safeSrc = isValidSrc ? src! : "/image_fallback.svg";
+  const useFill = layout === "fill";
 
   return (
     <div className={cn("overflow-hidden", className)}>
-      <div
-        className={cn(
-          // " inline-block transition-transform duration-300 hover:scale-105 size-fit",
-
-          rounded && "",
-          className
-        )}
-        // style={{ width, height }}
-      >
+      <div className={cn(rounded && "", className)}>
         <Image
           src={safeSrc}
           alt={alt}
-          {...(layout ? { layout } : { width, height })} // Conditionally include width/height or layout
+          {...(useFill
+            ? { fill: true, sizes: sizes ?? "100vw" }
+            : { width, height })}
           className="object-cover w-full h-full"
+          priority={priority}
           {...props}
-          priority
         />
-        <p>{caption}</p>
+        {caption ? <p>{caption}</p> : null}
       </div>
     </div>
   );

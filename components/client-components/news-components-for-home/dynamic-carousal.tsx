@@ -57,7 +57,8 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
                   <div className="md:h-40 h-[50dvh] relative">
                     <Image
                       fill
-                      priority
+                      priority={i < 2}
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                       src={item?.image}
                       alt={item?.title}
                       className="w-full h-full object-cover"
