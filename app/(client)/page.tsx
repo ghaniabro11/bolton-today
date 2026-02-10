@@ -106,7 +106,7 @@ const Home = async ({
             "@id": `${DOMAIN_URL}/#collectionpage`,
             "name": NEWS_PUBLICATION_NAME,
             "description": "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
-            "url": `${DOMAIN_URL}/`,
+            "url": `${DOMAIN_URL}`,
             "isPartOf": {
               "@type": "WebSite",
               "@id": `${DOMAIN_URL}/#website`
