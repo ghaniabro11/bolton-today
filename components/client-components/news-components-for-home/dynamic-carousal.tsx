@@ -54,18 +54,16 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
             {data?.map((item: any, i: number) => (
               <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/4 p-2  ">
                 <div className="bg-white   overflow-hidden h-full p-2 space-y-2">
-                  <div className="md:h-40 h-[50dvh] relative">
                     <Image
                       fill
                       priority={i < 2}
                       height={160}
                       width={269}
-                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                       src={item?.image}
                       alt={item?.title}
                       className="w-full h-full object-cover"
                     />
-                  </div>
+               
 
                   <Link href={`/${item?.categoryslug}/${item?.slug}`}>
                     <Typography
