@@ -32,7 +32,6 @@ const ComponentFive = async ({
           <div className="lg:col-span-2 p-4 flex flex-col items-start gap-2">
             <div className=" h-full md:max-h-[30dvh] min-h-[50dvh] max-h-[50dvh] md:min-h-[28dvh] w-full relative">
               <Image
-                fill
                 priority={priorityImage}
                 height={264}
                 width={364}
@@ -59,7 +58,6 @@ const ComponentFive = async ({
                   alt={item?.imageTitle ?? "image"}
                   height={96}
                   width={96}
-                  sizes="96px"
                   className="object-cover size-24"
                 />
                 <Link href={`/${item?.categoryslug}/${item?.slug}`}>
@@ -82,7 +80,6 @@ const ComponentFive = async ({
                   alt={item?.imageTitle ?? "image"}
                   height={96}
                   width={96}
-                  sizes="96px"
                   className="object-cover size-24"
                 />
                 <Link href={`/${item?.categoryslug}/${item?.slug}`}>
