@@ -34,7 +34,8 @@ const ComponentFive = async ({
               <Image
                 fill
                 priority={priorityImage}
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                height={264}
+                width={364}
                 className="w-full object-cover "
                 src={`${centerdata?.image ?? ""}`}
                 alt={centerdata?.imageTitle ?? "image"}
@@ -56,8 +57,8 @@ const ComponentFive = async ({
                 <Image
                   src={item?.image}
                   alt={item?.imageTitle ?? "image"}
-                  height={80}
-                  width={80}
+                  height={96}
+                  width={96}
                   sizes="96px"
                   className="object-cover size-24"
                 />
@@ -79,8 +80,8 @@ const ComponentFive = async ({
                 <Image
                   src={item?.image}
                   alt={item?.imageTitle ?? "image"}
-                  height={80}
-                  width={80}
+                  height={96}
+                  width={96}
                   sizes="96px"
                   className="object-cover size-24"
                 />
