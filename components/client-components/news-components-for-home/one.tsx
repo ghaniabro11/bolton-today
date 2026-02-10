@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CategoryItem } from "../category-item";
 import { ImageWithFallback } from "../image-fallback";
 import { Typography } from "../typography";
+import Image from "next/image";
 
 const ComponentOne = async ({
   latest,
@@ -21,13 +22,12 @@ const ComponentOne = async ({
   const rightData = latest?.slice(3, 10);
   return (
     <section className="grid grid-cols-1 lg:grid-cols-5 gap- border-b border-black/20  lg:divide-x divide-black/20  overflow-hidden">
-      <div className="lg:col-span-2 py-4  flex min-lg:hidden flex-col items-center space-y-4">
+      <div className="lg:col-span-2 py-4  hidden lg:flex flex-col items-center space-y-4">
         <div className=" h-full w-full relative">
-          <ImageWithFallback
+          <Image
             priority
             height={328}
             width={443}
-            sizes="(min-width: 1024px) 40vw, 100vw"
             className="w-full min-h-60  object-cover"
             src={`${centerdata?.image ?? ""}`}
             alt={centerdata?.imageTitle ?? "image"}
@@ -93,12 +93,12 @@ const ComponentOne = async ({
       </div>
 
       {/* Center Image and News Title */}
-      <div className="lg:col-span-2 p-4  min-lg:flex hidden flex-col items-center space-y-4">
+      <div className="lg:col-span-2 p-4  hidden lg:flex flex-col items-center space-y-4">
         <div className="mx-3 h-full w-full relative">
-          <ImageWithFallback
-            layout="fill"
+          <Image
             priority
-            sizes="(min-width: 1024px) 40vw, 100vw"
+            height={328}
+            width={443}
             className="w-full min-h-[45dvh] object-cover"
             src={`${centerdata?.image ?? ""}`}
             alt={centerdata?.imageTitle ?? "image"}
