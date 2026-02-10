@@ -58,6 +58,8 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
                     <Image
                       fill
                       priority={i < 2}
+                      height={160}
+                      width={269}
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                       src={item?.image}
                       alt={item?.title}
