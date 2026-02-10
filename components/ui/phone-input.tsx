@@ -116,7 +116,8 @@ const CountrySelect = ({
             value={searchValue}
             onValueChange={(value) => {
               setSearchValue(value);
-              setTimeout(() => {
+              // Defer scroll to next frame to avoid forced reflow (Lighthouse)
+              requestAnimationFrame(() => {
                 if (scrollAreaRef.current) {
                   const viewportElement = scrollAreaRef.current.querySelector(
                     "[data-radix-scroll-area-viewport]"
@@ -125,7 +126,7 @@ const CountrySelect = ({
                     viewportElement.scrollTop = 0;
                   }
                 }
-              }, 0);
+              });
             }}
             placeholder="Search country..."
           />
