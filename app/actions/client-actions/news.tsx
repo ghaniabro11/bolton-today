@@ -19,7 +19,6 @@ export async function validateNewsUrl(slugParts: string[]) {
   }
 
   const newsSlug = slugParts[slugParts.length - 1];
-  const categorySlugs = slugParts.slice(0, -1); // [category, subcategory, ...]
 
   // 1. Get news by slug
   const newsItem = await db
@@ -71,29 +70,7 @@ export async function validateNewsUrl(slugParts: string[]) {
 
   // 3. Fetch category chain from right to left
   const resolvedCategories: any[] = [];
-  // let currentParentId: number | null = null;
 
-  // for (let i = categorySlugs?.length - 1; i >= 0; i--) {
-  //   const slug = categorySlugs[i];
-
-  //   const category = await db.query.categories.findFirst({
-  //     where: (cat, { eq, and }) =>
-  //       and(
-  //         eq(cat.slug, slug),
-  //         currentParentId === null ? sql`true` : eq(cat.id, currentParentId)
-  //       ),
-  //   });
-
-  //   if (!category) {
-  //     return {
-  //       valid: false,
-  //       error: `Hierarchy mismatch at slug: "${slug}". It is not a valid parent.`,
-  //     };
-  //   }
-
-  //   resolvedCategories.unshift(category); // Maintain correct order
-  //   currentParentId = category.parentCategoryId;
-  // }
   let expectedParentId: number | null = null;
 
   for (let i = 0; i < slugParts.length - 1; i++) {
@@ -130,7 +107,8 @@ export async function validateNewsUrl(slugParts: string[]) {
   // 4. Final category in chain should be directly linked with news
   const finalCategory = resolvedCategories[resolvedCategories.length - 1];
   const isLinked = linkedCategoryIds.includes(finalCategory.id);
-  // 👇 Construct the full category path from the chain
+
+
   const fullCategorySlugPath = resolvedCategories
     .map((cat) => cat.slug)
     .join("/");
@@ -142,6 +120,21 @@ export async function validateNewsUrl(slugParts: string[]) {
     };
   }
 
+  const BODY_CATEGORY_SLUGS = [
+    "public-services",
+    "community-projects",
+    "history-of-bolton",
+    "local-businesses",
+    "things-to-do",
+  ];
+  const linkedCategoriesWithSlug = await db.query.categories.findMany({
+    where: inArray(categories.id, linkedCategoryIds),
+    columns: { slug: true },
+  });
+  const include_body = linkedCategoriesWithSlug.some((c) =>
+    BODY_CATEGORY_SLUGS.includes(c.slug)
+  );
+  console.log(include_body, "include_body");
   return {
     valid: true,
     news: newsItem,
@@ -150,6 +143,7 @@ export async function validateNewsUrl(slugParts: string[]) {
     categorySlug: finalCategory.slug,
     categoryUrl: fullCategorySlugPath, // e.g., "us/politics"
     completeUrl: `${fullCategorySlugPath}/${newsItem[0].slug}`, // e.g., "us/politics/biden-visits-nato"
+    include_body,
   };
 }
 

@@ -19,7 +19,6 @@ const ComponentOne = async ({
   const centerdata = latest[0] ?? (null as any);
   const leftData = latest?.slice(1, 3);
   const rightData = latest?.slice(3, 10);
-  console.log(latest, "latest");
   return (
     <section className="grid grid-cols-1 lg:grid-cols-5 gap- border-b border-black/20  lg:divide-x divide-black/20  overflow-hidden">
       <div className="lg:col-span-2 py-4  flex min-lg:hidden flex-col items-center space-y-4">

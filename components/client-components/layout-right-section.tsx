@@ -49,7 +49,6 @@ const RecentNews = async () => {
 
   const latestResult = await db.execute(latestQuery);
   const latest = latestResult.rows.length > 0 ? latestResult.rows : null;
-  console.log(latest, "latest");
 
   // console.log(newsData, "newsData");
   return (

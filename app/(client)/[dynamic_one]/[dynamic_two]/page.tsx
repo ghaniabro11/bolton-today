@@ -87,8 +87,7 @@ const DynamicTwo = async ({
   }
   if (!categoriesWithNews?.valid && !newsDetails.valid) return notFound();
 
-  console.log(categoriesWithNews, "categoriesWithNews");
-  console.log(newsDetails, "newsDetails");
+
   return (
     <>
       {/* <script
