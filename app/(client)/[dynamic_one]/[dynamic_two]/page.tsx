@@ -4,8 +4,10 @@ import {
 } from "@/app/actions/client-actions/news";
 import CategoryPage from "@/components/client-components/category-page";
 import NewDetailPage from "@/components/client-components/news-page";
+import { DOMAIN_URL, NEWS_PUBLICATION_NAME, socialMediaLinks } from "@/constant/apiUrl";
 import { db } from "@/lib/db/db";
 import { categories, news } from "@/lib/db/schema";
+import { stripHtml } from "@/lib/utils";
 import { formatDate } from "@/utils/date";
 import { eq } from "drizzle-orm";
 import { Metadata } from "next";
@@ -86,15 +88,9 @@ const DynamicTwo = async ({
     })) as any;
   }
   if (!categoriesWithNews?.valid && !newsDetails.valid) return notFound();
-
-
+  console.log(newsDetails, "newsDetails");
   return (
     <>
-      {/* <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
-        crossOrigin="anonymous"
-      ></script> */}
       {newsDetails?.valid ? (
         <>
           <script type="application/ld+json">
@@ -123,35 +119,143 @@ const DynamicTwo = async ({
               ],
             })}
           </script>
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "NewsArticle",
-              mainEntityOfPage: {
-                "@type": "WebPage",
-                "@id": `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}`,
-              },
-              headline: newsDetails?.news[0]?.title,
-              image: [newsDetails?.news[0]?.featureImage],
-              datePublished: formatDate(newsDetails?.news[0]?.publishDate),
-              author: {
-                "@type": "Person",
-                name: newsDetails?.news[0]?.authorName,
-                url: `https://boltontoday.co.uk/author/${newsDetails?.news[0]?.authorSlug}`,
-              },
-              publisher: {
-                "@type": "NewsMediaOrganization",
-                name: "Bolton Today News",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://boltontoday.co.uk/bolton_logo.svg",
-                  width: 600,
-                  height: 60,
+          {newsDetails?.include_body ? (
+
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org/",
+                  "@type": "newsDetails",
+                  "@id": `${DOMAIN_URL}/${newsDetails.completeUrl}#newsDetails`,
+                  url: `${DOMAIN_URL}/${newsDetails.completeUrl}`,
+                  headline: newsDetails?.title,
+                  mainEntityOfPage: `${DOMAIN_URL}/${newsDetails.completeUrl}`,
+                  datePublished:
+                    (newsDetails?.news[0]?.publishDate),
+                  dateModified:
+                    (newsDetails?.news[0]?.publishDate),
+                  description: newsDetails?.metaDescription,
+                  articleSection: newsDetails?.categoryName,
+                  articleBody: stripHtml(newsDetails?.news[0]?.details),
+                  keywords: newsDetails?.keywords,
+                  name: newsDetails?.news[0]?.title,
+                  thumbnailUrl: newsDetails?.featureImage,
+                  wordCount: newsDetails?.news[0]?.details?.length,
+                  timeRequired: `${newsDetails?.news[0]?.details?.length / 200} minutes`,
+                  mainEntity: {
+                    "@type": "WebPage",
+                    "@id": `${DOMAIN_URL}/${newsDetails.completeUrl}`,
+                  },
+                  author: {
+                    "@type": "Person",
+                    name: newsDetails?.news[0]?.authorName,
+                    description: newsDetails?.news[0]?.authorDescription,
+                    url: `${DOMAIN_URL}/author/${newsDetails?.news[0]?.authorSlug}`,
+                    sameAs: [
+                      newsDetails?.news[0]?.facebookLink,
+                      newsDetails?.news[0]?.twitterLink, // X is Twitter
+                      newsDetails?.news[0]?.instagramLink,
+                      newsDetails?.news[0]?.linkedin,
+                      newsDetails?.news[0]?.personalPortfolio,
+                      newsDetails?.news[0]?.muckrackLink,
+                    ],
+                    image: {
+                      "@type": "ImageObject",
+                      url: newsDetails?.news[0]?.authorImage,
+                      height: 112,
+                      width: 112,
+                    },
+                  },
+                  editor: {
+                    "@type": "Person",
+                    name: newsDetails?.news[0]?.authorName,
+                    description: newsDetails?.news[0]?.authorDescription,
+                    url: `${DOMAIN_URL}/author/${newsDetails?.news[0]?.authorSlug}`,
+                    sameAs: [
+                      newsDetails?.news[0]?.facebookLink,
+                      newsDetails?.news[0]?.twitterLink, // X is Twitter
+                      newsDetails?.news[0]?.instagramLink,
+                      newsDetails?.news[0]?.linkedin,
+                      newsDetails?.news[0]?.personalPortfolio,
+                      newsDetails?.news[0]?.muckrackLink,
+                    ],
+                    image: {
+                      "@type": "ImageObject",
+                      url: newsDetails?.news[0]?.authorImage,
+                      height: 112,
+                      width: 112,
+                    },
+                  },
+                  publisher: {
+                    "@type": "Organization",
+                    name: NEWS_PUBLICATION_NAME,
+                    url: DOMAIN_URL,
+                    logo: {
+                      "@type": "ImageObject",
+                      url: `${DOMAIN_URL}/bolton_logo.svg`,
+                      width: 160,
+                      height: 50,
+                    },
+                  },
+                  image: [
+                    {
+                      "@type": "ImageObject",
+                      "@id": `${DOMAIN_URL}/${newsDetails.completeUrl}#primaryimage`,
+                      url: newsDetails?.news[0]?.featureImage,
+                      width: "1250",
+                      height: "700",
+                      caption: newsDetails?.news[0]?.featureImageCaption,
+                    },
+                  ],
+                }),
+              }}
+            />
+          ) : !newsDetails?.include_body ? (
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "NewsArticle",
+                mainEntityOfPage: {
+                  "@type": "WebPage",
+                  "@id": `${DOMAIN_URL}/${newsDetails.completeUrl}`,
                 },
-              },
-              description: newsDetails?.news[0]?.metaDescription,
-            })}
-          </script>
+                headline: newsDetails?.news[0]?.title,
+                description: newsDetails?.metaDescription,
+                image: {
+                  "@type": "ImageObject",
+                  url: newsDetails?.news[0]?.featureImage,
+                  width: 1200,
+                  height: 675,
+                },
+                datePublished:
+                  (newsDetails?.news[0]?.publishDate),
+                dateModified:
+                  (newsDetails?.news[0]?.publishDate),
+                author: {
+                  "@type": "Person",
+                  name: newsDetails?.news[0]?.authorName,
+                  url: `${DOMAIN_URL}/author/${newsDetails?.news[0]?.authorSlug}`,
+                },
+                publisher: {
+                  "@type": "NewsMediaOrganization",
+                  name: NEWS_PUBLICATION_NAME,
+                  logo: {
+                    "@type": "ImageObject",
+                    url: `${DOMAIN_URL}/bolton_logo.svg`,
+                  },
+                  sameAs: socialMediaLinks,
+                },
+                isAccessibleForFree: "True",
+                hasPart: {
+                  "@type": "WebPageElement",
+                  isAccessibleForFree: "True",
+                  cssSelector: ".entry-content",
+                },
+              })}
+            </script>
+          ) : null}
+         
           <NewDetailPage
             data={{
               ...newsDetails?.news[0],

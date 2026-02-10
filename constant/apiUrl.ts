@@ -4,3 +4,8 @@ export const BROWSER_SECRET = "0123456789abcdef0123456789abcdef";
 export const DOMAIN_URL = "https://boltontoday.co.uk";
 export const NEWS_LANGUAGE = "en";
 export const NEWS_PUBLICATION_NAME = "Bolton Today News";
+export const socialMediaLinks = [
+    "https://facebook.com",
+    "https://twitter.com",
+    "https://www.linkedin.com",
+]
