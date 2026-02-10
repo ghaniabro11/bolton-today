@@ -18,12 +18,12 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
   }
   return (
     <>
-      <div className="py-8">
+      <div className="py-8 min-h-[280px]">
         <Carousel
           opts={{
             align: "start",
           }}
-          className="w-full "
+          className="w-full"
         >
           <div className="flex justify-between md:flex-nowrap max-sm:flex-wrap items-end w-full py-2 gap-5">
             <div>
@@ -50,10 +50,10 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
             </div>
           </div>
 
-          <CarouselContent>
+          <CarouselContent className="min-h-[220px]">
             {data?.map((item: any, i: number) => (
-              <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/4 p-2  ">
-                <div className="bg-white   overflow-hidden h-full p-2 space-y-2">
+              <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/4 p-2">
+                <div className="bg-white overflow-hidden h-full p-2 space-y-2 min-h-[220px]">
                   <Image
                     priority={i < 2}
                     height={160}
@@ -79,7 +79,7 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
           </CarouselContent>
         </Carousel>
       </div>
-      <Line />{" "}
+      <Line />
     </>
   );
 }

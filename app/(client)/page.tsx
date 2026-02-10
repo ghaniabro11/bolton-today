@@ -1,27 +1,24 @@
 import dynamic from "next/dynamic";
 
-import AdBanner from "@/components/AdBanner";
 import PageGridWrapper from "@/components/client-components/grid-wrapper";
 import { ImageWithFallback } from "@/components/client-components/image-fallback";
 import Loader from "@/components/client-components/Loader";
 import OceanCityCarousel from "@/components/client-components/news-components-for-home/dynamic-carousal";
+import { SectionSkeletonFive, SectionSkeletonOne } from "@/components/client-components/section-skeleton";
 import { Typography } from "@/components/client-components/typography";
+import { DOMAIN_URL, NEWS_PUBLICATION_NAME } from "@/constant/apiUrl";
 import { db } from "@/lib/db/db";
 import { categories, media, news, newsCategories } from "@/lib/db/schema";
 import { and, desc, eq, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import fetchNewsData from "../actions/client-actions/home";
-import { DOMAIN_URL, NEWS_PUBLICATION_NAME } from "@/constant/apiUrl";
-
-// Optional: Create a simple loading component
-const Loading = () => <Loader />;
 
 const ComponentOne = dynamic(
   () => import("@/components/client-components/news-components-for-home/one"),
   {
     ssr: true,
-    loading: () => <Loading />,
+    loading: () => <SectionSkeletonOne />,
   }
 );
 
@@ -29,7 +26,7 @@ const ComponentFive = dynamic(
   () => import("@/components/client-components/news-components-for-home/five"),
   {
     ssr: true,
-    loading: () => <Loading />,
+    loading: () => <SectionSkeletonFive />,
   }
 );
 

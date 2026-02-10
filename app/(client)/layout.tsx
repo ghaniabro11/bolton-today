@@ -7,7 +7,8 @@ import "../globals.css";
 const InterText = Inter({
   subsets: ["cyrillic"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter", // Optional: Use this to map to your CSS variable
+  variable: "--font-inter",
+  display: "optional", // Reduces CLS from font swap (avoids reflow when font loads)
 });
 
 export const metadata: Metadata = {
