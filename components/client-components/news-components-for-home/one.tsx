@@ -22,7 +22,7 @@ const ComponentOne = async ({
   const rightData = latest?.slice(3, 10);
   return (
     <section className="grid grid-cols-1 lg:grid-cols-5 gap- border-b border-black/20  lg:divide-x divide-black/20  overflow-hidden">
-      <div className="lg:col-span-2 py-4  hidden lg:flex flex-col items-center space-y-4">
+      <div className="lg:col-span-2 py-4   lg:hidden flex flex-col items-center space-y-4">
         <div className=" h-full w-full relative">
           <Image
             priority
