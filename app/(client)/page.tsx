@@ -190,52 +190,58 @@ const Home = async ({
       </>
     );
   }
+  // Replace the Drizzle query builder query with raw SQL to include category chain
+  const searchQuerySql = sql`
+  WITH RECURSIVE category_path AS (
+    SELECT 
+      c.id,
+      c.slug,
+      c.parent_category_id,
+      c.slug::TEXT AS full_slug
+    FROM categories c
+    WHERE c.parent_category_id IS NULL
 
-  // const searchResults = await db
-  //   .select({
-  //     title: news.title,
-  //     description: news.description,
-  //     featureImage: {
-  //       filePath: media.filePath,
-  //       title: media.title,
-  //       caption: media.caption,
-  //     },
-  //   })
-  //   .from(news)
-  //   .innerJoin(media, eq(news.featureImage, media.id))
-  //   .where(
-  //     and(
-  //       sql`${news.searchVector} @@ plainto_tsquery('english', ${searchQuery})`,
-  //       sql`${news.publishStatus} = 'active'`,
-  //       sql`${news.activeStatus} = 'active'`
-  //     )
-  //   );
-  const result = await db
-    .select({
-      title: news.title,
-      slug: news.slug,
-      description: news.description,
-      categoryName: categories.name,
-      categorySlug: categories.slug,
-      featureImage: {
-        filePath: media.filePath,
-        title: media.title,
-        caption: media.caption,
-      },
-    })
-    .from(news)
-    .innerJoin(newsCategories, eq(news.id, newsCategories.newsId))
-    .innerJoin(categories, eq(newsCategories.categoryId, categories.id))
-    .innerJoin(media, eq(news.featureImage, media.id))
+    UNION ALL
 
-    .where(
-      and(
-        sql`news.search_vector @@ plainto_tsquery('english', ${searchQuery})`,
-        eq(news.activeStatus, "active") // <-- ✅ status check
-      )
-    )
-    .orderBy(desc(news.publishDate));
-  // .limit(20); // optional pagination
+    SELECT 
+      child.id,
+      child.slug,
+      child.parent_category_id,
+      (parent.full_slug || '/' || child.slug) AS full_slug
+    FROM categories child
+    INNER JOIN category_path parent ON child.parent_category_id = parent.id
+  )
+
+  SELECT 
+    n.title,
+    n.slug,
+    n.description,
+    c.name AS "categoryName",
+    c.slug AS "categorySlug",
+    cp.full_slug AS "categoryChainSlug",
+    m.file_path AS "featureImage.filePath",
+    m.title AS "featureImage.title",
+    m.caption AS "featureImage.caption"
+  FROM news n
+  INNER JOIN news_categories nc ON n.id = nc.news_id
+  INNER JOIN categories c ON nc.category_id = c.id
+  LEFT JOIN category_path cp ON c.id = cp.id
+  INNER JOIN media m ON n.feature_image = m.id
+  WHERE n.search_vector @@ plainto_tsquery('english', ${searchQuery})
+    AND n.active_status = 'active'
+  ORDER BY n.publish_date DESC
+  `;
+
+  const resultRows = await db.execute(searchQuerySql);
+  const result = resultRows.rows.map((row: any) => ({
+    ...row,
+    featureImage: {
+      filePath: row["featureImage.filePath"],
+      title: row["featureImage.title"],
+      caption: row["featureImage.caption"],
+    },
+  }));
+  console.log(result, "result");
   return (
     <Suspense fallback={<Loader />}>
       <PageGridWrapper>
@@ -272,14 +278,14 @@ const Home = async ({
                     <div>
                       <p className="text-sm text-gray-500 mb-2">
                         <Link
-                          href={`/${newsItem?.categorySlug}`}
+                          href={`/${newsItem?.categoryChainSlug}`}
                           className="underline hover:text-blue-600"
                         >
                           {newsItem?.categoryName}
                         </Link>
                       </p>
                       <Link
-                        href={`/${newsItem?.categorySlug}/${newsItem.slug}`.replace(
+                        href={`/${newsItem?.categoryChainSlug}/${newsItem.slug}`.replace(
                           /\/\/+/g,
                           "/"
                         )}
