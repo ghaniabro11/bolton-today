@@ -42,7 +42,7 @@ const ComponentOne = async ({
         <div className="max-md:border-b border-b-black/20 max-md:pb-5">
           <Link
             className="no-underline hover:no-underline"
-            href={`/${centerdata.categoryslug}`}
+            href={`/${centerdata?.categoryslug}`}
           >
             <Typography variant="p" className="text-head text-sm font-semibold">
               {centerdata?.categoryname ?? ""}
