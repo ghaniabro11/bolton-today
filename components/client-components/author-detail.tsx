@@ -51,12 +51,12 @@ const AuthorDetailComponent = ({
       <div className="p-5">
         <div className="flex flex-col gap-4">
           {/* Left Section - Image */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <div className="relative">
               {authorData?.image?.filePath ? (
                 <Image
-                  src={authorData.image.filePath}
-                  alt={authorData.image.title || "Author Image"}
+                  src={authorData?.image.filePath}
+                  alt={authorData?.image.title || "Author Image"}
                   width={160}
                   height={160}
                   className="w-[4.8rem] h-[4.8rem]  lg:w-36 lg:h-36 rounded-full object-cover shadow-lg ring-4 ring-gray-100"
@@ -82,7 +82,7 @@ const AuthorDetailComponent = ({
                 variant="h1"
                 className="text-2xl lg:text-4xl font-bold text-gray-900 mb-2"
               >
-                {authorData.name}
+                {authorData?.name}
               </Typography>
             )}
 
@@ -94,9 +94,9 @@ const AuthorDetailComponent = ({
                     !isDescriptionExpanded ? "line-clamp-4" : ""
                   }`}
                 >
-                  {authorData.description}
+                  {authorData?.description}
                 </p>
-                {authorData.description.length > 200 && (
+                {authorData?.description.length > 200 && (
                   <button
                     className="text-(--custom-red) text-sm font-bold hover:underline "
                     onClick={() => setIsDescriptionExpanded((prev) => !prev)}

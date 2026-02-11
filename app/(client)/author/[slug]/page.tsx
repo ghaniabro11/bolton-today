@@ -5,6 +5,7 @@ import { db } from "@/lib/db/db";
 import { authors } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -46,14 +47,6 @@ export async function generateMetadata({
       canonical: `https://boltontoday.co.uk/author/${slug}`,
     },
 
-    // // Robots meta (camelCase keys)
-    // robots: {
-    //   index: true,
-    //   follow: true,
-    //   "max-snippet": -1,
-    //   "max-video-preview": -1,
-    //   "max-image-preview": "large",
-    // },
     robots: {
       index: true,
       follow: true,
@@ -64,18 +57,25 @@ export async function generateMetadata({
   };
 }
 
+const getCachedAuthorData = (slug: string) =>
+  unstable_cache(
+    async () =>
+      getAuthorNewsWithCategoriesOptimized({
+        slug: `${slug}`,
+        page: "1",
+      }),
+    ["author-detail", slug],
+    { revalidate: 60 }
+  )();
+
 const AuthorDetails = async ({
   params,
 }: {
-  params: Promise<{ slug: string; page: string }>;
+  params: Promise<{ slug: string }>;
 }) => {
-  const { slug, page } = await params;
+  const { slug } = await params;
 
-  const result = await getAuthorNewsWithCategoriesOptimized({
-    slug: `${slug}`,
-    page: page,
-
-  });
+  const result = await getCachedAuthorData(slug);
   if (result?.data === null) return notFound();
 
   // console.log(result, "result:");
@@ -89,11 +89,7 @@ const AuthorDetails = async ({
 
   return (
     <>
-      {/* <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
-        crossOrigin="anonymous"
-      ></script> */}
+
       <PageGridWrapper>
         <Suspense fallback={<Loader />}>
           <AuthorDetailComponent result={result} slug={slug} />

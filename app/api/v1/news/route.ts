@@ -1,6 +1,7 @@
 import { db } from "@/lib/db/db";
 import { media, news, newsCategories } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 // GET /api/v1/news - Get all news
@@ -107,7 +108,7 @@ export async function POST(request: Request) {
         }))
       );
     }
-
+    revalidateTag("author-detail", "max")
     return NextResponse.json(newArticle[0], { status: 201 });
   } catch (error) {
     console.error(error);
