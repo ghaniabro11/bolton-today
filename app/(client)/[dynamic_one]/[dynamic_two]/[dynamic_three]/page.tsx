@@ -326,6 +326,41 @@ const DynamicTwo = async ({
               }),
             }}
           />
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              "@id": `${DOMAIN_URL}/#collectionpage`,
+              "name": NEWS_PUBLICATION_NAME,
+              "description": "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
+              "url": `${DOMAIN_URL}`,
+              "isPartOf": {
+                "@type": "WebSite",
+                "@id": `${DOMAIN_URL}/#website`
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": NEWS_PUBLICATION_NAME,
+                "url": `${DOMAIN_URL}/`,
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": `${DOMAIN_URL}/bolton_logo.svg`
+                }
+              },
+              "mainEntity": {
+                "@type": "ItemList",
+                "itemListOrder": "https://schema.org/ItemListOrderDescending",
+                "numberOfItems": 10,
+                "itemListElement": categoriesWithNews?.newsList?.map((item: any, index: number) => (
+                  {
+                    "@type": "ListItem",
+                    "position": index + 1,
+                    "url": `${DOMAIN_URL}/${item?.completeSlug}`
+                  }
+                ))
+              }
+            })}
+          </script>
           <CategoryPage
             category={categoriesWithNews?.categoryChain[2]}
             newsList={categoriesWithNews?.newsList}

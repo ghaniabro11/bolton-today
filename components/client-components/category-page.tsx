@@ -1,11 +1,10 @@
 import React, { Suspense } from "react";
-import PageGridWrapper from "./grid-wrapper";
-import { Typography } from "./typography";
-import Loader from "./Loader";
-import NewsCard from "./news-card";
 import { ClientPagination } from "../reuse-client-pagination";
 import "./content.css";
-import AdBanner from "../AdBanner";
+import PageGridWrapper from "./grid-wrapper";
+import Loader from "./Loader";
+import NewsCard from "./news-card";
+import { Typography } from "./typography";
 
 export default function CategoryPage({
   category,
@@ -32,7 +31,7 @@ export default function CategoryPage({
             <p
               className="text-base md:text-lg leading-relaxed text-white"
               dangerouslySetInnerHTML={{
-                __html: category?.description ?? "N/A",
+                __html: category?.description ?? "<p></p>",
               }}
             ></p>
           </div>

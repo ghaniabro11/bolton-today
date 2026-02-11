@@ -1,5 +1,6 @@
 import { validateCategoryPathWithNews } from "@/app/actions/client-actions/news";
 import CategoryPage from "@/components/client-components/category-page";
+import { DOMAIN_URL, NEWS_PUBLICATION_NAME } from "@/constant/apiUrl";
 import { db } from "@/lib/db/db";
 import { categories } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -58,7 +59,6 @@ const DynamicOne = async ({
     limit: 20,
     page: 1,
   })) as any;
-  console.log(newsList, "data from dynamic one");
 
   if (!newsList.valid) return notFound();
   const breadcrumbJSON = {
@@ -79,17 +79,48 @@ const DynamicOne = async ({
       },
     ],
   };
+  console.log(newsList, "newsList");
   return (
     <>
-      {/* <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5687793259503722"
-        crossOrigin="anonymous"
-      ></script> */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJSON) }}
       />
+      <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "@id": `${DOMAIN_URL}/#collectionpage`,
+            "name": NEWS_PUBLICATION_NAME,
+            "description": "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
+            "url": `${DOMAIN_URL}`,
+            "isPartOf": {
+              "@type": "WebSite",
+              "@id": `${DOMAIN_URL}/#website`
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": NEWS_PUBLICATION_NAME,
+              "url": `${DOMAIN_URL}/`,
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${DOMAIN_URL}/bolton_logo.svg`
+              }
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListOrder": "https://schema.org/ItemListOrderDescending",
+              "numberOfItems": 10,
+              "itemListElement": newsList?.newsList?.map((item: any, index: number) => (
+                {
+                  "@type": "ListItem",
+                  "position": index + 1,
+                  "url": `${DOMAIN_URL}/${item?.completeSlug}`
+                }
+              ))
+            }
+          })}
+        </script>
       <CategoryPage
         category={newsList?.categoryChain[0] ?? {}}
         newsList={newsList?.newsList ?? []}

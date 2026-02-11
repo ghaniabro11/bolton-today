@@ -29,19 +29,15 @@ const NewsCard: React.FC<NewsCardProps> = ({
   return (
     <section className="p-4 border border-gray-300 mt-6 w-full max-w-xl space-y-4  ">
       {/* Image */}
-      <div className="relative w-full h-60">
-        <ImageWithFallback
-          src={imageUrl ?? ""}
-          alt="news-card"
-          className="object-cover"
-          layout="fill"
-          sizes="(min-width: 768px) 50vw, 100vw"
-        />
-      </div>
-
-      {/* Title */}
+      <ImageWithFallback
+        src={imageUrl ?? ""}
+        alt={title}
+        className="object-cover"
+        width={524}
+        height={303}
+      />
       <Link
-         href={
+        href={
           url
             ? `/${url}`
             : `/${category?.slug}/${newsSlug}`.replace(/\/\/+/g, "/")

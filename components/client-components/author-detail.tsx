@@ -42,7 +42,6 @@ const AuthorDetailComponent = ({
   const [mounted, setmounted] = useState(false);
   const authorData = result?.data?.author as any;
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-  console.log(result, "result for auth details");
   useEffect(() => {
     setmounted(true);
   }, []);
@@ -72,7 +71,7 @@ const AuthorDetailComponent = ({
           </div>
 
           {/* Vertical Divider */}
-          <div className="block w-px bg-gradient-to-b from-transparent via-gray-200 to-transparent"></div>
+          <div className="block w-px bg-linear-to-b from-transparent via-gray-200 to-transparent"></div>
 
           {/* Right Section - Content */}
           <div className="flex-1 space-y-6">
@@ -99,7 +98,7 @@ const AuthorDetailComponent = ({
                 </p>
                 {authorData.description.length > 200 && (
                   <button
-                    className="text-[var(--custom-red)] text-sm font-bold hover:underline "
+                    className="text-(--custom-red) text-sm font-bold hover:underline "
                     onClick={() => setIsDescriptionExpanded((prev) => !prev)}
                   >
                     {isDescriptionExpanded ? "View Less" : "View More"}
@@ -194,13 +193,13 @@ const AuthorDetailComponent = ({
       </div>
 
       {/* Pagination */}
-      <ClientPagination
+      {/* <ClientPagination
         slug={slug}
         currentPage={Number(result.data.pagination.currentPage)}
         totalItems={Number(result.data.pagination.totalCount)}
         limit={Number(result.data.pagination.limit)}
         url="author"
-      />
+      /> */}
     </div>
   );
 };

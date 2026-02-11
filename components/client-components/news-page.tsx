@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import PageGridWrapper from "./grid-wrapper";
-import { formatDate } from "@/utils/date";
+import { formatDate, formatTime } from "@/utils/date";
 import "./content.css";
 import AdUnit from "../AdUnit";
 import AdBanner from "../AdBanner";
@@ -57,7 +57,7 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
                 {data?.authorName ?? ""}
               </span>
             </Link>{" "}
-            – {formatDate(data?.publishDate ?? "")}
+            – {formatDate(data?.publishDate ?? "")} - {formatTime(data?.publishDate ?? "")}
           </p>
 
           <Separator />

@@ -6,14 +6,11 @@ export const dynamic = "force-dynamic";
 export async function getAuthorNewsWithCategoriesOptimized({
   slug,
   page = 1,
-  limit = 10,
 }: {
   slug: any;
   page: any;
-  limit: number;
 }) {
   try {
-    const offset = (page - 1) * limit;
 
     const result = await db.execute(sql`
       WITH RECURSIVE author_data AS (
@@ -109,7 +106,6 @@ export async function getAuthorNewsWithCategoriesOptimized({
       LEFT JOIN categories c ON nc.category_id = c.id
       LEFT JOIN category_hierarchy ch ON c.id = ch.id
       ORDER BY nd.publish_date DESC
-      LIMIT ${limit} OFFSET ${offset};
     `);
 
     // Get total count
@@ -123,8 +119,6 @@ export async function getAuthorNewsWithCategoriesOptimized({
     `);
 
     const totalCount = Number(countResult.rows[0]?.total || 0);
-    const totalPages = Math.ceil(totalCount / limit);
-    console.log(result.rows, "resultssss");
     // Check if author exists
     if (!result.rows || result.rows.length === 0) {
       const authorResult = await db.execute(sql`
@@ -181,13 +175,13 @@ export async function getAuthorNewsWithCategoriesOptimized({
             publishStatus: firstRow.author_status,
             image: firstRow.author_image_id
               ? {
-                  id: firstRow.author_image_id,
-                  title: firstRow.author_image_title,
-                  slug: firstRow.author_image_slug,
-                  caption: firstRow.author_image_caption,
-                  filePath: firstRow.author_image_file_path,
-                  type: firstRow.author_image_type,
-                }
+                id: firstRow.author_image_id,
+                title: firstRow.author_image_title,
+                slug: firstRow.author_image_slug,
+                caption: firstRow.author_image_caption,
+                filePath: firstRow.author_image_file_path,
+                type: firstRow.author_image_type,
+              }
               : null,
           },
           news: [],
@@ -195,7 +189,6 @@ export async function getAuthorNewsWithCategoriesOptimized({
             currentPage: page,
             totalPages: 0,
             totalCount: 0,
-            limit,
             hasNextPage: false,
             hasPrevPage: false,
           },
@@ -226,13 +219,13 @@ export async function getAuthorNewsWithCategoriesOptimized({
           publishStatus: firstRow.author_status,
           image: firstRow.author_image_id
             ? {
-                id: firstRow.author_image_id,
-                title: firstRow.author_image_title,
-                slug: firstRow.author_image_slug,
-                caption: firstRow.author_image_caption,
-                filePath: firstRow.author_image_file_path,
-                type: firstRow.author_image_type,
-              }
+              id: firstRow.author_image_id,
+              title: firstRow.author_image_title,
+              slug: firstRow.author_image_slug,
+              caption: firstRow.author_image_caption,
+              filePath: firstRow.author_image_file_path,
+              type: firstRow.author_image_type,
+            }
             : null,
         },
         news: result.rows.map((row) => ({
@@ -242,29 +235,25 @@ export async function getAuthorNewsWithCategoriesOptimized({
           publishDate: row.publish_date,
           featureImage: row.feature_image_id
             ? {
-                id: row.feature_image_id,
-                title: row.feature_image_title,
-                slug: row.feature_image_slug,
-                caption: row.feature_image_caption,
-                filePath: row.feature_image_file_path,
-                type: row.feature_image_type,
-              }
+              id: row.feature_image_id,
+              title: row.feature_image_title,
+              slug: row.feature_image_slug,
+              caption: row.feature_image_caption,
+              filePath: row.feature_image_file_path,
+              type: row.feature_image_type,
+            }
             : null,
           category: row.category_id
             ? {
-                id: row.category_id,
-                name: row.category_name,
-                slug: row.category_full_slug,
-              }
+              id: row.category_id,
+              name: row.category_name,
+              slug: row.category_full_slug,
+            }
             : null,
         })),
         pagination: {
           currentPage: page,
-          totalPages,
-          totalCount,
-          limit,
-          hasNextPage: page < totalPages,
-          hasPrevPage: page > 1,
+          totalCount
         },
       },
     };
