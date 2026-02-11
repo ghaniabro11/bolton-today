@@ -20,7 +20,7 @@ export default function CategoryPage({
   return (
     <>
       <PageGridWrapper>
-        <main>
+        <div>
           <div className=" bg-head p-6 rounded-2xl text-btn shadow-md ">
             <Typography
               variant="h1"
@@ -68,7 +68,7 @@ export default function CategoryPage({
               limit={Number(limit)}
             />
           </section>
-        </main>
+        </div>
       </PageGridWrapper>
     </>
   );

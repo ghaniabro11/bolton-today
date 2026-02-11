@@ -26,7 +26,7 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
   return (
     <>
       <PageGridWrapper>
-        <main className=" px-4  space-y-6">
+        <div className=" px-4  space-y-6" role="region" aria-label="Article content">
           <div className="text-sm text-gray-500 space-x-2">
             <Link href="/" className="hover:underline cursor-pointer">
               Home
@@ -82,7 +82,7 @@ export default function NewDetailPage({ data }: NewDetailPageProps) {
               dangerouslySetInnerHTML={{ __html: data?.details ?? "" }}
             />
           )}
-        </main>
+        </div>
       </PageGridWrapper>
     </>
   );

@@ -48,7 +48,7 @@ const AuthorDetailComponent = ({
   }, []);
   if (!mounted) return null;
   return (
-    <main suppressHydrationWarning>
+    <div suppressHydrationWarning>
       <div className="p-5">
         <div className="flex flex-col gap-4">
           {/* Left Section - Image */}
@@ -201,7 +201,7 @@ const AuthorDetailComponent = ({
         limit={Number(result.data.pagination.limit)}
         url="author"
       />
-    </main>
+    </div>
   );
 };
 
