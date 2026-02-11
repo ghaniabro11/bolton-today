@@ -6,7 +6,6 @@ export const dynamic = "force-dynamic";
 const CategoryForm = async () => {
   const categories = await getCategories();
   const authors = await getAuthors();
-  console.log(authors, "authors");
   return (
     <>
       <NewsForm categories={categories ?? []} authors={authors} />
