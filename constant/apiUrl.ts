@@ -5,7 +5,8 @@ export const DOMAIN_URL = "https://boltontoday.co.uk";
 export const NEWS_LANGUAGE = "en";
 export const NEWS_PUBLICATION_NAME = "Bolton Today News";
 export const socialMediaLinks = [
-    "https://facebook.com",
-    "https://twitter.com",
-    "https://www.linkedin.com",
+    "https://www.facebook.com/BoltonToday",
+    "https://www.instagram.com/boltontoday",
+    "https://www.linkedin.com/company/bolton-today",
+    "https://x.com/BoltonTodayNews",
 ]

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
+import { socialMediaLinks } from "@/constant/apiUrl";
 
 // const navLinks = [
 //   { label: "Home", href: "/" },
@@ -163,11 +164,7 @@ const Navbar = () => {
             width: 600,
             height: 60,
           },
-          sameAs: [
-            "https://facebook.com",
-            "https://twitter.com",
-            "https://www.linkedin.com",
-          ],
+          sameAs: socialMediaLinks,
           foundingDate: "2021-01-01",
           founders: [
             {
