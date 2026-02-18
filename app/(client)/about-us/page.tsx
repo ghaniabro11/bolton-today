@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div>
+    <main className=" [&_a]:underline [&_a]:font-bold [&_a]:text-head [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:text-2xl [&_h2]:font-semibold">
       <h1 className="text-black">About Us</h1>
       <p>
         Welcome to{" "}
@@ -27,12 +27,12 @@ const page = () => {
         – Your Voice, Your Stories, Your Town.
       </p>
       <p>
-        At
-        <a href="https://boltontoday.co.uk/">Bolton Today</a>, we are dedicated
-        to delivering timely, trustworthy, and engaging news that matters to the
-        people of Bolton. From breaking headlines and in-depth political
-        coverage to uplifting community stories and vibrant cultural events, our
-        mission is simple: to inform, inspire, and reflect the spirit of Bolton.
+        At <a href="https://boltontoday.co.uk/">Bolton Today</a>, we are
+        dedicated to delivering timely, trustworthy, and engaging news that
+        matters to the people of Bolton. From breaking headlines and in-depth
+        political coverage to uplifting community stories and vibrant cultural
+        events, our mission is simple: to inform, inspire, and reflect the
+        spirit of Bolton.
       </p>
       <h2 className="text-black">What We Cover</h2>
       <p>
@@ -106,7 +106,7 @@ const page = () => {
       <a href="mailto:contact@boltontoday.co.uk" className="font-semibold">
         contact@boltontoday.co.uk
       </a>
-    </div>
+    </main>
   );
 };
 

@@ -132,7 +132,7 @@ const Home = async ({
           })}
         </script>
         <>
-          <h1 className="sr-only">{NEWS_PUBLICATION_NAME}</h1>
+          <h1 className="sr-on  ly">{NEWS_PUBLICATION_NAME}</h1>
           <ComponentOne
             latest={newsData?.latest ?? null}
             opinionCategory={newsData?.categoryOne ?? null}
@@ -241,7 +241,6 @@ const Home = async ({
       caption: row["featureImage.caption"],
     },
   }));
-  console.log(result, "result");
   return (
     <Suspense fallback={<Loader />}>
       <PageGridWrapper>

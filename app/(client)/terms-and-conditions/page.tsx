@@ -19,16 +19,21 @@ const TermAndCondition = () => {
   return (
     <>
       {/* StartFragment */}
-      <div>
-        <h1  className="text-black">Terms and Conditions</h1>
+      <main className=" [&_a]:underline [&_a]:font-bold [&_a]:text-head [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:text-2xl [&_h2]:font-semibold">
+        <h1 className="text-black">Terms and Conditions</h1>
         <p>
-          Welcome to
-           <a href="https://boltontoday.co.uk/" className="space-x-1 font-semibold">Bolton Today.</a> These Terms and
-          Conditions govern your access to and use of our website, services,
-          content, and features. By using this site, you acknowledge that you
-          have read, understood, and agree to be bound by these terms and by our
-          Privacy Policy. If you do not agree to these terms, you must refrain
-          from using our website.
+          Welcome to{" "}
+          <a
+            href="https://boltontoday.co.uk/"
+            className="space-x-1 font-semibold"
+          >
+            Bolton Today.
+          </a>{" "}
+          These Terms and Conditions govern your access to and use of our
+          website, services, content, and features. By using this site, you
+          acknowledge that you have read, understood, and agree to be bound by
+          these terms and by our Privacy Policy. If you do not agree to these
+          terms, you must refrain from using our website.
         </p>
         <h2 className="text-black">About Bolton Today</h2>
         <p>
@@ -151,7 +156,7 @@ const TermAndCondition = () => {
           </li>
         </ul>
         <p>
-          For partnership or advertising inquiries, please
+          For partnership or advertising inquiries, please{" "}
           <a href="https://boltontoday.co.uk/contact-us">contact us.</a>
         </p>
         <h2 className="text-black">Third-Party Links</h2>
@@ -228,7 +233,7 @@ const TermAndCondition = () => {
           If you have questions or concerns about these Terms and Conditions, or
           wish to report a breach or issue, please contact us:
         </p>
-      </div>
+      </main>
       {/* EndFragment */}
     </>
   );

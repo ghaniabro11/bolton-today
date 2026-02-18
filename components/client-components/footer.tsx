@@ -9,12 +9,14 @@ const footerData = [
     title: "About",
     links: [
       { label: "About Us", href: "/about-us" },
-      { label: "Editorial Team", href: "/editorial-team" },
-      { label: "Contact Us", href: "/contact-us" },
-      { label: "Contribute", href: "/contribute" },
+      { label: "Editorial Policy", href: "/editorial-policy" },
       { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Code of Ethics", href: "/code-of-ethics" },
+      { label: "Contact Us", href: "/contact-us" },
+      { label: "Bolton AI Policy", href: "/ai-policy" },
+      { label: "Correction Policy", href: "/correction-policy" },
       { label: "Terms & Conditions", href: "/terms-and-conditions" },
-      { label: "Cookie Policy", href: "/cookie-policy" },
+      { label: "Editorial Guidelines", href: "/editorial-guidelines" },
     ],
   },
   {

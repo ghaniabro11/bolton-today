@@ -17,13 +17,20 @@ export const metadata: Metadata = {
 
 const Contact = () => {
   return (
-    <div>
-      <h1  className="text-black">Contact Us</h1>
+    <main className=" [&_a]:underline [&_a]:font-bold [&_a]:text-head [&_h1]:text-3xl [&_h1]:font-bold [&_h2]:text-2xl [&_h2]:font-semibold">
+      <h1 className="text-black">Contact Us</h1>
       <p>
-        At  <a href="https://boltontoday.co.uk/" className="space-x-1 font-semibold">Bolton Today</a>, we believe that strong journalism begins with strong
-        connections to the community we serve. We welcome communication from our
-        readers, local organisations, and members of the public who want to
-        share stories, report issues, or engage with our newsroom.
+        At{" "}
+        <a
+          href="https://boltontoday.co.uk/"
+          className="space-x-1 font-semibold"
+        >
+          Bolton Today
+        </a>
+        , we believe that strong journalism begins with strong connections to
+        the community we serve. We welcome communication from our readers, local
+        organisations, and members of the public who want to share stories,
+        report issues, or engage with our newsroom.
       </p>
       <p>
         Whether you have a tip about a developing story, a question about our
@@ -33,7 +40,7 @@ const Contact = () => {
         vital role in helping us inform, investigate, and reflect the real voice
         of Bolton.
       </p>
-      <h2  className="text-black">News Tips &amp; Editorial Contacts</h2>
+      <h2 className="text-black">News Tips &amp; Editorial Contacts</h2>
       <p>
         Have a story, photo, or lead that our newsroom should know about? We
         welcome verified information, public interest stories, and community
@@ -43,18 +50,18 @@ const Contact = () => {
         All sources are treated with discretion, and anonymity can be protected
         where appropriate.
       </p>
-      <h2  className="text-black">Advertising &amp; Sponsorship</h2>
+      <h2 className="text-black">Advertising &amp; Sponsorship</h2>
       <p>
         Looking to reach a highly engaged local audience? We offer a range of
         advertising opportunities including display ads, sponsored content, and
-        custom campaigns for businesses, events, and community service
+        custom campaigns for businesses, events, and community service{" "}
         <a href="https://boltontoday.co.uk/contact-us">contact us.</a>
       </p>
       <p>
         Our team will be happy to provide media kits, audience reach data, and
         pricing information.
       </p>
-    </div>
+    </main>
   );
 };
 

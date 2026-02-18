@@ -79,7 +79,6 @@ const DynamicOne = async ({
       },
     ],
   };
-  console.log(newsList, "newsList");
   return (
     <>
       <script

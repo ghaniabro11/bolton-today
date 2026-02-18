@@ -7,11 +7,13 @@ export async function GET(request: Request) {
     "about-us",
     "contact-us",
     "code-of-ethics",
+    "ai-policy",
+    "cookie-policy",
+    "correction-policy",
+    "editorial-guidelines",
     "editor-policy",
     "privacy-policy",
-    "editorial-contact",
-    "advertise-with-us",
-    "report-error",
+    "terms-and-conditions",
   ];
 
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
@@ -22,7 +24,7 @@ export async function GET(request: Request) {
   <sitemap>
     <loc>${DOMAIN_URL}/${path === "/" ? "" : path}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
-  </sitemap>`
+  </sitemap>`,
     )
     .join("")}
 </sitemapindex>`;
