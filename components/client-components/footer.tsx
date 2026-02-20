@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Facebook } from "./icons/facebook";
 import { Linkedin } from "./icons/linkdin";
 import { Twitter } from "./icons/twitter";
+import { socialMediaLinks } from "@/constant/apiUrl";
+import { Instagram } from "./icons/instagram";
 
 const footerData = [
   {
@@ -57,16 +59,16 @@ const Footer = () => {
         <div className="flex-grow h-px bg-gray" />
         <div className="flex space-x-4 text-gray-600 mx-2">
           <div className="uppercase font-bold text-lg">Follow Us</div>
-          <a href="/ " aria-label="Facebook">
+          <a href={socialMediaLinks[0]} aria-label="Facebook">
             <Facebook className="w-7 h-7" />
           </a>
-          <a href="/" aria-label="Twitter">
+          <a href={socialMediaLinks[4]} aria-label="Twitter">
             <Twitter className="w-7 h-7" />
           </a>
-          {/*  <a href="#" aria-label="Instagram">
-              <Instagram className="w-5 h-5" />
-            </a> */}
-          <a href="/" aria-label="LinkedIn">
+           <a href={socialMediaLinks[1]} aria-label="Instagram">
+              <Instagram className="w-7 h-7" />
+            </a>
+          <a href={socialMediaLinks[3]} aria-label="LinkedIn">
             <Linkedin className="w-7 h-7" />
           </a>
         </div>
