@@ -52,7 +52,7 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}/${dynamic_three}/${dynamic_four}/`,
+      canonical: `${DOMAIN_URL}/${dynamic_one}/${dynamic_two}/${dynamic_three}/${dynamic_four}`,
     },
 
     // // Robots meta (camelCase keys)

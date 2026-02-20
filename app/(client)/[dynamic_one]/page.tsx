@@ -35,7 +35,7 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}`,
+      canonical: `${DOMAIN_URL}/${dynamic_one}`,
     },
 
     robots: {
@@ -69,13 +69,13 @@ const DynamicOne = async ({
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: `https://boltontoday.co.uk/`,
+        item: `${DOMAIN_URL}/`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: newsList?.categoryChain[0]?.name,
-        item: `https://boltontoday.co.uk/${newsList?.categoryChain[0]?.slug}`,
+        item: `${DOMAIN_URL}/${newsList?.categoryChain[0]?.slug}`,
       },
     ],
   };
@@ -86,40 +86,41 @@ const DynamicOne = async ({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJSON) }}
       />
       <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "@id": `${DOMAIN_URL}/#collectionpage`,
-            "name": NEWS_PUBLICATION_NAME,
-            "description": "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
-            "url": `${DOMAIN_URL}`,
-            "isPartOf": {
-              "@type": "WebSite",
-              "@id": `${DOMAIN_URL}/#website`
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": `${DOMAIN_URL}/#collectionpage`,
+          name: NEWS_PUBLICATION_NAME,
+          description:
+            "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
+          url: `${DOMAIN_URL}`,
+          isPartOf: {
+            "@type": "WebSite",
+            "@id": `${DOMAIN_URL}/#website`,
+          },
+          publisher: {
+            "@type": "Organization",
+            name: NEWS_PUBLICATION_NAME,
+            url: `${DOMAIN_URL}/`,
+            logo: {
+              "@type": "ImageObject",
+              url: `${DOMAIN_URL}/bolton_logo.svg`,
             },
-            "publisher": {
-              "@type": "Organization",
-              "name": NEWS_PUBLICATION_NAME,
-              "url": `${DOMAIN_URL}/`,
-              "logo": {
-                "@type": "ImageObject",
-                "url": `${DOMAIN_URL}/bolton_logo.svg`
-              }
-            },
-            "mainEntity": {
-              "@type": "ItemList",
-              "itemListOrder": "https://schema.org/ItemListOrderDescending",
-              "numberOfItems": 10,
-              "itemListElement": newsList?.newsList?.map((item: any, index: number) => (
-                {
-                  "@type": "ListItem",
-                  "position": index + 1,
-                  "url": `${DOMAIN_URL}/${item?.completeSlug}`
-                }
-              ))
-            }
-          })}
-        </script>
+          },
+          mainEntity: {
+            "@type": "ItemList",
+            itemListOrder: "https://schema.org/ItemListOrderDescending",
+            numberOfItems: 10,
+            itemListElement: newsList?.newsList?.map(
+              (item: any, index: number) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: `${DOMAIN_URL}/${item?.completeSlug}`,
+              }),
+            ),
+          },
+        })}
+      </script>
       <CategoryPage
         category={newsList?.categoryChain[0] ?? {}}
         newsList={newsList?.newsList ?? []}

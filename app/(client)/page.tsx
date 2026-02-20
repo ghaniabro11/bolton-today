@@ -4,12 +4,14 @@ import PageGridWrapper from "@/components/client-components/grid-wrapper";
 import { ImageWithFallback } from "@/components/client-components/image-fallback";
 import Loader from "@/components/client-components/Loader";
 import OceanCityCarousel from "@/components/client-components/news-components-for-home/dynamic-carousal";
-import { SectionSkeletonFive, SectionSkeletonOne } from "@/components/client-components/section-skeleton";
+import {
+  SectionSkeletonFive,
+  SectionSkeletonOne,
+} from "@/components/client-components/section-skeleton";
 import { Typography } from "@/components/client-components/typography";
 import { DOMAIN_URL, NEWS_PUBLICATION_NAME } from "@/constant/apiUrl";
 import { db } from "@/lib/db/db";
-import { categories, media, news, newsCategories } from "@/lib/db/schema";
-import { and, desc, eq, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import fetchNewsData from "../actions/client-actions/home";
@@ -19,7 +21,7 @@ const ComponentOne = dynamic(
   {
     ssr: true,
     loading: () => <SectionSkeletonOne />,
-  }
+  },
 );
 
 const ComponentFive = dynamic(
@@ -27,7 +29,7 @@ const ComponentFive = dynamic(
   {
     ssr: true,
     loading: () => <SectionSkeletonFive />,
-  }
+  },
 );
 
 export async function generateMetadata({
@@ -43,7 +45,7 @@ export async function generateMetadata({
     keywords: ["news", "latest updates", "breaking news", "international news"],
     alternates: {
       ...(!searchQuery && {
-        canonical: "https://boltontoday.co.uk",
+        canonical: DOMAIN_URL,
       }),
     },
     robots: {
@@ -58,10 +60,10 @@ export async function generateMetadata({
       title: "Bolton Today News | Latest News from Bolton",
       description:
         "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
-      url: !searchQuery ? "https://boltontoday.co.uk" : undefined,
+      url: !searchQuery ? DOMAIN_URL : undefined,
       images: [
         {
-          url: `https://boltontoday.co.uk/bolton_logo.svg`, // Replace with your image URL
+          url: `${DOMAIN_URL}/bolton_logo.svg`, // Replace with your image URL
           width: 1200,
           height: 630,
           alt: "Bolton Today News | Latest News from Bolton",
@@ -91,7 +93,7 @@ const Home = async ({
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://boltontoday.co.uk/",
+                item: `${DOMAIN_URL}/`,
               },
             ],
           })}
@@ -101,34 +103,35 @@ const Home = async ({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             "@id": `${DOMAIN_URL}/#collectionpage`,
-            "name": NEWS_PUBLICATION_NAME,
-            "description": "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
-            "url": `${DOMAIN_URL}`,
-            "isPartOf": {
+            name: NEWS_PUBLICATION_NAME,
+            description:
+              "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
+            url: `${DOMAIN_URL}`,
+            isPartOf: {
               "@type": "WebSite",
-              "@id": `${DOMAIN_URL}/#website`
+              "@id": `${DOMAIN_URL}/#website`,
             },
-            "publisher": {
+            publisher: {
               "@type": "Organization",
-              "name": NEWS_PUBLICATION_NAME,
-              "url": `${DOMAIN_URL}/`,
-              "logo": {
+              name: NEWS_PUBLICATION_NAME,
+              url: `${DOMAIN_URL}/`,
+              logo: {
                 "@type": "ImageObject",
-                "url": `${DOMAIN_URL}/bolton_logo.svg`
-              }
+                url: `${DOMAIN_URL}/bolton_logo.svg`,
+              },
             },
-            "mainEntity": {
+            mainEntity: {
               "@type": "ItemList",
-              "itemListOrder": "https://schema.org/ItemListOrderDescending",
-              "numberOfItems": 10,
-              "itemListElement": newsData?.latest?.map((item: any, index: number) => (
-                {
+              itemListOrder: "https://schema.org/ItemListOrderDescending",
+              numberOfItems: 10,
+              itemListElement: newsData?.latest?.map(
+                (item: any, index: number) => ({
                   "@type": "ListItem",
-                  "position": index + 1,
-                  "url": `${DOMAIN_URL}/${item?.categoryslug}/${item?.slug}`
-                }
-              ))
-            }
+                  position: index + 1,
+                  url: `${DOMAIN_URL}/${item?.categoryslug}/${item?.slug}`,
+                }),
+              ),
+            },
           })}
         </script>
         <>
@@ -286,7 +289,7 @@ const Home = async ({
                       <Link
                         href={`/${newsItem?.categoryChainSlug}/${newsItem.slug}`.replace(
                           /\/\/+/g,
-                          "/"
+                          "/",
                         )}
                       >
                         <Typography

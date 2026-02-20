@@ -74,7 +74,7 @@ export async function generateMetadata({
     },
   };
 }
-const DynamicTwo = async ({
+const DynamicThree = async ({
   params,
 }: {
   params: Promise<{
@@ -375,4 +375,4 @@ const DynamicTwo = async ({
   );
 };
 
-export default DynamicTwo;
+export default DynamicThree;

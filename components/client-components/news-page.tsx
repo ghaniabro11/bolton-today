@@ -1,11 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import PageGridWrapper from "./grid-wrapper";
 import { formatDate, formatTime } from "@/utils/date";
+import Image from "next/image";
+import Link from "next/link";
 import "./content.css";
-import AdUnit from "../AdUnit";
-import AdBanner from "../AdBanner";
+import PageGridWrapper from "./grid-wrapper";
 
 interface NewDetailPageProps {
   data: {

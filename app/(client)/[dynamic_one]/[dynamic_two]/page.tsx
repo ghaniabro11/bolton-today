@@ -4,7 +4,11 @@ import {
 } from "@/app/actions/client-actions/news";
 import CategoryPage from "@/components/client-components/category-page";
 import NewDetailPage from "@/components/client-components/news-page";
-import { DOMAIN_URL, NEWS_PUBLICATION_NAME, socialMediaLinks } from "@/constant/apiUrl";
+import {
+  DOMAIN_URL,
+  NEWS_PUBLICATION_NAME,
+  socialMediaLinks,
+} from "@/constant/apiUrl";
 import { db } from "@/lib/db/db";
 import { categories, news } from "@/lib/db/schema";
 import { stripHtml } from "@/lib/utils";
@@ -50,7 +54,7 @@ export async function generateMetadata({
 
     // Canonical URL
     alternates: {
-      canonical: `https://boltontoday.co.uk/${dynamic_one}/${dynamic_two}`,
+      canonical: `${DOMAIN_URL}/${dynamic_one}/${dynamic_two}`,
     },
 
     // // Robots meta (camelCase keys)
@@ -88,7 +92,6 @@ const DynamicTwo = async ({
     })) as any;
   }
   if (!categoriesWithNews?.valid && !newsDetails.valid) return notFound();
-  console.log(newsDetails, "newsDetails");
   return (
     <>
       {newsDetails?.valid ? (
@@ -102,25 +105,24 @@ const DynamicTwo = async ({
                   "@type": "ListItem",
                   position: 1,
                   name: "Home",
-                  item: `https://boltontoday.co.uk/`,
+                  item: `${DOMAIN_URL}/`,
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
                   name: newsDetails?.categoryChain[0]?.name,
-                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}`,
+                  item: `${DOMAIN_URL}/${newsDetails?.categoryChain[0]?.slug}`,
                 },
                 {
                   "@type": "ListItem",
                   position: 3,
                   name: newsDetails?.news[0]?.title,
-                  item: `https://boltontoday.co.uk/${newsDetails?.categoryChain[0]?.slug}/${newsDetails?.news[0]?.slug}`,
+                  item: `${DOMAIN_URL}/${newsDetails?.categoryChain[0]?.slug}/${newsDetails?.news[0]?.slug}`,
                 },
               ],
             })}
           </script>
           {newsDetails?.include_body ? (
-
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{
@@ -131,10 +133,8 @@ const DynamicTwo = async ({
                   url: `${DOMAIN_URL}/${newsDetails.completeUrl}`,
                   headline: newsDetails?.title,
                   mainEntityOfPage: `${DOMAIN_URL}/${newsDetails.completeUrl}`,
-                  datePublished:
-                    (newsDetails?.news[0]?.publishDate),
-                  dateModified:
-                    (newsDetails?.news[0]?.publishDate),
+                  datePublished: newsDetails?.news[0]?.publishDate,
+                  dateModified: newsDetails?.news[0]?.publishDate,
                   description: newsDetails?.metaDescription,
                   articleSection: newsDetails?.categoryName,
                   articleBody: stripHtml(newsDetails?.news[0]?.details),
@@ -228,10 +228,8 @@ const DynamicTwo = async ({
                   width: 1200,
                   height: 675,
                 },
-                datePublished:
-                  (newsDetails?.news[0]?.publishDate),
-                dateModified:
-                  (newsDetails?.news[0]?.publishDate),
+                datePublished: newsDetails?.news[0]?.publishDate,
+                dateModified: newsDetails?.news[0]?.publishDate,
                 author: {
                   "@type": "Person",
                   name: newsDetails?.news[0]?.authorName,
@@ -255,7 +253,7 @@ const DynamicTwo = async ({
               })}
             </script>
           ) : null}
-         
+
           <NewDetailPage
             data={{
               ...newsDetails?.news[0],
@@ -277,59 +275,60 @@ const DynamicTwo = async ({
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: `https://boltontoday.co.uk/`,
+                    item: `${DOMAIN_URL}/`,
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: categoriesWithNews?.categoryChain[0]?.name,
-                    item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}`,
+                    item: `${DOMAIN_URL}/${categoriesWithNews?.categoryChain[0]?.slug}`,
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: categoriesWithNews?.categoryChain[1]?.name,
-                    item: `https://boltontoday.co.uk/${categoriesWithNews?.categoryChain[0]?.slug}/${categoriesWithNews?.categoryChain[1]?.slug}`,
+                    item: `${DOMAIN_URL}/${categoriesWithNews?.categoryChain[0]?.slug}/${categoriesWithNews?.categoryChain[1]?.slug}`,
                   },
                 ],
               }),
             }}
           />
-             <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "@id": `${DOMAIN_URL}/#collectionpage`,
-            "name": NEWS_PUBLICATION_NAME,
-            "description": "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
-            "url": `${DOMAIN_URL}`,
-            "isPartOf": {
-              "@type": "WebSite",
-              "@id": `${DOMAIN_URL}/#website`
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": NEWS_PUBLICATION_NAME,
-              "url": `${DOMAIN_URL}/`,
-              "logo": {
-                "@type": "ImageObject",
-                "url": `${DOMAIN_URL}/bolton_logo.svg`
-              }
-            },
-            "mainEntity": {
-              "@type": "ItemList",
-              "itemListOrder": "https://schema.org/ItemListOrderDescending",
-              "numberOfItems": 10,
-              "itemListElement": categoriesWithNews?.newsList?.map((item: any, index: number) => (
-                {
-                  "@type": "ListItem",
-                  "position": index + 1,
-                  "url": `${DOMAIN_URL}/${item?.completeSlug}`
-                }
-              ))
-            }
-          })}
-        </script>
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              "@id": `${DOMAIN_URL}/#collectionpage`,
+              name: NEWS_PUBLICATION_NAME,
+              description:
+                "Get the latest Bolton news, including local updates, events, politics, sports, crime, and inspiring stories from communities across the town.",
+              url: `${DOMAIN_URL}`,
+              isPartOf: {
+                "@type": "WebSite",
+                "@id": `${DOMAIN_URL}/#website`,
+              },
+              publisher: {
+                "@type": "Organization",
+                name: NEWS_PUBLICATION_NAME,
+                url: `${DOMAIN_URL}/`,
+                logo: {
+                  "@type": "ImageObject",
+                  url: `${DOMAIN_URL}/bolton_logo.svg`,
+                },
+              },
+              mainEntity: {
+                "@type": "ItemList",
+                itemListOrder: "https://schema.org/ItemListOrderDescending",
+                numberOfItems: 10,
+                itemListElement: categoriesWithNews?.newsList?.map(
+                  (item: any, index: number) => ({
+                    "@type": "ListItem",
+                    position: index + 1,
+                    url: `${DOMAIN_URL}/${item?.completeSlug}`,
+                  }),
+                ),
+              },
+            })}
+          </script>
           <CategoryPage
             category={categoriesWithNews?.categoryChain[1]}
             newsList={categoriesWithNews?.newsList}
