@@ -152,7 +152,7 @@ const Navbar = () => {
         })}
       </script>
 
-      {/* <script type="application/ld+json">
+      <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "NewsMediaOrganization",
@@ -180,7 +180,7 @@ const Navbar = () => {
           },
           publishingPrinciples: "https://boltontoday.co.uk/code-of-ethics",
         })}
-      </script> */}
+      </script>
       <nav className="bg-[#052962] border-b z-[60] relative  uppercase text-white font-semibold   border-gray-200 md:px-20 pr-4  shadow-md">
         <div className=" flex justify-between items-center relative ">
           <Link href="/" className="inline">
