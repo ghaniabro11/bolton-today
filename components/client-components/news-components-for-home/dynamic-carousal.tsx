@@ -18,7 +18,7 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
   }
   return (
     <>
-      <div className="py-8 min-h-[280px]">
+      <div className="py-8 min-h-70">
         <Carousel
           opts={{
             align: "start",
@@ -50,10 +50,10 @@ export default function OceanCityCarousel({ data = [] }: { data: any }) {
             </div>
           </div>
 
-          <CarouselContent className="min-h-[220px]">
+          <CarouselContent className="min-h-60">
             {data?.map((item: any, i: number) => (
-              <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/4 p-2">
-                <div className="bg-white overflow-hidden h-full p-2 space-y-2 min-h-[220px]">
+              <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/4 p-2 h-full">
+                <div className="bg-white  h-full p-2 space-y-2 min-h-60">
                   <Image
                     priority={i < 2}
                     height={160}
