@@ -181,7 +181,7 @@ const Navbar = () => {
           publishingPrinciples: "https://boltontoday.co.uk/code-of-ethics",
         })}
       </script>
-      <nav className="bg-[#052962] border-b z-[60] relative  uppercase text-white font-semibold   border-gray-200 md:px-20 pr-4  shadow-md">
+      <nav className="bg-head border-b z-60 relative  uppercase text-white font-semibold   border-gray-200 md:px-20 pr-4  shadow-md">
         <div className=" flex justify-between items-center relative ">
           <Link href="/" className="inline">
             <Image
@@ -363,7 +363,7 @@ const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -100, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="w-full bg-[#052962] py-4 px-10 z-50 absolute"
+            className="w-full bg-head py-4 px-10 z-50 absolute"
           >
             <div className="max-w-3xl mx-auto">
               <div className="relative">
