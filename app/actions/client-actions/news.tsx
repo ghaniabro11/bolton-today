@@ -139,7 +139,7 @@ export async function validateNewsUrl(slugParts: string[]) {
     where: inArray(categories.id, linkedCategoryIds),
     columns: { slug: true },
   });
-  const include_body = linkedCategoriesWithSlug.some((c) =>
+  const include_body = !linkedCategoriesWithSlug.some((c) =>
     BODY_CATEGORY_SLUGS.includes(c.slug)
   );
   console.log(include_body, "include_body");
