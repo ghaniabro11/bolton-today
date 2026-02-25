@@ -47,12 +47,12 @@ export const ClientPagination = ({
 
   const getPageUrl = (page: number) =>
     url
-      ? page === 1
+      ? page === 1 || page === 0
         ? `/${url}/${slug}`
         : `/${url}/${slug}/page/${page}`
-      : page === 1
-      ? `/${slug}`
-      : `/${slug}/page/${page}`;
+      : page === 1 || page === 0
+        ? `/${slug}`
+        : `/${slug}/page/${page}`;
 
   return (
     <Pagination className="py-6 flex-wrap justify-center">
@@ -95,7 +95,7 @@ export const ClientPagination = ({
                   href={getPageUrl(page)}
                   isActive={page === currentPage}
                 >
-           {page}
+                  {page}
                 </PaginationLink>
               </PaginationItem>
             );
