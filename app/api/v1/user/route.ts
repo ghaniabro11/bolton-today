@@ -9,7 +9,13 @@ export const dynamic = "force-dynamic";
 // GET /api/users - Get all users
 export async function GET() {
   try {
-    const allUsers = await db.select().from(users);
+    const allUsers = await db.select({
+      id: users.id,
+      username: users.username,
+      email: users.email,
+      fullname: users.fullname,
+      status: users.status,
+    }).from(users);
     return NextResponse.json(allUsers);
   } catch (error) {
     return NextResponse.json(
