@@ -203,14 +203,19 @@ export const POST = async (request: Request) => {
           );
 
           console.log("📥 Inserting media record into DB...");
-
+          console.log("📊 Media data:", {
+            title,
+            slug: mediaSlug,
+            filePath: `${BASE_URL}/${uploadPath.replace(/\\/g, "/")}`,
+            type: "image",
+          });
           const insertedMedia = await db
             .insert(media)
             .values({
               title,
               slug: mediaSlug,
               caption: null,
-              filePath: `${BASE_URL}/uploads/${uploadPath.replace(/\\/g, "/")}`,
+              filePath: `${BASE_URL}/${uploadPath.replace(/\\/g, "/")}`,
               type: "image",
             })
             .returning();
