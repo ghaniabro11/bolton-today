@@ -7,7 +7,7 @@ const ADMIN_PREFIX = "/admin";
 const API_PREFIX = "/api";
 
 // If you want some APIs public, add them here
-const PUBLIC_API_ROUTES = ["/api/v1/user/login"];
+const PUBLIC_API_ROUTES = ["/api/v1/user/login","/api/v1/news/webhook"];
 
 async function verifyToken(token: string) {
   try {
