@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const PUBLIC_ROUTES = ["/admin/login/"];
+const PUBLIC_ROUTES = ["/admin/login"];
 const ADMIN_PREFIX = "/admin";
 const API_PREFIX = "/api";
 
 // If you want some APIs public, add them here
-const PUBLIC_API_ROUTES = ["/api/v1/user/login/"];
+const PUBLIC_API_ROUTES = ["/api/v1/user/login"];
 
 async function verifyToken(token: string) {
   try {
@@ -69,7 +69,7 @@ export async function proxy(request: NextRequest) {
 
     const payload = await verifyToken(token);
     if (payload) {
-      return NextResponse.redirect(new URL("/admin/user/", request.url));
+      return NextResponse.redirect(new URL("/admin/user", request.url));
     }
 
     return clearCookieAndRedirect(request);
@@ -80,7 +80,7 @@ export async function proxy(request: NextRequest) {
   // ==============================
   if (isAdminRoute) {
     if (!token) {
-      return NextResponse.redirect(new URL("/admin/login/", request.url));
+      return NextResponse.redirect(new URL("/admin/login", request.url));
     }
 
     const payload = await verifyToken(token);
