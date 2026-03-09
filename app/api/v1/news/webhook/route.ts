@@ -91,7 +91,7 @@ import sharp from "sharp";
 
 // You need these constants
 const UPLOAD_DIR = process.env.UPLOAD_DIR || "./public/uploads";
-const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 export const POST = async (request: Request) => {
