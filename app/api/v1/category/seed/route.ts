@@ -2,6 +2,8 @@ import { db } from "@/lib/db/db";
 import { authors, categories, news, newsCategories } from "@/lib/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { slugify } from "@/utils/index";
+import { sql } from "drizzle-orm";
+import { apiResponse } from "@/constant/apiRes";
 
 function generateDummyCategory(
   index: number,
@@ -293,3 +295,71 @@ function generateDummyCategory(
 //     return NextResponse.json({ error: error }, { status: 500 });
 //   }
 // }
+export async function GET(req: Request) {
+  console.log("[Category GET] Received request");
+  try {
+    // Use recursive CTE to get full category hierarchy with all parent IDs
+    const categoriesQuery = sql`
+      WITH RECURSIVE category_path AS (
+        -- Base case: root categories (no parent)
+        SELECT
+          c.id,
+          c.name,
+          c.slug,
+          c.parent_category_id,
+          c.slug::TEXT AS full_slug,
+          ARRAY[]::INTEGER[] AS parent_ids
+        FROM categories c
+        WHERE c.parent_category_id IS NULL
+
+        UNION ALL
+
+        -- Recursive case: child categories
+        SELECT
+          child.id,
+          child.name,
+          child.slug,
+          child.parent_category_id,
+          (parent.full_slug || '/' || child.slug) AS full_slug,
+          (parent.parent_ids || parent.id) AS parent_ids
+        FROM categories child
+        JOIN category_path parent
+          ON child.parent_category_id = parent.id
+      )
+      SELECT
+        name,
+        slug,
+        full_slug,
+        parent_ids
+      FROM category_path
+      ORDER BY name
+    `;
+
+    const result = await db.execute(categoriesQuery);
+
+    // Map the results to the desired format
+    const categoriesData = result.rows.map((row: any) => ({
+      name: row.name,
+      slug: row.slug,
+      fullSlug: row.full_slug,
+      // parentIds: row.parent_ids || [],
+    }));
+
+    console.log("[Category GET] Fetched categories:", categoriesData);
+
+    return apiResponse(
+      categoriesData,
+      200,
+      true,
+      "Categories fetched successfully"
+    );
+  } catch (error) {
+    console.error("[Category GET] Error:", error);
+    return apiResponse(
+      null,
+      500,
+      false,
+      error instanceof Error ? error.message : "Internal error"
+    );
+  }
+}
