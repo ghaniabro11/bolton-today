@@ -206,7 +206,7 @@ export const POST = async (request: Request) => {
           console.log("📊 Media data:", {
             title,
             slug: mediaSlug,
-            filePath: `${BASE_URL}/${uploadPath.replace(/\\/g, "/")}`,
+            filePath: `${BASE_URL}/files/${uploadPath.replace(/\\/g, "/")}`,
             type: "image",
           });
           const insertedMedia = await db
@@ -215,7 +215,7 @@ export const POST = async (request: Request) => {
               title,
               slug: mediaSlug,
               caption: null,
-              filePath: `${BASE_URL}/${uploadPath.replace(/\\/g, "/")}`,
+              filePath: `${BASE_URL}/files/${uploadPath.replace(/\\/g, "/")}`,
               type: "image",
             })
             .returning();
