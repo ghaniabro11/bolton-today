@@ -137,60 +137,7 @@ const ContributorDetailComponent = ({
           </div>
         </div>
       </div>
-      <div className="space-y-6 mt-3">
-        <h2 className="text-2xl font-semibold">News Articles</h2>
 
-        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          {result?.data?.news.length > 0 ? (
-            result?.data?.news?.map((item: any, index: any) => (
-              <div key={index} className="border-b pb-4 border p-4">
-                <div className="text-gray-500 text-sm mb-2">
-                  <Link
-                    href={`/${item?.category?.slug}`}
-                    className="text-black underline"
-                  >
-                    {item?.category?.name}
-                  </Link>{" "}
-                  on {formatDate(item?.publishDate)}
-                </div>
-                <Typography
-                  variant="h3"
-                  weight="400"
-                  className="text-2xl font-medium hover:underline line-clamp-3"
-                >
-                  <Link href={`/${item?.category?.slug}/${item?.slug}`}>
-                    {item?.title}
-                  </Link>
-                </Typography>
-              </div>
-            ))
-          ) : (
-            <div className="uppercase text-xs col-span-full">
-              News not posted by this contributor
-            </div>
-          )}
-        </div> */}
-        <Suspense fallback={<Loader />}>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-            {result?.data?.news?.length === 0 ? (
-              <p>No news found.</p>
-            ) : (
-              result?.data?.news?.map((newsItem: any, index: number) => (
-                <NewsCard
-                  key={index}
-                  category={newsItem?.category}
-                  date={newsItem?.publishDate}
-                  imageUrl={newsItem?.featureImage?.filePath}
-                  title={newsItem?.title}
-                  newsSlug={newsItem?.slug}
-                  contributorName={contributorData?.name}
-                  contributorSlug={contributorData?.slug}
-                />
-              ))
-            )}
-          </div>
-        </Suspense>
-      </div>
 
       {/* Pagination */}
       {/* <ClientPagination
