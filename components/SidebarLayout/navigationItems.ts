@@ -4,6 +4,9 @@ import {
   FolderKanban,
   FileImage,
   Users,
+  PenLine,
+  UserPen,
+  Landmark,
   Newspaper,
   DockIcon,
 } from "lucide-react";
@@ -32,6 +35,27 @@ export const navigation = [
         icon: Users, // More suitable for authors or users
         isActive: false,
         requiredPermissions: [Permission.READ_AUTHOR],
+      },
+      {
+        title: "Journalists",
+        url: "/admin/journalists",
+        icon: PenLine,
+        isActive: false,
+        requiredPermissions: [Permission.READ_JOURNALIST],
+      },
+      {
+        title: "Contributors",
+        url: "/admin/contributors",
+        icon: UserPen,
+        isActive: false,
+        requiredPermissions: [Permission.READ_CONTRIBUTOR],
+      },
+      {
+        title: "Politicians",
+        url: "/admin/politicians",
+        icon: Landmark,
+        isActive: false,
+        requiredPermissions: [Permission.READ_POLITICIAN],
       },
       {
         title: "News",

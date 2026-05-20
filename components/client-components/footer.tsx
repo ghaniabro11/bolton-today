@@ -33,6 +33,14 @@ const footerData = [
     ],
   },
   {
+    title: "People",
+    links: [
+      { label: "Journalists", href: "/journalists" },
+      { label: "Contributors", href: "/contributors" },
+      { label: "Politicians", href: "/politicians" },
+    ],
+  },
+  {
     title: "Explore Bolton",
     links: [
       { label: "Things to Do", href: "/things-to-do" },

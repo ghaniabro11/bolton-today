@@ -20,6 +20,27 @@ export enum Permission {
   UPDATE_AUTHOR = "update:author",
   DELETE_AUTHOR = "delete:author",
 
+    // Journoul Module
+  READ_JOURNALIST = "read:journalist",
+  WRITE_JOURNALIST = "write:journalist",
+  EDIT_JOURNALIST = "edit:journalist",
+  UPDATE_JOURNALIST = "update:journalist",
+  DELETE_JOURNALIST = "delete:journalist",
+
+  // Contributor Module
+  READ_CONTRIBUTOR = "read:contributor",
+  WRITE_CONTRIBUTOR = "write:contributor",
+  EDIT_CONTRIBUTOR = "edit:contributor",
+  UPDATE_CONTRIBUTOR = "update:contributor",
+  DELETE_CONTRIBUTOR = "delete:contributor",
+
+  // Politician Module
+  READ_POLITICIAN = "read:politician",
+  WRITE_POLITICIAN = "write:politician",
+  EDIT_POLITICIAN = "edit:politician",
+  UPDATE_POLITICIAN = "update:politician",
+  DELETE_POLITICIAN = "delete:politician",
+
   // News Module
   READ_NEWS = "read:news",
   WRITE_NEWS = "write:news",
@@ -63,6 +84,27 @@ export const AdminPermission: Permission[] = [
   Permission.UPDATE_AUTHOR,
   Permission.DELETE_AUTHOR,
 
+  // Journalist Module
+  Permission.READ_JOURNALIST,
+  Permission.WRITE_JOURNALIST,
+  Permission.EDIT_JOURNALIST,
+  Permission.UPDATE_JOURNALIST,
+  Permission.DELETE_JOURNALIST,
+
+  // Contributor Module
+  Permission.READ_CONTRIBUTOR,
+  Permission.WRITE_CONTRIBUTOR,
+  Permission.EDIT_CONTRIBUTOR,
+  Permission.UPDATE_CONTRIBUTOR,
+  Permission.DELETE_CONTRIBUTOR,
+
+  // POLITICIAN Module
+  Permission.READ_POLITICIAN,
+  Permission.WRITE_POLITICIAN,
+  Permission.EDIT_POLITICIAN,
+  Permission.UPDATE_POLITICIAN,
+  Permission.DELETE_POLITICIAN,
+
   // News Module
   Permission.READ_NEWS,
   Permission.WRITE_NEWS,
@@ -101,6 +143,19 @@ export const EditorPermission: Permission[] = [
   Permission.WRITE_AUTHOR,
   Permission.UPDATE_AUTHOR,
 
+  // Author Module
+  Permission.READ_JOURNALIST,
+  Permission.WRITE_JOURNALIST,
+  Permission.UPDATE_JOURNALIST,
+
+  Permission.READ_CONTRIBUTOR,
+  Permission.WRITE_CONTRIBUTOR,
+  Permission.UPDATE_CONTRIBUTOR,
+
+  Permission.READ_POLITICIAN,
+  Permission.WRITE_POLITICIAN,
+  Permission.UPDATE_POLITICIAN,
+  
   // News Module
   Permission.READ_NEWS,
   Permission.WRITE_NEWS,

@@ -135,6 +135,114 @@ export const authors = pgTable(
   })
 );
 
+export const journalists = pgTable(
+  "journalists",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 255 }).notNull(),
+    slug: varchar("slug", { length: 255 }).notNull(),
+    position: varchar("position", { length: 255 }),
+    publishStatus: publishStatusEnum("publish_status")
+      .notNull()
+      .default("active"),
+    description: text("description"),
+    facebookLink: varchar("facebook_link", { length: 255 }),
+    instagramLink: varchar("instagram_link", { length: 255 }),
+    twitterLink: varchar("twitter_link", { length: 255 }),
+    muckrackLink: varchar("muckrack_link", { length: 255 }),
+    personalPortfolio: varchar("personal_portfolio", { length: 255 }),
+    linkedin: varchar("linkedin", { length: 255 }),
+    image: integer("image").references(() => media.id, {
+      onDelete: "set null",
+    }),
+
+    metaTitle: varchar("meta_title", { length: 255 }),
+    metaDescription: varchar("meta_description", { length: 500 }),
+    keywords: text("keywords"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => ({
+    nameIdx: index("journalists_name_idx").on(table.name),
+    slugIdx: uniqueIndex("journalists_slug_idx").on(table.slug),
+    publishStatusIdx: index("journalists_publish_status_idx").on(
+      table.publishStatus
+    ),
+    createdAtIdx: index("journalists_created_at_idx").on(table.createdAt), // For sorting/filtering
+  })
+);
+
+export const contributors = pgTable(
+  "contributors",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 255 }).notNull(),
+    slug: varchar("slug", { length: 255 }).notNull(),
+    position: varchar("position", { length: 255 }),
+    publishStatus: publishStatusEnum("publish_status")
+      .notNull()
+      .default("active"),
+    description: text("description"),
+    facebookLink: varchar("facebook_link", { length: 255 }),
+    instagramLink: varchar("instagram_link", { length: 255 }),
+    twitterLink: varchar("twitter_link", { length: 255 }),
+    muckrackLink: varchar("muckrack_link", { length: 255 }),
+    personalPortfolio: varchar("personal_portfolio", { length: 255 }),
+    linkedin: varchar("linkedin", { length: 255 }),
+    image: integer("image").references(() => media.id, {
+      onDelete: "set null",
+    }),
+
+    metaTitle: varchar("meta_title", { length: 255 }),
+    metaDescription: varchar("meta_description", { length: 500 }),
+    keywords: text("keywords"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => ({
+    nameIdx: index("contributors_name_idx").on(table.name),
+    slugIdx: uniqueIndex("contributors_slug_idx").on(table.slug),
+    publishStatusIdx: index("contributors_publish_status_idx").on(
+      table.publishStatus
+    ),
+    createdAtIdx: index("contributors_created_at_idx").on(table.createdAt), // For sorting/filtering
+  })
+);
+
+export const politicians = pgTable(
+  "politicians",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 255 }).notNull(),
+    slug: varchar("slug", { length: 255 }).notNull(),
+    position: varchar("position", { length: 255 }),
+    publishStatus: publishStatusEnum("publish_status")
+      .notNull()
+      .default("active"),
+    description: text("description"),
+    facebookLink: varchar("facebook_link", { length: 255 }),
+    instagramLink: varchar("instagram_link", { length: 255 }),
+    twitterLink: varchar("twitter_link", { length: 255 }),
+    muckrackLink: varchar("muckrack_link", { length: 255 }),
+    personalPortfolio: varchar("personal_portfolio", { length: 255 }),
+    linkedin: varchar("linkedin", { length: 255 }),
+    image: integer("image").references(() => media.id, {
+      onDelete: "set null",
+    }),
+
+    metaTitle: varchar("meta_title", { length: 255 }),
+    metaDescription: varchar("meta_description", { length: 500 }),
+    keywords: text("keywords"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => ({
+    nameIdx: index("politicians_name_idx").on(table.name),
+    slugIdx: uniqueIndex("politicians_slug_idx").on(table.slug),
+    publishStatusIdx: index("politicians_publish_status_idx").on(
+      table.publishStatus
+    ),
+    createdAtIdx: index("politicians_created_at_idx").on(table.createdAt), // For sorting/filtering
+  })
+);
+
 export const news = pgTable(
   "news",
   {

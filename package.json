@@ -39,6 +39,7 @@
     "embla-carousel-react": "^8.6.0",
     "fix-react2shell-next": "^1.0.18",
     "framer-motion": "^12.12.1",
+    "jodit": "^4.12.2",
     "jodit-react": "^5.3.21",
     "jose": "^6.0.11",
     "js-cookie": "^3.0.5",
