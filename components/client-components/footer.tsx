@@ -19,7 +19,7 @@ const footerData = [
       { label: "Correction Policy", href: "/correction-policy" },
       { label: "Terms & Conditions", href: "/terms-and-conditions" },
       { label: "Editorial Guidelines", href: "/editorial-guidelines" },
-      { label: "Our Digital Privacy Policy for Journalism Interns", href: "/digital-privacy-policy-for-journalism-interns" },
+      { label: "Privacy Policy for Journalism Interns", href: "/digital-privacy-policy-for-journalism-interns" },
     ],
   },
   {
