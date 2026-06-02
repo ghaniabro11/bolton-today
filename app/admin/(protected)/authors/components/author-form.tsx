@@ -51,10 +51,15 @@ const AuthorForm: React.FC<CategoryProps> = ({
     {
       name: "position",
       label: "Position",
-      type: "input",
+      type: "select",
       required: false,
-      placeholder: "Enter author position",
-      InputType: "text",
+      placeholder: "Select position",
+      options: [
+        { label: "Author", value: "Author" },
+        { label: "Journalist", value: "Journalist" },
+        { label: "Contributor", value: "Contributor" },
+        { label: "Politician", value: "Politician" },
+      ],
       className: "w-full",
     },
     {

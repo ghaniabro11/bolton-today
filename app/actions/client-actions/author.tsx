@@ -3,7 +3,7 @@ import { sql } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
-export async function getAuthorNewsWithCategoriesOptimized({
+export async function getContributorNewsWithCategoriesOptimized({
   slug,
   page = 1,
 }: {
@@ -13,29 +13,30 @@ export async function getAuthorNewsWithCategoriesOptimized({
   try {
 
     const result = await db.execute(sql`
-      WITH RECURSIVE author_data AS (
+      WITH RECURSIVE contributor_data AS (
         SELECT 
-          a.id as author_id,
-          a.name as author_name,
-          a.slug as author_slug,
+          a.id as contributor_id,
+          a.name as contributor_name,
+          a.slug as contributor_slug,
           a.position,
-          a.description as author_description,
+          a.description as contributor_description,
           a.facebook_link,
           a.instagram_link,
           a.twitter_link,
           a.muckrack_link,
           a.personal_portfolio,
           a.linkedin,
-          a.publish_status as author_status,
-          am.id as author_image_id,
-          am.title as author_image_title,
-          am.slug as author_image_slug,
-          am.caption as author_image_caption,
-          am.file_path as author_image_file_path,
-          am.type as author_image_type
+          a.publish_status as contributor_status,
+          am.id as contributor_image_id,
+          am.title as contributor_image_title,
+          am.slug as contributor_image_slug,
+          am.caption as contributor_image_caption,
+          am.file_path as contributor_image_file_path,
+          am.type as contributor_image_type
         FROM authors a
         LEFT JOIN media am ON a.image = am.id
         WHERE a.slug = ${slug}
+        AND a.position = 'Contributor'
       ),
     
       category_hierarchy AS (
@@ -68,28 +69,28 @@ export async function getAuthorNewsWithCategoriesOptimized({
           nm.caption as feature_image_caption,
           nm.file_path as feature_image_file_path,
           nm.type as feature_image_type,
-          ad.author_id,
-          ad.author_name,
-          ad.author_slug,
+          ad.contributor_id,
+          ad.contributor_name,
+          ad.contributor_slug,
           ad.position,
-          ad.author_description,
+          ad.contributor_description,
           ad.facebook_link,
           ad.instagram_link,
           ad.twitter_link,
           ad.muckrack_link,
           ad.personal_portfolio,
           ad.linkedin,
-          ad.author_status,
-          ad.author_image_id,
-          ad.author_image_title,
-          ad.author_image_slug,
-          ad.author_image_caption,
-          ad.author_image_file_path,
-          ad.author_image_type
+          ad.contributor_status,
+          ad.contributor_image_id,
+          ad.contributor_image_title,
+          ad.contributor_image_slug,
+          ad.contributor_image_caption,
+          ad.contributor_image_file_path,
+          ad.contributor_image_type
         FROM news n
-        CROSS JOIN author_data ad
+        CROSS JOIN contributor_data ad
         LEFT JOIN media nm ON n.feature_image = nm.id
-        WHERE n.author_id = ad.author_id 
+        WHERE n.author_id = ad.contributor_id 
           AND n.publish_status = 'active' 
           AND n.active_status = 'active'
         ORDER BY n.id, n.publish_date DESC
@@ -114,56 +115,58 @@ export async function getAuthorNewsWithCategoriesOptimized({
       FROM news n
       JOIN authors a ON n.author_id = a.id
       WHERE a.slug = ${slug} 
+        AND a.position = 'Contributor'
         AND n.publish_status = 'active' 
         AND n.active_status = 'active'
     `);
 
     const totalCount = Number(countResult.rows[0]?.total || 0);
-    // Check if author exists
+    // Check if contributor exists
     if (!result.rows || result.rows.length === 0) {
-      const authorResult = await db.execute(sql`
+      const contributorResult = await db.execute(sql`
         SELECT 
-          a.id as author_id,
-          a.name as author_name,
-          a.slug as author_slug,
+          a.id as contributor_id,
+          a.name as contributor_name,
+          a.slug as contributor_slug,
           a.position,
-          a.description as author_description,
+          a.description as contributor_description,
           a.facebook_link,
           a.instagram_link,
           a.twitter_link,
           a.muckrack_link,
           a.personal_portfolio,
           a.linkedin,
-          a.publish_status as author_status,
-          am.id as author_image_id,
-          am.title as author_image_title,
-          am.slug as author_image_slug,
-          am.caption as author_image_caption,
-          am.file_path as author_image_file_path,
-          am.type as author_image_type
+          a.publish_status as contributor_status,
+          am.id as contributor_image_id,
+          am.title as contributor_image_title,
+          am.slug as contributor_image_slug,
+          am.caption as contributor_image_caption,
+          am.file_path as contributor_image_file_path,
+          am.type as contributor_image_type
         FROM authors a
         LEFT JOIN media am ON a.image = am.id
         WHERE a.slug = ${slug}
+          AND a.position = 'Contributor'
       `);
 
-      if (!authorResult.rows || authorResult.rows.length === 0) {
+      if (!contributorResult.rows || contributorResult.rows.length === 0) {
         return {
           success: false,
-          message: "Author not found",
+          message: "Contributor not found",
           data: null,
         };
       }
 
-      const firstRow = authorResult.rows[0];
+      const firstRow = contributorResult.rows[0];
       return {
         success: true,
         data: {
-          author: {
-            id: firstRow.author_id,
-            name: firstRow.author_name,
-            slug: firstRow.author_slug,
+          contributor: {
+            id: firstRow.contributor_id,
+            name: firstRow.contributor_name,
+            slug: firstRow.contributor_slug,
             position: firstRow.position,
-            description: firstRow.author_description,
+            description: firstRow.contributor_description,
             socialLinks: {
               facebook: firstRow.facebook_link,
               instagram: firstRow.instagram_link,
@@ -172,15 +175,15 @@ export async function getAuthorNewsWithCategoriesOptimized({
               portfolio: firstRow.personal_portfolio,
               linkedin: firstRow.linkedin,
             },
-            publishStatus: firstRow.author_status,
-            image: firstRow.author_image_id
+            publishStatus: firstRow.contributor_status,
+            image: firstRow.contributor_image_id
               ? {
-                id: firstRow.author_image_id,
-                title: firstRow.author_image_title,
-                slug: firstRow.author_image_slug,
-                caption: firstRow.author_image_caption,
-                filePath: firstRow.author_image_file_path,
-                type: firstRow.author_image_type,
+                id: firstRow.contributor_image_id,
+                title: firstRow.contributor_image_title,
+                slug: firstRow.contributor_image_slug,
+                caption: firstRow.contributor_image_caption,
+                filePath: firstRow.contributor_image_file_path,
+                type: firstRow.contributor_image_type,
               }
               : null,
           },
@@ -202,12 +205,12 @@ export async function getAuthorNewsWithCategoriesOptimized({
     return {
       success: true,
       data: {
-        author: {
-          id: firstRow.author_id,
-          name: firstRow.author_name,
-          slug: firstRow.author_slug,
+        contributor: {
+          id: firstRow.contributor_id,
+          name: firstRow.contributor_name,
+          slug: firstRow.contributor_slug,
           position: firstRow.position,
-          description: firstRow.author_description,
+          description: firstRow.contributor_description,
           socialLinks: {
             facebook: firstRow.facebook_link,
             instagram: firstRow.instagram_link,
@@ -216,15 +219,15 @@ export async function getAuthorNewsWithCategoriesOptimized({
             portfolio: firstRow.personal_portfolio,
             linkedin: firstRow.linkedin,
           },
-          publishStatus: firstRow.author_status,
-          image: firstRow.author_image_id
+          publishStatus: firstRow.contributor_status,
+          image: firstRow.contributor_image_id
             ? {
-              id: firstRow.author_image_id,
-              title: firstRow.author_image_title,
-              slug: firstRow.author_image_slug,
-              caption: firstRow.author_image_caption,
-              filePath: firstRow.author_image_file_path,
-              type: firstRow.author_image_type,
+              id: firstRow.contributor_image_id,
+              title: firstRow.contributor_image_title,
+              slug: firstRow.contributor_image_slug,
+              caption: firstRow.contributor_image_caption,
+              filePath: firstRow.contributor_image_file_path,
+              type: firstRow.contributor_image_type,
             }
             : null,
         },
@@ -258,10 +261,10 @@ export async function getAuthorNewsWithCategoriesOptimized({
       },
     };
   } catch (error: any) {
-    console.error("Error fetching author news (optimized):", error);
+    console.error("Error fetching contributor news (optimized):", error);
     return {
       success: false,
-      message: "Failed to fetch author news",
+      message: "Failed to fetch contributor news",
       error: error.message,
       data: null,
     };

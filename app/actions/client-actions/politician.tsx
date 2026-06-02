@@ -30,12 +30,13 @@ export async function getAllPoliticians({
         m.file_path as image_file_path,
         m.type as image_type
 
-      FROM politicians j
+      FROM authors j
 
       LEFT JOIN media m
         ON j.image = m.id
 
       WHERE j.publish_status = 'active'
+      AND j.position = 'Politician'
 
       ORDER BY j.id DESC
 
@@ -45,8 +46,9 @@ export async function getAllPoliticians({
 
     const countResult = await db.execute(sql`
       SELECT COUNT(*) as total
-      FROM politicians
+      FROM authors
       WHERE publish_status = 'active'
+      AND position = 'Politician'
     `);
 
     const totalCount = Number(countResult.rows[0]?.total || 0);
@@ -121,9 +123,10 @@ export async function getPoliticianNewsWithCategoriesOptimized({
           am.caption as politician_image_caption,
           am.file_path as politician_image_file_path,
           am.type as politician_image_type
-        FROM politicians a
+        FROM authors a
         LEFT JOIN media am ON a.image = am.id
         WHERE a.slug = ${slug}
+        AND a.position = 'Politician'
       ),
 
       category_hierarchy AS (
@@ -242,7 +245,7 @@ export async function getPoliticianNewsWithCategoriesOptimized({
           am.file_path as politician_image_file_path,
           am.type as politician_image_type
 
-        FROM politicians a
+        FROM authors a
         LEFT JOIN media am ON a.image = am.id
         WHERE a.slug = ${slug}
       `);
